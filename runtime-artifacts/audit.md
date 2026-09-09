@@ -362,3 +362,14 @@
 **Context**: dev-implement parallel batch — Story 1.4 done.
 
 ---
+
+## dev-implement — Story 1.5 complete (PR #32)
+**Timestamp**: 2026-09-09T12:20:00Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**TRACKER ITEM**: "[#23](https://github.com/revanta-biswas/conduit-helix-test/issues/23) — Story 1.5"
+**Epic Link**: "[Milestone #2](https://github.com/revanta-biswas/conduit-helix-test/milestone/2)"
+**AIRE VERSION**: "1.0"
+**AI Response**: "Story 1.5 (Favorites & Comments API) built in the 1.5+1.6+1.8 batch. favorites + comments services + 3 Route Handler groups. Gates ALL PASS (local): unit 108/108 @95.72%, API 6/6, B1 9/9 + B2 46/46 containerised, regression 108/108, D1-D7 clean, J1=1.0, J2=1.0. Code Review CLEAN. SH-LOOP-7 attempt 1 fixed a cross-story B2 ambiguity (1.3 When vs 1.4 Given 'X follows Y') by renaming 1.4's setup step to 'is following'. PR #32 raised (scorecard+labels verified), auto-review COMMENTED. Now building 1.6 (Auth Pages), then 1.8."
+**Context**: dev-implement parallel batch — Story 1.5 done, moving to 1.6.
+
+---
