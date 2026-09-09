@@ -63,7 +63,7 @@ Given(/^"([^"]*)" has created (\d+) articles$/, async function (username, n) {
   }
 });
 
-Given(/^"([^"]*)" follows "([^"]*)"$/, async function (a, b) {
+Given(/^"([^"]*)" is following "([^"]*)"$/, async function (a, b) {
   await this.authors[b].addFollower(this.authors[a]);
 });
 
