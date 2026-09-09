@@ -89,7 +89,7 @@
 | 1.1 | Next.js Foundation & Database Layer | none | #19 | 🔵 In Development | [#28](https://github.com/revanta-biswas/conduit-helix-test/pull/28) | yes | 2026-09-09 | — | 2026-09-09 08:37 |
 | 1.2 | Auth API — Register, Login & httpOnly Cookie Session | 1.1 | #20 | 🔵 In Development | [#29](https://github.com/revanta-biswas/conduit-helix-test/pull/29) | yes | 2026-09-09 | — | 2026-09-09 10:31 |
 | 1.3 | User Profile API — Current User, Public Profiles & Follow | 1.2 | #21 | 🔵 In Development | [#30](https://github.com/revanta-biswas/conduit-helix-test/pull/30) | no | 2026-09-09 | — | 2026-09-09 10:40 |
-| 1.4 | Articles API — CRUD, Feed & Tags | 1.2 | #22 | 🔵 In Development | — | — | 2026-09-09 | — | 2026-09-09 10:42 |
+| 1.4 | Articles API — CRUD, Feed & Tags | 1.2 | #22 | 🔵 In Development | [#31](https://github.com/revanta-biswas/conduit-helix-test/pull/31) | no | 2026-09-09 | — | 2026-09-09 11:25 |
 | 1.5 | Favorites & Comments API | 1.4 | #23 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
 | 1.6 | Auth Pages & Session — Login, Register, Settings | 1.2, 1.3 | #24 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
 | 1.7 | Home & Article Pages (Server Components) | 1.4, 1.5 | #25 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
