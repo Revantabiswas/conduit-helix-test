@@ -86,8 +86,8 @@
 ## Story Tracker
 | Story ID | Title | Requires | Tracker ID | Status | PR | Merged | Start | End | Recorded |
 |---|---|---|---|---|---|---|---|---|---|
-| 1.1 | Next.js Foundation & Database Layer | none | #19 | 🔵 In Development | [#28](https://github.com/revanta-biswas/conduit-helix-test/pull/28) | no | 2026-09-09 | — | 2026-09-09 08:29 |
-| 1.2 | Auth API — Register, Login & httpOnly Cookie Session | 1.1 | #20 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.1 | Next.js Foundation & Database Layer | none | #19 | 🔵 In Development | [#28](https://github.com/revanta-biswas/conduit-helix-test/pull/28) | yes | 2026-09-09 | — | 2026-09-09 08:37 |
+| 1.2 | Auth API — Register, Login & httpOnly Cookie Session | 1.1 | #20 | 🔵 In Development | — | — | 2026-09-09 | — | 2026-09-09 09:48 |
 | 1.3 | User Profile API — Current User, Public Profiles & Follow | 1.2 | #21 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
 | 1.4 | Articles API — CRUD, Feed & Tags | 1.2 | #22 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
 | 1.5 | Favorites & Comments API | 1.4 | #23 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
