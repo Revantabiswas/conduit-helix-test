@@ -338,3 +338,15 @@
 **Context**: dev-implement Section D (commit/push/PR) + E (auto PR review). Story 1.2 stays In Development until PR #29 merges.
 
 ---
+
+## dev-implement — Story 1.4 complete
+**Timestamp**: 2026-09-09T10:42:00Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: N/A — automatic (parallel batch, built after 1.3 in same session)
+**TRACKER ITEM**: "[#22](https://github.com/revanta-biswas/conduit-helix-test/issues/22) — Story 1.4"
+**Epic Link**: "[Milestone #2](https://github.com/revanta-biswas/conduit-helix-test/milestone/2)"
+**AIRE VERSION**: "1.0"
+**AI Response**: "Story 1.4 (Articles API) built on story/1.4-articles-api cut from epic (NOT from 1.3 — independent). Articles + tags services + 6 Route Handlers. THE N+1 FIX (REQ-F-17/ARCH-02): eager-load tagList+author + page-wide batched enrichment (favorited ids, grouped favorites counts, following ids) mapped in memory via helpers.articleToJSON (zero DB access) — proven by a unit test asserting <=6 queries for a 5-article page. Gates ALL PASS (local): unit 74/74 @94.27%, API 10/10, B1 12/12 + B2 29/29 containerised, regression 74/74, D1-D7 clean, J1=1.0, J2=1.0. Code Review CLEAN. Test isolation: removed a profiles.js import (Story 1.3, not on this branch) and set up follow relationships via the model association directly. Committing + PR next."
+**Context**: dev-implement parallel batch — Story 1.4 done.
+
+---
