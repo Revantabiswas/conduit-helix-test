@@ -82,7 +82,7 @@ Feature: Articles API — CRUD, Feed & Tags
   Scenario: The personal feed shows only followed authors' articles
     Given a registered author "kate"
     And a registered author "leo"
-    And "kate" follows "leo"
+    And "kate" is following "leo"
     And "leo" has created an article titled "From Leo"
     And "kate" has created an article titled "From Kate"
     When "kate" requests the personal feed
