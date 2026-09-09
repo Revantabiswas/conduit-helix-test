@@ -1,0 +1,41 @@
+{
+  "evalFrameworkVersion": "1.0.0",
+  "scope": "changed-files",
+  "retryLimitForSelfRepair": 3,
+  "thresholds": {
+    "lintErrorsAllowedDelta": 0,
+    "typeErrorsAllowed": 0,
+    "semgrepFindingsAllowed": { "critical": 0, "high": 0, "medium": 5 },
+    "dependencyVulnerabilitiesAllowed": { "critical": 0, "high": 0 },
+    "disallowedLicenses": ["GPL-2.0", "GPL-3.0", "AGPL-3.0", "SSPL-1.0"],
+    "maxCyclomaticComplexity": 12,
+    "secretFindingsAllowed": 0,
+    "unitTestCoverageMin": 90.0,
+    "behaviorScenarioPassRateMin": 100.0,
+    "llmJudgeArchitectureScoreMin": 0.85,
+    "llmJudgeSecurityScoreMin": 0.85,
+    "securityVulnerabilitiesAllowed": 0
+  },
+  "behavior": {
+    "containerRuntime": "podman",
+    "image": "aire-behavior:local",
+    "containerfile": "tests/.evals/behavior/Containerfile",
+    "entrypoint": "tests/.evals/behavior/run.sh",
+    "_comment": "Same image + command locally and in CI. A missing runtime degrades to native execution, recorded, never blocking."
+  },
+  "sonarqube": {
+    "enabled": false,
+    "_comment": "CI pipeline generation is skipped for this cycle per explicit user request; SonarQube setup gate never presented."
+  },
+  "judge": { "model": "claude-sonnet-5", "rubricVersion": "1.0.0" },
+  "ci": {
+    "baseBranch": "main",
+    "integrationBranchPrefixes": ["epic", "bug", "enh", "ci", "story", "ve"],
+    "manifestState": "unresolved",
+    "roots": [],
+    "gates": ["D1_lint", "D2_types", "D3_sast", "D4_deps", "D5_licenses", "D6_complexity", "D7_secrets",
+              "unitCoverage", "behaviorB1", "behaviorB2", "behaviorB3", "J1_architecture", "J2_security"],
+    "_rootsComment": "roots[] is empty because src/ (the new Next.js app) does not exist yet — Story 1.1 creates it. The first dev-implement run resolves and records the real root fact here (common/ci-pipeline-generation.md Section 3). CI pipeline generation itself is skipped this cycle per explicit user request, so this manifest is consumed only by the local gates.",
+    "_comment": "CI SINGLE SOURCE OF TRUTH. CI pipeline generation is SKIPPED for this AIRE cycle per explicit user request (\"skip ci for this entirely only development\") — no .github/workflows/agentic-eval-pipeline.yml is generated. This config still drives the LOCAL gates run inside dev-implement."
+  }
+}

@@ -26,8 +26,8 @@
 
 ## Tracker
 - Type: GITHUB
-- Parent Epic: none
-- Epic URL: —
+- Parent Epic: Milestone #2 — "Epic: Next.js App Router Migration (Phases 0-2)"
+- Epic URL: https://github.com/revanta-biswas/conduit-helix-test/milestone/2
 - Project Key / Repo / Org: revanta-biswas/conduit-helix-test
 
 ## Context Project
@@ -61,6 +61,7 @@
 - Base Branch: main
 - Epic Branch: epic/nextjs-migration
 - Epic PR: (not raised — raised manually at cycle end via pr-generator)
+- Pushed: 2026-09-09T06:27:00Z (commit bde6488)
 
 ## Extension Configuration
 | Extension | Enabled | Decided At |
@@ -76,12 +77,69 @@
 - **ORM**: Sequelize retained, models ported as-is (no Prisma switch)
 - **Cutover scope this cycle**: Phase 0-2 only (Setup, API, Frontend) — working app in `src/`. Phase 3 (decommissioning old `backend/`/`frontend/`, production deploy/DNS) is a manual follow-up outside this AIRE cycle.
 
+## Story Planning
+- team_size: 2
+- story_creation_mode: all-at-once
+- target_story_count: 9 (user override; recommended was 22)
+
+## Story Tracker
+| Story ID | Title | Requires | Tracker ID | Status | PR | Merged | Start | End | Recorded |
+|---|---|---|---|---|---|---|---|---|---|
+| 1.1 | Next.js Foundation & Database Layer | none | #19 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.2 | Auth API — Register, Login & httpOnly Cookie Session | 1.1 | #20 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.3 | User Profile API — Current User, Public Profiles & Follow | 1.2 | #21 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.4 | Articles API — CRUD, Feed & Tags | 1.2 | #22 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.5 | Favorites & Comments API | 1.4 | #23 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.6 | Auth Pages & Session — Login, Register, Settings | 1.2, 1.3 | #24 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.7 | Home & Article Pages (Server Components) | 1.4, 1.5 | #25 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.8 | Article Editor & Profile Page | 1.3, 1.4 | #26 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.9 | Shared UI Components, Service Layer Elimination & Test Baseline | 1.6, 1.7, 1.8 | #27 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+
+## Dependency Graph
+```mermaid
+graph TD
+    S11["1.1 Foundation & DB Layer"]
+    S12["1.2 Auth API"]
+    S13["1.3 Profile/Follow API"]
+    S14["1.4 Articles API"]
+    S15["1.5 Favorites/Comments API"]
+    S16["1.6 Auth Pages"]
+    S17["1.7 Home/Article Pages"]
+    S18["1.8 Editor/Profile Page"]
+    S19["1.9 Components + Services + Tests"]
+
+    S11 --> S12
+    S12 --> S13
+    S12 --> S14
+    S13 --> S16
+    S12 --> S16
+    S14 --> S15
+    S14 --> S17
+    S15 --> S17
+    S13 --> S18
+    S14 --> S18
+    S16 --> S19
+    S17 --> S19
+    S18 --> S19
+```
+
+**Ready now (no prerequisites)**: 1.1 only.
+**After 1.1 merges**: 1.2 becomes ready.
+**After 1.2 merges**: 1.3 and 1.4 both become ready — 2 stories in parallel (meets team_size=2 target).
+**After 1.4 merges**: 1.5 becomes ready (in addition to whichever of 1.3/1.6/1.8 are still open).
+**After 1.3 + 1.4 merge**: 1.8 becomes ready. After 1.2 + 1.3 merge: 1.6 becomes ready. After 1.4 + 1.5 merge: 1.7 becomes ready.
+**Last**: 1.9 requires 1.6, 1.7, and 1.8 all merged.
+
 ## Stage Progress
 - [x] Workspace Detection
 - [x] Requirements Analysis
-- [ ] User Stories
-- [ ] Dependency Graph
-- [ ] Workflow Planning
-- [ ] Application Design
-- [ ] System-Level Design stages
-- [ ] STOP CHECKPOINT
+- [x] User Stories
+- [x] Dependency Graph
+- [x] Workflow Planning
+- [x] Application Design — EXECUTE
+- [x] Functional Design — EXECUTE (light)
+- [x] NFR Requirements — EXECUTE (light)
+- [x] NFR Design — EXECUTE (light, folded into nfr.md)
+- [x] Infrastructure Design — SKIP (no infra changes in scope)
+- [x] STOP CHECKPOINT — architecture.md v1.0.0 + rubrics written; CI generation SKIPPED per user request
+- **Design complete — awaiting dev-implement**

@@ -1,0 +1,56 @@
+{
+  "rubricName": "Security — OWASP Top 10:2025 — conduit-helix-test Next.js Migration",
+  "rubricVersion": "1.0.0",
+  "derivedFrom": ["OWASP Top 10:2025", "spec/plans/architecture.md"],
+  "evalCriteria": [
+    {
+      "id": "SEC-01", "owasp": "A01:2025",
+      "metric": "Broken Access Control",
+      "weight": 0.20,
+      "prompt": "Review every Route Handler or Service in the diff that reads or mutates a resource owned by a specific user (an article, a comment, a profile update). Score 0 if any changed code path allows updating/deleting an Article or Comment, or updating a User's own profile, without verifying the authenticated session user is the resource's owner (or otherwise authorized). Cite the file and line.",
+      "source": "https://owasp.org/Top10/2025/A01_2025-Broken_Access_Control/"
+    },
+    {
+      "id": "SEC-02", "owasp": "A07:2025",
+      "metric": "Authentication Failures",
+      "weight": 0.20,
+      "prompt": "Review every changed auth-related file (src/lib/auth.js, src/middleware.js, the login/register Route Handlers). Score 0 if: the JWT/session cookie is not set with httpOnly (and secure in a production-conditional way); password is stored or compared without bcrypt; a password-reset or session mechanism has no expiry; or the tightened validation rules (email format, 8-char minimum password, username format+uniqueness per functional-design.md) are absent from the register flow. Cite the file and line.",
+      "source": "https://owasp.org/Top10/2025/A07_2025-Authentication_Failures/"
+    },
+    {
+      "id": "SEC-03", "owasp": "A05:2025",
+      "metric": "Injection",
+      "weight": 0.15,
+      "prompt": "Check every changed Service/Route Handler path where user-supplied input (query params, request body, route params) reaches a Sequelize query. Score 0 if any changed path uses a raw/literal SQL string interpolating user input (e.g. sequelize.query with string concatenation) instead of Sequelize's parameterized query builder methods. Cite the file and line.",
+      "source": "https://owasp.org/Top10/2025/A05_2025-Injection/"
+    },
+    {
+      "id": "SEC-04", "owasp": "A04:2025",
+      "metric": "Cryptographic Failures",
+      "weight": 0.15,
+      "prompt": "Review every changed file handling the JWT secret, password hashing, or cookie configuration. Score 0 if: a JWT secret or DB credential is hardcoded rather than read from an environment variable; the JWT signing algorithm is 'none' or a weak/deprecated algorithm; or bcrypt is replaced with a weaker hash (e.g. plain SHA/MD5) anywhere in the diff. Cite the file and line.",
+      "source": "https://owasp.org/Top10/2025/A04_2025-Cryptographic_Failures/"
+    },
+    {
+      "id": "SEC-05", "owasp": "A02:2025",
+      "metric": "Security Misconfiguration",
+      "weight": 0.10,
+      "prompt": "Review changed configuration (Next.js config, cookie options, CORS setup if any). Score 0 if a changed file sets a cookie without httpOnly/sameSite consideration, enables verbose error responses that leak stack traces to the client in a non-development mode check, or introduces an overly permissive CORS configuration where none existed before. Cite the file and line.",
+      "source": "https://owasp.org/Top10/2025/A02_2025-Security_Misconfiguration/"
+    },
+    {
+      "id": "SEC-06", "owasp": "A06:2025",
+      "metric": "Insecure Design",
+      "weight": 0.10,
+      "prompt": "Review changed business logic in Services for missing threat-model controls specific to this system: self-follow prevention (functional-design.md), idempotent favorite/follow toggles, and comment-delete authorization restricted to the comment's own author. Score 0 if a changed Service implementing one of these omits the corresponding check. Cite the file and line.",
+      "source": "https://owasp.org/Top10/2025/A06_2025-Insecure_Design/"
+    },
+    {
+      "id": "SEC-07", "owasp": "A10:2025",
+      "metric": "Mishandling of Exceptional Conditions",
+      "weight": 0.10,
+      "prompt": "Review every changed error-handling path. Score 0 if a changed Route Handler returns a raw error object, stack trace, or internal exception message to the client instead of mapping through the ported error hierarchy (src/lib/errors.js) into the Conduit spec's { errors: { body: [...] } } shape. Cite the file and line.",
+      "source": "https://owasp.org/Top10/2025/A10_2025-Mishandling_of_Exceptional_Conditions/"
+    }
+  ]
+}
