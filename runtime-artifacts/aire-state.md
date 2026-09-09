@@ -29,6 +29,7 @@
 - Parent Epic: Milestone #2 — "Epic: Next.js App Router Migration (Phases 0-2)"
 - Epic URL: https://github.com/revanta-biswas/conduit-helix-test/milestone/2
 - Project Key / Repo / Org: revanta-biswas/conduit-helix-test
+- GitHub Username: revanta-biswas
 
 ## Context Project
 - **Existing Knowledge**: No
@@ -85,7 +86,7 @@
 ## Story Tracker
 | Story ID | Title | Requires | Tracker ID | Status | PR | Merged | Start | End | Recorded |
 |---|---|---|---|---|---|---|---|---|---|
-| 1.1 | Next.js Foundation & Database Layer | none | #19 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.1 | Next.js Foundation & Database Layer | none | #19 | 🔵 In Development | — | — | 2026-09-09 | — | 2026-09-09 06:48 |
 | 1.2 | Auth API — Register, Login & httpOnly Cookie Session | 1.1 | #20 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
 | 1.3 | User Profile API — Current User, Public Profiles & Follow | 1.2 | #21 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
 | 1.4 | Articles API — CRUD, Feed & Tags | 1.2 | #22 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
