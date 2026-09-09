@@ -302,3 +302,39 @@
 **Context**: dev-implement Section D (commit/push/PR, CI steps skipped this cycle) + Section E (auto PR review). Story stays In Development until PR #28 merges.
 
 ---
+
+## dev-implement — Story 1.1 merged; Story 1.2 selected
+**Timestamp**: 2026-09-09T09:50:17Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "merged continue next" then "start developing stories together which are not dependent tell me when to approve pr rest u do urself" then selected "Story 1.2 (#20)"
+**TRACKER ITEM**: "[#20](https://github.com/revanta-biswas/conduit-helix-test/issues/20) — Story 1.2: Auth API"
+**Epic Link**: "[Milestone #2](https://github.com/revanta-biswas/conduit-helix-test/milestone/2)"
+**AIRE VERSION**: "1.0"
+**AI Response**: "Verified PR #28 MERGED into epic/nextjs-migration at 2026-09-09T08:35:23Z; refreshed local epic (src/ now present). Recorded Story 1.1 Merged=yes in Story Tracker (factual — status stays 🔵 In Development until ve-list-work promotes it). User opted to run independent stories in sequence-within-session and be pinged only to approve+merge each PR; agreed plan: build 1.2 now, then after user merges it, fan out to 1.3+1.4 (independent once 1.2 lands). Explained the dependency reality: only 1.2 is doable now (all others require 1.2/1.3/1.4). Doability Gate for 1.2: requires 1.1 -> PR #28 MERGED -> DOABLE. Moved #20 to In Development (label swap + assign @revanta-biswas + comment), verified. Epic already In Development. Cut story/1.2-auth-api from refreshed epic branch. Story Tracker updated (Status 🔵 In Development, Start 2026-09-09)."
+**Context**: dev-implement Step 1 (2nd invocation) — merge sweep, story-selection.md Steps 1-7, branching Section 3.
+
+---
+
+## dev-implement — Story 1.2 Code Generation + All Gates
+**Timestamp**: 2026-09-09T10:28:41Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: N/A — automatic
+**TRACKER ITEM**: "[#20](https://github.com/revanta-biswas/conduit-helix-test/issues/20) — Story 1.2"
+**Epic Link**: "[Milestone #2](https://github.com/revanta-biswas/conduit-helix-test/milestone/2)"
+**AIRE VERSION**: "1.0"
+**AI Response**: "Plan spec/spec-generation/story-1.2-code-generation.md (8 steps, API layer present -> Contract gate applies). Behaviour spec story-1.2.feature (10 scenarios). Generated: src/lib/errors.js (ported hierarchy + statusFor/toErrorResponse 401/403/404/422/500), src/lib/helpers.js (slugify only; enrichment deferred to 1.4 per ARCH-02), src/lib/auth.js (JWT sign/verify via jsonwebtoken@9, bcryptjs hash/compare, httpOnly conduit_token cookie sameSite=lax secure-in-prod, getSessionUser soft-auth / requireSessionUser throw, readCookie), src/lib/services/users.js (register+login with TIGHTENED validation: email format, password>=8, username 3-30+unique, email unique), src/app/api/users/route.js (POST register 201) + login/route.js (POST 200), src/middleware.js (soft-auth, matcher /api/*). Deps: jsonwebtoken@9.0.3, bcryptjs (pure-JS, avoids native-binding container issue). GATES ALL PASS (all local, CI skipped): unit 42/42 @95.41% (SH-LOOP-1 attempt 0); B1 12/12 + B2 17/17 cumulative containerised in Podman (image sha256:25629cf8..., SH-LOOP-7 attempt 0), B3 N/A; API&Contract 7/7 both endpoints all 6 checklist categories (SH-LOOP-2 attempt 0); full regression 49/49 0-new-failures (SH-LOOP-3); D1-D7 all clean on changed files, D2 N/A, D4 no new vulns (SH-LOOP-4). Code Review CLEAN: 5 ACs Met, 0 blockers/0 high. J1 Architecture=1.0>=0.85 (ARCH-01/03/04/05/06 applicable, all 1.0; ARCH-02 N/A); J2 Security=1.0>=0.85 (SEC-02/03/04/05/07 applicable, all 1.0; SEC-01/06 N/A). eval.json/eval-summary written, overall PASS. Verdict CLEAN -> commit/PR (no remediation)."
+**Context**: dev-implement Steps 4-6.6 + Section A/B — full per-story gate run for Story 1.2. Manifest reconciliation + CI preflight + CI attestation SKIPPED (no CI this cycle).
+
+---
+
+## dev-implement — Story 1.2 PR + Review
+**Timestamp**: 2026-09-09T10:28:41Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: N/A — automatic (workflow mode)
+**TRACKER ITEM**: "[#20](https://github.com/revanta-biswas/conduit-helix-test/issues/20) — Story 1.2"
+**Epic Link**: "[Milestone #2](https://github.com/revanta-biswas/conduit-helix-test/milestone/2)"
+**AIRE VERSION**: "1.0"
+**AI Response**: "Committed 6626e6a with AIRE-Version: 1.0 trailer on story/1.2-auth-api; pushed. Raised PR #29 into epic/nextjs-migration (title '[STORY][#20] Auth API: register, login & httpOnly cookie session', labels ai-generated+aire-v1.0). VERIFIED scorecard present in body + both labels. Story Tracker: PR=#29, Merged=no, Status stays 🔵 In Development. CI preflight/attestation skipped (no CI this cycle). Section E: pr-review AUTO MODE -> COMMENTED review on #29 (https://github.com/revanta-biswas/conduit-helix-test/pull/29#pullrequestreview-5153034535): Approve-with-nits, 0 blockers/0 issues/2 nits/1 question; flagged the httpOnly auth flow and tightened-validation UX for human review."
+**Context**: dev-implement Section D (commit/push/PR) + E (auto PR review). Story 1.2 stays In Development until PR #29 merges.
+
+---
