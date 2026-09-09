@@ -362,3 +362,14 @@
 **Context**: dev-implement parallel batch — Story 1.4 done.
 
 ---
+
+## dev-implement — Story 1.6 complete (PR #33)
+**Timestamp**: 2026-09-09T12:35:00Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**TRACKER ITEM**: "[#24](https://github.com/revanta-biswas/conduit-helix-test/issues/24) — Story 1.6"
+**Epic Link**: "[Milestone #2](https://github.com/revanta-biswas/conduit-helix-test/milestone/2)"
+**AIRE VERSION**: "1.0"
+**AI Response**: "Story 1.6 (Auth Pages) built (minimal functional pages per user decision; Story 1.9 does the component/CSS port). session.js cookie session replaces AuthContext (ARCH-03), client-api fetch wrappers (no axios), pure payload builders + 3 pages + logout server action. Gates ALL PASS (local): unit 104/104 @95%, B1 7/7 + B2 44/44 containerised, regression 104/104, D1-D7 clean, J1=1.0, J2=1.0. API&Contract N/A (no API layer). Carries the 1.4 follows->is-following step rename (same as PR #32). PR #33 raised (scorecard+labels verified), auto-review COMMENTED. Now building the last batch story, 1.8."
+**Context**: dev-implement parallel batch — Story 1.6 done, moving to 1.8.
+
+---
