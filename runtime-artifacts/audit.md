@@ -339,6 +339,18 @@
 
 ---
 
+## dev-implement — Story 1.2 merged; parallel fan-out to 1.3 + 1.4
+**Timestamp**: 2026-09-09T10:32:00Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "merged"
+**TRACKER ITEM**: "[#21](https://github.com/revanta-biswas/conduit-helix-test/issues/21) + [#22](https://github.com/revanta-biswas/conduit-helix-test/issues/22)"
+**Epic Link**: "[Milestone #2](https://github.com/revanta-biswas/conduit-helix-test/milestone/2)"
+**AIRE VERSION**: "1.0"
+**AI Response**: "Verified PR #29 MERGED at 2026-09-09T10:31:30Z; refreshed epic (1.2 auth code present). Recorded 1.2 Merged=yes. Per the user's parallel-development request, both 1.3 (Profile/Follow API) and 1.4 (Articles API) are now doable (both require 1.2 -> merged) AND mutually independent (neither requires the other) -> genuine parallelism window. Moved #21 and #22 to In Development (label swap + assign @revanta-biswas + comment), verified. Building both sequentially-in-session: 1.3 first (its own branch/PR), then 1.4. User will be pinged per PR to approve+merge."
+**Context**: dev-implement 3rd invocation (parallel batch) — story-selection for 1.3 + 1.4, both doable and independent.
+
+---
+
 ## dev-implement — Story 1.4 complete
 **Timestamp**: 2026-09-09T10:42:00Z
 **User Email**: revanta.biswas@3pillarglobal.com
