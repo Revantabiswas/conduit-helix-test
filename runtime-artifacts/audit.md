@@ -407,3 +407,19 @@
 **Context**: dev-implement FINAL story — Story 1.9 done; epic ready for its main PR after merge.
 
 ---
+
+## dev-implement — Story 1.9 runtime fixes (live-run against real PostgreSQL)
+**Timestamp**: 2026-09-10T06:05:41Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "run command for this next app" / "what did u fix" / "commit them to PR #36"
+**TRACKER ITEM**: "[#27](https://github.com/revanta-biswas/conduit-helix-test/issues/27) — Story 1.9"
+**Epic Link**: "[Milestone #2](https://github.com/revanta-biswas/conduit-helix-test/milestone/2)"
+**AIRE VERSION**: "1.0"
+**AI Response**: "Ran the new Next.js app end-to-end against a real Podman PostgreSQL 16 (the test suite uses in-memory SQLite, so these were invisible to it). Found and fixed 3 real production bugs, all folded into Story 1.9's PR #36 (it owns sync-removal completion + runtime correctness):
+1. EDGE-RUNTIME CRASH (500 on every request): src/middleware.js imported from auth.js which imports Sequelize; Next.js middleware runs in the Edge runtime (no Node util.deprecate) -> crash. Fix: extracted Edge-safe token logic (cookie name + JWT sign/verify, NO db import) into src/lib/session-token.js; middleware imports only that; auth.js re-exports it (no other importer breaks).
+2. 'Please install pg package manually': (a) pg driver was only in the legacy backend/ workspace, not root where Next resolves; (b) webpack mangles Sequelize's dynamic require('pg'). Fix: npm install pg pg-hstore at root + serverExternalPackages:[sequelize,pg,pg-hstore] in next.config.js.
+3. INCOMPLETE SCHEMA: the legacy migrations never created the join tables (Favorites/Followers/TagList) or the FK columns (Articles.userId, Comments.articleId/userId) — the old app made them via the removed sequelize.sync({alter}) (REQ-F-18). Fix: 4 new migrations (create-favorites/followers/taglist + add-fk-columns) so the schema is fully migration-defined, no sync needed.
+LIVE VERIFICATION (localhost:3100 vs Postgres): register->201 + httpOnly cookie set (XSS fix proven live); create article->201 correct Conduit shape; favorite->count 1; comment->created with author; follow->following:true; feed/tags/single-article reads correct; home page renders the 'conduit helix aire test' rebrand. Also fixed the 2 critical npm vulns (audit fix, 20->5, criticals 2->0) and added npm run dev:next + migrate scripts. ALL tests still green after the fixes: node 140/140, components 16/16, guard 4/4, B1 5/5, B3 76/76, D1 clean, D4 pg added 0 new vulns. Env files (.env/.env.local/backend/.env) are gitignored — no secrets committed."
+**Context**: Story 1.9 — real-world run surfaced runtime/schema bugs the SQLite tests couldn't; fixes committed to PR #36.
+
+---
