@@ -5,40 +5,19 @@
 // REQ-NF-01). Route Handlers set/clear the cookie; getSessionUser reads it and resolves
 // the User (soft auth: returns null when absent), requireSessionUser throws when absent.
 
-import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { UnauthorizedError } from "./errors.js";
 import { User } from "./db/index.js";
+import {
+  SESSION_COOKIE,
+  signSession,
+  verifySession,
+} from "./session-token.js";
 
-export const SESSION_COOKIE = "conduit_token";
-
-function secret() {
-  // Legacy backend used JWT_KEY; requirements/.env.local.example use JWT_SECRET. Accept both.
-  return process.env.JWT_SECRET ?? process.env.JWT_KEY;
-}
-
-/**
- * Sign a session token for a user (username + email claims, matching the legacy payload).
- * @param {{ username: string, email: string }} user
- * @returns {string}
- */
-export function signSession(user) {
-  return jwt.sign({ username: user.username, email: user.email }, secret());
-}
-
-/**
- * Verify a session token and return its decoded claims, or null if invalid/absent.
- * @param {string|undefined|null} token
- * @returns {{ username: string, email: string } | null}
- */
-export function verifySession(token) {
-  if (!token) return null;
-  try {
-    return jwt.verify(token, secret());
-  } catch {
-    return null;
-  }
-}
+// Re-export the Edge-safe token utilities so existing importers of auth.js keep working.
+// (The token logic itself lives in session-token.js, which the Edge middleware imports
+// WITHOUT pulling in Sequelize — see that file's header.)
+export { SESSION_COOKIE, signSession, verifySession };
 
 /**
  * Build the Set-Cookie attributes for the session cookie (httpOnly, sameSite=lax,

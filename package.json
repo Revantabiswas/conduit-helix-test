@@ -17,6 +17,10 @@
   ],
   "scripts": {
     "dev": "concurrently --names 'Node,Vite' -c 'green,blue' 'npm run dev -w backend' 'npm run dev -w frontend'",
+    "dev:next": "next dev",
+    "build:next": "next build",
+    "start:next": "next start",
+    "migrate": "npm run sqlz -- db:migrate",
     "sqlz": "npx -w backend sequelize-cli",
     "start": "npm run build -w frontend && npm run start -w backend",
     "test": "vitest"
@@ -41,6 +45,8 @@
     "jsonwebtoken": "^9.0.3",
     "markdown-to-jsx": "^9.10.2",
     "next": "^15.5.25",
+    "pg": "^8.23.0",
+    "pg-hstore": "^2.3.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "sequelize": "^6.37.8"

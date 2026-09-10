@@ -10,8 +10,9 @@
 // (ARCH-03 / REQ-NF-01).
 
 import { NextResponse } from "next/server";
-import { verifySession } from "./lib/auth.js";
-import { SESSION_COOKIE } from "./lib/auth.js";
+// 🔴 Import from session-token.js, NOT auth.js — the middleware runs in the Edge runtime,
+// and auth.js pulls in Sequelize (Node-only). session-token.js is DB-free and Edge-safe.
+import { verifySession, SESSION_COOKIE } from "./lib/session-token.js";
 
 export function middleware(request) {
   const token = request.cookies.get(SESSION_COOKIE)?.value;
