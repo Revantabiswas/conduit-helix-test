@@ -92,7 +92,7 @@
 | 1.4 | Articles API — CRUD, Feed & Tags | 1.2 | #22 | 🔵 In Development | [#31](https://github.com/revanta-biswas/conduit-helix-test/pull/31) | yes | 2026-09-09 | — | 2026-09-09 11:44 |
 | 1.5 | Favorites & Comments API | 1.4 | #23 | 🔵 In Development | [#32](https://github.com/revanta-biswas/conduit-helix-test/pull/32) | no | 2026-09-09 | — | 2026-09-09 12:20 |
 | 1.6 | Auth Pages & Session — Login, Register, Settings | 1.2, 1.3 | #24 | 🔵 In Development | — | — | 2026-09-09 | — | 2026-09-09 11:46 |
-| 1.7 | Home & Article Pages (Server Components) | 1.4, 1.5 | #25 | 🔵 In Development | PENDING | no | 2026-09-10 | — | 2026-09-10 10:35 |
+| 1.7 | Home & Article Pages (Server Components) | 1.4, 1.5 | #25 | 🔵 In Development | [#35](https://github.com/revanta-biswas/conduit-helix-test/pull/35) | no | 2026-09-10 | — | 2026-09-10 10:35 |
 | 1.8 | Article Editor & Profile Page | 1.3, 1.4 | #26 | 🔵 In Development | — | — | 2026-09-09 | — | 2026-09-09 11:46 |
 | 1.9 | Shared UI Components, Service Layer Elimination & Test Baseline | 1.6, 1.7, 1.8 | #27 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
 
