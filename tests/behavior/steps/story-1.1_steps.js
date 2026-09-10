@@ -54,7 +54,12 @@ When(/^the Next\.js application is scaffolded under src\/$/, function () {
 Then(/^the src\/ directory contains a Next\.js 15 App Router structure$/, function () {
   assert.ok(this.result.srcExists, "src/app should exist");
   assert.ok(existsSync(repoPath("src/app/layout.js")), "layout.js should exist");
-  assert.ok(existsSync(repoPath("src/app/page.js")), "page.js should exist");
+  // A home page exists at the App Router root — either src/app/page.js (Story 1.1's
+  // placeholder) or src/app/(home)/page.js (where Story 1.7 moved the real Home page).
+  const hasHome =
+    existsSync(repoPath("src/app/page.js")) ||
+    existsSync(repoPath("src/app/(home)/page.js"));
+  assert.ok(hasHome, "a home page.js should exist at the App Router root");
 });
 
 Then(/^the existing backend\/ and frontend\/ directories are unchanged$/, function () {
