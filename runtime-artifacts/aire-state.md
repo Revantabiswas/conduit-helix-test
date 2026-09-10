@@ -94,7 +94,7 @@
 | 1.6 | Auth Pages & Session — Login, Register, Settings | 1.2, 1.3 | #24 | 🔵 In Development | — | — | 2026-09-09 | — | 2026-09-09 11:46 |
 | 1.7 | Home & Article Pages (Server Components) | 1.4, 1.5 | #25 | 🔵 In Development | [#35](https://github.com/revanta-biswas/conduit-helix-test/pull/35) | no | 2026-09-10 | — | 2026-09-10 10:35 |
 | 1.8 | Article Editor & Profile Page | 1.3, 1.4 | #26 | 🔵 In Development | — | — | 2026-09-09 | — | 2026-09-09 11:46 |
-| 1.9 | Shared UI Components, Service Layer Elimination & Test Baseline | 1.6, 1.7, 1.8 | #27 | 🟢 Ready for Development | — | — | — | — | 2026-09-09T06:35:54Z |
+| 1.9 | Shared UI Components, Service Layer Elimination & Test Baseline | 1.6, 1.7, 1.8 | #27 | 🔵 In Development | [#36](https://github.com/revanta-biswas/conduit-helix-test/pull/36) | no | 2026-09-10 | — | 2026-09-10 11:10 |
 
 ## Dependency Graph
 ```mermaid

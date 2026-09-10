@@ -1,6 +1,11 @@
-// Root layout for the Next.js App Router application (Story 1.1, REQ-F-01).
-// Minimal bootable shell — the real navbar/footer/pages arrive in later stories
-// (Home in Story 1.7, shared components in Story 1.9).
+// Root layout for the Next.js App Router application.
+// Wires the ported Navbar + Footer (Story 1.9) around every page and imports the ported
+// CSS so the migrated app carries the existing Conduit look.
+
+import "./index.css";
+import "./styles.css";
+import Navbar from "../components/Navbar.jsx";
+import Footer from "../components/Footer.jsx";
 
 export const metadata = {
   title: "Conduit",
@@ -10,7 +15,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {/* Navbar is an async Server Component (reads the session). */}
+        {/* @ts-expect-error Async Server Component */}
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

@@ -1,12 +1,14 @@
-// Article view page (Story 1.7, REQ-F-21) — minimal functional Server Component.
-// Renders the article (markdown body) + author meta + comments.
-// Story 1.9 ports the real ArticleMeta/ArticleTags/CommentList components + CSS.
+// Article view page (Story 1.7, refined in 1.9 to use the ported components).
+// Server Component: renders the article (markdown body) + meta + comments.
 
 import Markdown from "markdown-to-jsx";
-import Link from "next/link";
 import { getServerSession } from "../../../lib/session.js";
 import { getArticlePage } from "../../../lib/services/article-page.js";
 import { NotFoundError } from "../../../lib/errors.js";
+import BannerContainer from "../../../components/BannerContainer.jsx";
+import ArticleMeta from "../../../components/ArticleMeta.jsx";
+import ArticleTags from "../../../components/ArticleTags.jsx";
+import CommentList from "../../../components/CommentList.jsx";
 
 export default async function ArticlePage({ params }) {
   const { slug } = await params;
@@ -18,7 +20,7 @@ export default async function ArticlePage({ params }) {
   } catch (error) {
     if (error instanceof NotFoundError) {
       return (
-        <main>
+        <main className="article-page">
           <h1>Article not found</h1>
         </main>
       );
@@ -29,36 +31,26 @@ export default async function ArticlePage({ params }) {
   const { article, comments } = data;
 
   return (
-    <main>
-      <article>
+    <div className="article-page">
+      <BannerContainer>
         <h1>{article.title}</h1>
-        <p>
-          by{" "}
-          <Link href={`/profile/${article.author.username}`}>
-            {article.author.username}
-          </Link>{" "}
-          · {article.favoritesCount} ♥
-        </p>
-        <div>
-          <Markdown>{article.body || ""}</Markdown>
-        </div>
-        <ul aria-label="tags">
-          {article.tagList.map((t) => (
-            <li key={t}>{t}</li>
-          ))}
-        </ul>
-      </article>
+        <ArticleMeta author={article.author} createdAt={article.createdAt} />
+      </BannerContainer>
 
-      <section aria-label="comments">
-        <h2>Comments ({comments.length})</h2>
-        <ul>
-          {comments.map((c) => (
-            <li key={c.id}>
-              <strong>{c.author?.username}</strong>: {c.body}
-            </li>
-          ))}
-        </ul>
-      </section>
-    </main>
+      <div className="container page">
+        <div className="row article-content">
+          <div className="col-md-12">
+            <Markdown>{article.body || ""}</Markdown>
+            <ArticleTags tagList={article.tagList} />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-xs-12 col-md-8 offset-md-2">
+            <CommentList comments={comments} />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
