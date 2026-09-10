@@ -447,3 +447,64 @@ LIVE VERIFICATION (localhost:3100 vs Postgres): register->201 + httpOnly cookie 
 **AIRE VERSION**: 1.0
 
 ---
+## Test Plan Approval (retroactive, for Playwright automation) — Stories 1.6, 1.7, 1.8
+**Timestamp**: 2026-09-10T06:39:00Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "first a then b" → (b) run /playwright-implement; user selected "Approve all three now" at the plan-approval gate
+**Story**: "1.6 [#24](https://github.com/revanta-biswas/conduit-helix-test/issues/24), 1.7 [#25](https://github.com/revanta-biswas/conduit-helix-test/issues/25), 1.8 [#26](https://github.com/revanta-biswas/conduit-helix-test/issues/26)"
+**Approve / Request Changes checkpoint**: "Approved — user explicitly approved the /ve-implement manual test plans for stories 1.6, 1.7 and 1.8 as-is, authorizing Playwright UI automation against them"
+**AI Response**: "Recorded explicit approval of the three UI stories' manual test plans, satisfying the playwright-automation.md prerequisite that a story's Test Plan be Approved before automation. No files changed by this entry beyond audit.md."
+**Context**: /ve-implement skill — Test Plan (test-plan.md) approval checkpoint, driven from the /playwright-implement flow
+**AIRE VERSION**: 1.0
+
+---
+## Playwright Automation (playwright-implement skill) — Prerequisite Gate for Story 1.6 (paused for MCP load)
+**Timestamp**: 2026-09-10T06:41:11Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "first a then b" → (b), story 1.6 first (scope: 1.6, 1.7, 1.8)
+**Story**: "1.6 — Auth Pages & Session — [#24](https://github.com/revanta-biswas/conduit-helix-test/issues/24)"
+**Step 2a merge gate**: "PASSED — dev PR #33 MERGED + ve docs PR #43 MERGED into epic/nextjs-migration (verified via gh). Same holds for 1.7 (#35/#44) and 1.8 (#34/#45)."
+**Prerequisite Gate (Step 0)**: "Step 0a: installed @playwright/test + browsers (chromium/firefox/webkit); ran 'npx playwright init-agents --loop=claude' — scaffolded .claude/agents/playwright-test-{planner,generator,healer}.md + .mcp.json (no prior MCP servers, no merge needed). Auto-relocated specs/README.md -> tests/playwright-specs/README.md and removed bare specs/. Moved seed.spec.ts -> tests/e2e/seed.spec.ts to match testDir. Created playwright.config.ts (testDir ./tests/e2e, baseURL http://localhost:3000). Step 0b: local Next.js dev server UP on :3000 (/api/tags -> 200). Step 0c fixture data + Step 0d Seed Test Gate: NOT YET DONE."
+**Plan approval**: "Approved — stories 1.6/1.7/1.8 manual test plans approved by user (logged above)"
+**PAUSE REASON**: "playwright-test MCP server (mcp__playwright-test__*: planner_save_plan/generator_write_test/etc.) newly registered in .mcp.json is NOT loaded in the current session — Claude Code connects MCP servers only at session start. Planner/Generator/Healer subagents cannot run without it."
+**RESUME INSTRUCTION**: "Restart the Claude Code session, keep (or restart) 'npm run dev:next' on :3000, then run '/playwright-implement 1.6'. On resume: SKIP Step 0 (all logged above as done) and the plan-approval gate; resume at Step 0d (Seed Test Gate) -> Step 1 (Planner). Then proceed 1.6 -> 1.7 -> 1.8."
+**AI Response**: "Installed and scaffolded Playwright + its official Test Agents at the workspace root, applied AIRE relocations, created config, started the local server, and verified the playwright-test MCP tools are not yet available in-session. Paused pending session restart."
+**Context**: /playwright-implement skill — Playwright Test Automation (paused at MCP-load boundary)
+**AIRE VERSION**: 1.0
+
+---
+## Playwright Automation (playwright-implement skill) — Story 1.6 Planner + Approval
+**Timestamp**: 2026-09-10T06:53:38Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "/playwright-implement 1.6" (resumed after session restart for MCP load)
+**Story**: "1.6 — Auth Pages & Session — [#24](https://github.com/revanta-biswas/conduit-helix-test/issues/24)"
+**Seed Test Gate**: "addition confirmed — wrote tests/e2e/seed.spec.ts with FIXTURE_USER (playwright_fixture@example.com, registered in local DB) + logged-out and login-as-fixture seed tests"
+**Planner**: "playwright-test-planner explored http://localhost:3000 live; saved tests/playwright-specs/24-auth-pages-session-login-register-settings.md — 4 suites, 17 scenarios covering TC-E2E-01..06, TC-SEC-01..07, TC-A11Y-01/02/03/06"
+**Excluded (need assistive-tech/tooling, stay manual-only)**: "TC-A11Y-04 (screen-reader error announcement), TC-A11Y-05 (contrast ratios)"
+**Plan approval**: "Approved — user chose 'Approve — generate tests'; plan asserts the app's actual observed behavior" — approver: revanta.biswas@3pillarglobal.com
+**Candidate defects surfaced by Planner exploration**: "(1) settings form never pre-populates (vs AC-2); (2) /settings not route-guarded client-side — logged-out users see empty form, only PUT rejected 401 (vs AC-3/AC-5 redirect expectation); (3) conduit_token HttpOnly observed true at page layer — to be confirmed at execution (contrast with API-jar observation in env-check step a)"
+**AI Response**: "Ran Seed Test Gate and the real Planner agent; presented and recorded plan approval. Proceeding to Generator (sequential, per scenario)."
+**Context**: /playwright-implement skill — Playwright Test Automation
+**AIRE VERSION**: 1.0
+
+---
+## Playwright Automation (playwright-implement skill) — Story 1.6 Generator/Execution/Healer/Push
+**Timestamp**: 2026-09-10T10:17:53Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "/playwright-implement 1.6"
+**Story**: "1.6 — Auth Pages & Session — [#24](https://github.com/revanta-biswas/conduit-helix-test/issues/24)"
+**Seed Test Gate**: "addition confirmed (tests/e2e/seed.spec.ts, fixture playwright_fixture@example.com)"
+**Plan approval**: "Approved" — approver: revanta.biswas@3pillarglobal.com
+**UI cases automated**: "17 of 17 UI-relevant manual cases (TC-E2E-01..06, TC-SEC-01..07, TC-A11Y-01/02/03/06)"
+**Excluded (tooling-bound, stay manual-only)**: "2 cases — TC-A11Y-04 (screen-reader announcement), TC-A11Y-05 (contrast ratios)"
+**Consistency pass (Step 3.5)**: "unified 'New password' locator to full accessible name; changed one absolute-URL goto to relative in tc-sec-04; no foreign-stack boilerplate found"
+**Execution**: "4 failed / 15 passed before healing"
+**Healer outcome**: "3 healed to passing (tc-sec-07 branch/timing, tc-e2e-05 login-settle, tc-e2e-03 login-settle); 1 marked test.fixme() as candidate defect (tc-a11y-03 buttons — WCAG 2.4.7 no visible focus indicator). Final: 19 passed, 1 skipped, 0 failed."
+**Candidate product defects (route to /raise-defect)**: "(1) WCAG 2.4.7 button focus-visible; (2) settings form never pre-populates (AC-2); (3) /settings not client-side route-guarded (AC-3/AC-5); (4) JWT also returned in user.token body field (AC-1)"
+**Code location**: `tests/e2e/24-auth-pages-session-login-register-settings/`   **Plan location**: `tests/playwright-specs/24-auth-pages-session-login-register-settings.md`
+**Push gate**: "Approved — pushed directly to epic/nextjs-migration (no PR)"
+**AI Response**: "Generated 17 specs sequentially via the real Generator agent, ran headed, healed via the real Healer agent, wrote automation-summary.md, and pushed to the epic branch. Also committed first-time Playwright scaffolding (config, agents, .mcp.json, seed) and gitignore updates."
+**Context**: /playwright-implement skill — Playwright Test Automation
+**AIRE VERSION**: 1.0
+
+---

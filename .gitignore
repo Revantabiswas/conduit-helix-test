@@ -41,3 +41,12 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Playwright transient artifacts
+test-results/
+.playwright-mcp/
+playwright-report/
+*-snapshot.yml
+
+# Next.js build output
+.next/
