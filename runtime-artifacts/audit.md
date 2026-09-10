@@ -423,3 +423,27 @@ LIVE VERIFICATION (localhost:3100 vs Postgres): register->201 + httpOnly cookie 
 **Context**: Story 1.9 — real-world run surfaced runtime/schema bugs the SQLite tests couldn't; fixes committed to PR #36.
 
 ---
+## Test Plan (ve-implement skill) — bulk run for all 9 stories
+**Timestamp**: 2026-09-10T06:23:03Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "run ve implement on all"
+**Story**: "All 9 stories (1.1–1.9) — [#19](https://github.com/revanta-biswas/conduit-helix-test/issues/19) … [#27](https://github.com/revanta-biswas/conduit-helix-test/issues/27)"
+**Output folder**: `spec/test-plans/<issue>-<title-kebab>/` (one per story, 9 folders)
+**ve branch / PR**: (each into epic branch `epic/nextjs-migration`)
+  - 1.1 #19 → ve/19-nextjs-foundation-db-layer → [PR #38](https://github.com/revanta-biswas/conduit-helix-test/pull/38)
+  - 1.2 #20 → ve/20-auth-api → [PR #39](https://github.com/revanta-biswas/conduit-helix-test/pull/39)
+  - 1.3 #21 → ve/21-user-profile-api → [PR #40](https://github.com/revanta-biswas/conduit-helix-test/pull/40)
+  - 1.4 #22 → ve/22-articles-api → [PR #41](https://github.com/revanta-biswas/conduit-helix-test/pull/41)
+  - 1.5 #23 → ve/23-favorites-comments-api → [PR #42](https://github.com/revanta-biswas/conduit-helix-test/pull/42)
+  - 1.6 #24 → ve/24-auth-pages-session → [PR #43](https://github.com/revanta-biswas/conduit-helix-test/pull/43)
+  - 1.7 #25 → ve/25-home-article-pages → [PR #44](https://github.com/revanta-biswas/conduit-helix-test/pull/44)
+  - 1.8 #26 → ve/26-article-editor-profile-page → [PR #45](https://github.com/revanta-biswas/conduit-helix-test/pull/45)
+  - 1.9 #27 → ve/27-shared-components-services-tests → [PR #46](https://github.com/revanta-biswas/conduit-helix-test/pull/46)
+**Test plans generated**: "1.1: Integration, Security (11 cases) | 1.2: API, Security, Integration, E2E (26) | 1.3: API, Security, Integration, E2E (25) | 1.4: API, Integration, Performance, Security, E2E (32) | 1.5: API, Security, Integration, E2E (25) | 1.6: E2E, Security, Integration, Accessibility (25) | 1.7: E2E, Integration, Accessibility, Security, Performance (26) | 1.8: E2E, Integration, Security, Accessibility (35) | 1.9: E2E, Integration, Accessibility (20). Total 225 manual test cases. N/A plans marked per story with reasons (Contract N/A throughout — single app, no consumer/provider pair)."
+**Coverage**: "1.1 5/5 · 1.2 5/5 · 1.3 5/5 · 1.4 5/5 · 1.5 4/4 · 1.6 5/5 · 1.7 5/5 · 1.8 5/5 · 1.9 5/5 — all AC coverage gates passed"
+**Approve / Request Changes checkpoint**: "Bulk run authorized by user ('run ve implement on all' + 'Generate + push each'); artifacts generated, branches pushed, PRs raised automatically"
+**AI Response**: "Generated 9 black-box manual test-plan folders under spec/test-plans/, derived from acceptance criteria only (no source read). Cut 9 ve/ branches from epic/nextjs-migration, committed each story's folder (AIRE-Version: 1.0 trailer), pushed, and raised 9 [TEST] PRs (#38–#46) into the epic branch, each labeled ai-generated + aire-v1.0. No story or tracker status changed."
+**Context**: `/ve-implement` skill — Test Plan (`test-plan.md`); invoked in bulk from ve-list-work session
+**AIRE VERSION**: 1.0
+
+---
