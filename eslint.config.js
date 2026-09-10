@@ -2,6 +2,7 @@
 // Recommended preset only; complexity capped at maxCyclomaticComplexity (12) from tests/.evals/config.json.
 import js from "@eslint/js";
 import globals from "globals";
+import react from "eslint-plugin-react";
 
 export default [
   {
@@ -29,8 +30,12 @@ export default [
         ...globals.browser,
       },
     },
+    plugins: { react },
     rules: {
       complexity: ["error", 12],
+      // Recognise identifiers used only inside JSX as "used" (so imports like Link/Markdown
+      // are not flagged no-unused-vars). This is the single React rule the config needs.
+      "react/jsx-uses-vars": "error",
     },
   },
 ];

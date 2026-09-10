@@ -384,3 +384,14 @@
 **Context**: dev-implement parallel batch — Story 1.6 done, moving to 1.8.
 
 ---
+
+## dev-implement — Story 1.7 complete (PR #35)
+**Timestamp**: 2026-09-10T10:35:00Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**TRACKER ITEM**: "[#25](https://github.com/revanta-biswas/conduit-helix-test/issues/25) — Story 1.7"
+**Epic Link**: "[Milestone #2](https://github.com/revanta-biswas/conduit-helix-test/milestone/2)"
+**AIRE VERSION**: "1.0"
+**AI Response**: "Story 1.7 (Home & Article Server Components) built. feed-params resolver (FeedContext eliminated -> URL params, REQ-F-29), home-page + article-page assemblers (compose N+1-free services), 2 Server Component pages. markdown-to-jsx added for the article body. Removed Story 1.1's placeholder src/app/page.js (real Home now at (home)/page.js) and updated 1.1's B1 assertion (SH-LOOP-7 attempt 1 — B2 caught the moved-file break). Added react/jsx-uses-vars to ESLint (JSX imports were false-flagged; strictly reduces false positives). Gates ALL PASS (local): unit 136/136 @97.36%, B1 8/8 + B2 67/67 containerised, regression 136/136, D1-D7 clean, J1=1.0, J2=1.0. API&Contract N/A. PR #35 raised (scorecard+labels verified), auto-review COMMENTED. After #35 merges, ONLY Story 1.9 remains (requires 1.6+1.7+1.8) — the LAST story, which triggers the B3 epic-scope gate."
+**Context**: dev-implement single-story step — Story 1.7 done; 1.9 is the final story.
+
+---
