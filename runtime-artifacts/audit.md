@@ -508,3 +508,41 @@ LIVE VERIFICATION (localhost:3100 vs Postgres): register->201 + httpOnly cookie 
 **AIRE VERSION**: 1.0
 
 ---
+## Playwright Automation (playwright-implement skill) — Story 1.7 Seed + Planner + Approval
+**Timestamp**: 2026-09-10T11:56:31Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "Continue with 1.7"
+**Story**: "1.7 — Home & Article Pages (Server Components) — [#25](https://github.com/revanta-biswas/conduit-helix-test/issues/25)"
+**Step 2a merge gate**: "PASSED — dev PR #35 MERGED + ve docs PR #44 MERGED into epic/nextjs-migration"
+**Seed data created (via cookie-auth API)**: "author pw_author2 with 15 'pwtag' articles (forces page 2) incl. pw-markdown-rich (markdown body + 2 comments); follower pw_bob2 follows pw_author2 and favorited pw-markdown-rich. Global feed ~16, tags intro/nextjs/pwtag/markdown."
+**Seed Test Gate**: "addition confirmed — appended FOLLOWER_USER (pw_bob2) + follower login seed test to tests/e2e/seed.spec.ts"
+**Planner**: "playwright-test-planner explored live; saved tests/playwright-specs/25-home-article-pages-server-components.md — 13 scenarios (TC-E2E-01..05, TC-SEC-02, TC-SEC-04, TC-A11Y-01/02/03/05/07, TC-PERF-03)"
+**Excluded (manual/tooling-bound)**: "TC-SEC-01, TC-SEC-03, TC-A11Y-04, TC-A11Y-06, TC-PERF-01, TC-PERF-02"
+**Plan approval**: "Approved — user chose 'Approve — generate tests'" — approver: revanta.biswas@3pillarglobal.com
+**Candidate defects surfaced by Planner exploration**: "(1) pagination uses ?page= not ?offset=/limit — ?offset= has zero effect (vs AC-5); (2) no pagination UI widget (page only reachable via search param); (3) no favorite/follow buttons or comment-post form on /article/[slug] (vs AC-4 favorited/following reflection); (4) /article/<bad-slug> returns HTTP 200 with 'Article not found' UI, not 404 (vs AC-2)"
+**AI Response**: "Seeded fixture data, ran Seed Test Gate + real Planner, recorded plan approval. Proceeding to Generator (sequential)."
+**Context**: /playwright-implement skill — Playwright Test Automation
+**AIRE VERSION**: 1.0
+
+---
+
+## ve Sign-off (ve-list-work)
+**Timestamp**: 2026-09-11T11:25:37Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "ve-list-work" / "no continue ve sign off" (approve all 9 stories)
+**Mode**: "B — sign-off"
+**Cycle / Branch**: "epic — integration branch epic/nextjs-migration (epic branch), pulled to latest (already up to date)"
+**TRACKER ITEM**: "#19–#27 (GitHub issues, revanta-biswas/conduit-helix-test)"
+**Merged stories reported**: "1.1 (#19/PR#28), 1.2 (#20/#29), 1.3 (#21/#30), 1.4 (#22/#31), 1.5 (#23/#32), 1.6 (#24/#33), 1.7 (#25/#35), 1.8 (#26/#34), 1.9 (#27/#36) — all dev PRs MERGED"
+**Still in development**: "none"
+**ve APPROVED (→ 🧪 Ready for Testing)**: "1.1 (#19), 1.2 (#20), 1.3 (#21), 1.4 (#22), 1.5 (#23), 1.6 (#24), 1.7 (#25), 1.8 (#26), 1.9 (#27) — comment 've approved the story' added on each, label 've-approved' applied, status label swapped in-development → ready-for-testing, verified live via gh issue view"
+**ve REJECTED (stayed 🔵 In Development)**: "none"
+**Tracker labels/tags applied**: "ve-approved + status:ready-for-testing → #19–#27 (both labels created in repo first: ve-approved #0E8A16, status:ready-for-testing #1D76DB); status:in-development removed from each"
+**Test-plan edit**: "n/a for this mode"
+**Anomalies (closed-not-merged / PR not found)**: "none — all 9 dev PRs confirmed MERGED"
+**Epic transition**: "Parent Epic Milestone #2 — GitHub milestones have no 'Ready for Testing' state (open/closed only); no transition applied. Epic advances when the Epic PR merges."
+**Approve / Request Changes gate**: "Approved"
+**AI Response**: "All 9 stories signed off. GitHub: comment + ve-approved label + status:ready-for-testing on #19–#27 (verified). Story Tracker in aire-state.md: all rows → 🧪 Ready for Testing, End 2026-09-11, Recorded 2026-09-11 11:25."
+**Context**: ve-list-work skill (ve sign-off)
+
+---
