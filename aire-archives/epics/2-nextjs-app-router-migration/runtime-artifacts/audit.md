@@ -546,3 +546,29 @@ LIVE VERIFICATION (localhost:3100 vs Postgres): register->201 + httpOnly cookie 
 **Context**: ve-list-work skill (ve sign-off)
 
 ---
+
+## Release Archive (archive-epic) — Cycle Close
+**Timestamp**: 2026-09-11T11:29:12Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**User Input**: "pr generator" → Phase 7 auto-trigger of archive-epic (Epic → Base PR #47)
+**Mode**: "epic (auto-triggered by pr-generator from Epic → Base PR)"
+**Cycle**: "Milestone #2 — Next.js App Router Migration (Phases 0-2)"
+**Archive path**: "aire-archives/epics/2-nextjs-app-router-migration/"
+**Analyzed At Commit**: feb93d7226b6b8df0bcd36c361e59488e3cce575
+**Readiness**: "All 9 stories 🧪 Ready for Testing (ve sign-off recorded this session); branch up to date with origin; all 9 spec/test-plans/ folders present; no open ve/ PRs into epic branch."
+**Open PR carrying cycle-close commit**: "#47 (epic/nextjs-migration → main)"
+**Workspace reset**: "Option A auto-selected (keep human-curated context) — auto-trigger, Step 6 question skipped."
+**AI Response**: "Archiving spec/ + reports/ + runtime-artifacts/ as an exact mirror; will verify completeness diffs before any reset."
+**Context**: archive-epic skill (release archive)
+
+---
+
+## Release Archive — Verification & Workspace Reset (archive-epic)
+**Timestamp**: 2026-09-11T11:29:12Z
+**User Email**: revanta.biswas@3pillarglobal.com
+**Structural check**: PASS — archive root contains exactly spec/, reports/, runtime-artifacts/, archive-manifest.md (no flattening)
+**Content spot-check**: PASS — aire-state.md, audit.md, architecture.md, atlas-deep-dive.md, story-1.1.feature, reports/eval-evidence/story-1.6/eval-summary.md all present at mirrored paths
+**Completeness diffs**: ALL EMPTY — spec/ ✅, reports/ ✅, runtime-artifacts/ ✅ (233 files, 2.1M)
+**Step 5.5 CI manifest collapse**: n/a — no tests/.evals/ci-manifest.d/ fragments to collapse
+**Workspace reset**: Option A AUTO-SELECTED (auto-triggered by pr-generator; Step 6 question skipped). Cleared: spec/plans/, spec/spec-generation/, spec/behavior/, spec/test-plans/, spec/behavior.feature, reports/, runtime-artifacts/ (audit.md + aire-state.md). Kept: spec/context-project/ (existing-knowledge/, new-references/).
+**Context**: archive-epic skill (release archive) — cycle close for Milestone #2
