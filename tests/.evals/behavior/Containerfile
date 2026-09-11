@@ -1,0 +1,20 @@
+# Behaviour-test container image (AIRE, created for Story 1.1's B1 tier).
+# Runs the cucumber-js Gherkin suite in a reproducible environment — the same image
+# locally and (were CI enabled) in CI. The suite uses in-memory SQLite, so no external
+# database service is required inside the container.
+FROM node:22
+
+WORKDIR /src
+
+# Copy dependency manifests and install (workspaces include backend/frontend, but the
+# behaviour suite only needs the root dev deps: cucumber, sequelize, sqlite3).
+# The full node:22 image includes the build toolchain so sqlite3's native binding
+# compiles from source for this platform (the slim image cannot).
+COPY package.json package-lock.json ./
+COPY backend/package.json ./backend/
+COPY frontend/package.json ./frontend/
+RUN npm install --no-audit --no-fund --build-from-source=sqlite3
+
+# The rest of the source is bind-mounted at run time by run.sh, so nothing else is copied here.
+
+ENTRYPOINT ["/src/tests/.evals/behavior/run.sh"]
