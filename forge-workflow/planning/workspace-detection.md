@@ -76,7 +76,7 @@ Log the question and the complete raw answer in `runtime-artifacts/audit.md`. Th
     - Current-system truth is refreshed **fresh from Atlas via the Helix MCP** at the start of each cycle (`common/helix-atlas-integration.md`), so existing artifacts from a prior cycle are treated as a starting point only. The Helix MCP gate (CLAUDE.md Step 4.5) decides whether to re-pull from Atlas or run local Reverse Engineering — there is no delta to replay and no stitch ledger to consult.
     - **IF the artifacts are usable as-is** (Atlas unavailable and the user is content with the existing docs): Load them, skip to Requirements Analysis
     - **IF a fresh Atlas pull or rerun is warranted, or the user explicitly requests it**: Next phase is Reverse Engineering
-- **IF no reverse engineering artifacts**: Check `aire-archives/epics/`, `aire-archives/bugs/` AND `aire-archives/enhancements/` for archive folders (created by the `archive-epic` skill at the end of a previous epic, bug, or enhancement release cycle)
+- **IF no reverse engineering artifacts**: Check `forge-archives/epics/`, `forge-archives/bugs/` AND `forge-archives/enhancements/` for archive folders (created by the `archive-epic` skill at the end of a previous epic, bug, or enhancement release cycle)
     - **IF archives exist**: The most recently archived cycle folder — across all subfolders, by archive date in `archive-manifest.md` — holds a complete snapshot of that cycle, useful for **human-curated context** (requirements, stories, decisions). 🔴 Current-system truth is NOT restored from the archive — it is refetched fresh from Atlas via the Helix MCP each cycle. Ask the user:
       ```
        No live reverse engineering artifacts found, but an archived cycle snapshot exists

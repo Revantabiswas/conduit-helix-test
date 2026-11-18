@@ -5,7 +5,7 @@
 **manual, executable-by-a-human test steps** covering every test plan that applies to that story.
 
 **Owner**: ve. This file is loaded and executed by the **`/ve-implement` skill**
-(`aire-workflow/agents/ve-implement-agent.md`). It is **NOT** a Implementation-phase stage — it is
+(`forge-workflow/agents/ve-implement-agent.md`). It is **NOT** a Implementation-phase stage — it is
 neither an epic-level nor a story-level step of the development workflow, and no development
 workflow runs it.
 

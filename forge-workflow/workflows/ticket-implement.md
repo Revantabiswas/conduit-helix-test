@@ -7,7 +7,7 @@ The router NEVER duplicates, modifies, or shortcuts either target workflow. Afte
 
 ## MANDATORY: Rule Details Loading
 
-May be invoked standalone in a fresh session. Resolve `aire-workflow/` and load:
+May be invoked standalone in a fresh session. Resolve `forge-workflow/` and load:
 - `common/process-overview.md`, `common/session-continuity.md`, `common/question-format-guide.md`
 
 Do NOT pre-load the bug or enhancement workflow files — load ONLY the one the user selects (saves context). Display the welcome message (`common/welcome-message.md`) once at start — the target workflow MUST NOT display it again.

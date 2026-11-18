@@ -21,7 +21,7 @@
 
 ## MANDATORY: Rule Details Loading
 
-This workflow may be invoked standalone. Resolve the rule details directory the same way `CLAUDE.md` does (check `aire-workflow/`) and load:
+This workflow may be invoked standalone. Resolve the rule details directory the same way `CLAUDE.md` does (check `forge-workflow/`) and load:
 - `common/process-overview.md`, `common/session-continuity.md`, `common/content-validation.md`, `common/question-format-guide.md`
 - The detailed fixer steps from `implementation/remediate.md`
 

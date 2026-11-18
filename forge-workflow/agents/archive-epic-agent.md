@@ -4,7 +4,7 @@
 
 This agent closes **epic cycles**, **bug cycles** (`Workflow Type: bug` in `runtime-artifacts/aire-state.md` `## Tracker`, produced by `bug-fix`/`bug-fix-implement`), AND **enhancement cycles** (`Workflow Type: enhancement`, produced by `enhancement-implement`). The steps below are written in epic terms; in **bug or enhancement mode** apply these substitutions everywhere:
 - **Cycle ID** = the ticket key (`Parent Ticket`, e.g. `PROJ-123`); **cycle name** = the ticket title. Wherever the steps say `<EPIC-ID>`/`<epic-name-slug>`, use the ticket ID and its slug.
-- **Archive path**: epic cycles archive to **`aire-archives/epics/<EPIC-ID>-<epic-name-slug>/`**; bug cycles to **`aire-archives/bugs/<BUG-ID>-<ticket-name-slug>/`**; enhancement cycles to **`aire-archives/enhancements/<ENH-ID>-<ticket-name-slug>/`**. Wherever the steps say `aire-archives/<EPIC-ID>-<epic-name-slug>/`, read the type-appropriate subfolder path. Never write archives directly under `aire-archives/` — always inside `epics/`, `bugs/`, or `enhancements/`.
+- **Archive path**: epic cycles archive to **`forge-archives/epics/<EPIC-ID>-<epic-name-slug>/`**; bug cycles to **`forge-archives/bugs/<BUG-ID>-<ticket-name-slug>/`**; enhancement cycles to **`forge-archives/enhancements/<ENH-ID>-<ticket-name-slug>/`**. Wherever the steps say `forge-archives/<EPIC-ID>-<epic-name-slug>/`, read the type-appropriate subfolder path. Never write archives directly under `forge-archives/` — always inside `epics/`, `bugs/`, or `enhancements/`.
 - **Invocation mode**: **epic mode is the ONLY auto-triggered mode** — pr-generator invokes it on an Epic → Base PR, and that auto-trigger auto-selects workspace-reset option A. 🔴 **Bug and enhancement cycles are ALWAYS operator-invoked (manual)**: `bug-fix-implement` (Step 12) and `enhancement-implement` (Step 19) deliberately do NOT invoke this skill, and pr-generator's Phase 7 auto-trigger explicitly excludes `[BUG]`/`[ENH]` → Base PRs. In bug/enhancement mode, therefore, **always ask the Step 6 workspace-reset question** — never treat those cycles as auto-triggered.
   - **Why bug/enhancement archives are manual**: ve work lands on the cycle branch on its own schedule and is not synchronised with the `[BUG]`/`[ENH]` PR — `/ve-implement` writes `spec/test-plans/<TICKET-ID>-<title>/` on its own `ve/...` branch + PR (possibly raised *after* the fix is done), and `ve-list-work` Option C amends an existing test plan later still. Because this skill takes a ONE-SHOT destructive snapshot and then resets the live docs, an archive taken automatically at PR time would silently omit `tests/` or miss later test-plan edits, and nothing would ever re-capture them. The operator archives once everything has landed — see Step 2's ve readiness check.
 - **Release Readiness (Step 2) in bug/enhancement mode**: ve signs off **on the cycle branch, before this archive** (`ve-list-work` Option B). 🔴 **The cycle closes on BOTH sign-off outcomes** — approve and reject alike — so the ticket's status is NOT a pass/fail criterion here. What matters is only that the sign-off **happened**:
@@ -46,7 +46,7 @@ and (optionally) reset the workspace.
 
      [Answer]:
      ```
-3. Derive the archive folder: `aire-archives/epics/<EPIC-ID>-<epic-name-slug>/` (epic mode), `aire-archives/bugs/<BUG-ID>-<ticket-name-slug>/` (bug mode), or `aire-archives/enhancements/<ENH-ID>-<ticket-name-slug>/` (enhancement mode) — kebab-case the name (e.g., `PROJ-50-user-authentication`, `PROJ-456-export-to-csv`).
+3. Derive the archive folder: `forge-archives/epics/<EPIC-ID>-<epic-name-slug>/` (epic mode), `forge-archives/bugs/<BUG-ID>-<ticket-name-slug>/` (bug mode), or `forge-archives/enhancements/<ENH-ID>-<ticket-name-slug>/` (enhancement mode) — kebab-case the name (e.g., `PROJ-50-user-authentication`, `PROJ-456-export-to-csv`).
 4. **MANDATORY**: Log the invocation in `runtime-artifacts/audit.md` (append-only, complete raw input).
 
 ---
@@ -121,23 +121,23 @@ cycle close. Proceed directly to the archive.
 
 ## Step 5: Create the Epic Archive
 
-🔴 **Path rule for this step and every step after it**: wherever the text below writes a shorthand archive path like `aire-archives/<EPIC-ID>-<epic-name-slug>/`, the REAL path ALWAYS includes the cycle-type subfolder resolved in Step 1.3 — `aire-archives/epics/<EPIC-ID>-<slug>/`, `aire-archives/bugs/<BUG-ID>-<slug>/`, or `aire-archives/enhancements/<ENH-ID>-<slug>/`. Nothing is ever written directly under `aire-archives/`.
+🔴 **Path rule for this step and every step after it**: wherever the text below writes a shorthand archive path like `forge-archives/<EPIC-ID>-<epic-name-slug>/`, the REAL path ALWAYS includes the cycle-type subfolder resolved in Step 1.3 — `forge-archives/epics/<EPIC-ID>-<slug>/`, `forge-archives/bugs/<BUG-ID>-<slug>/`, or `forge-archives/enhancements/<ENH-ID>-<slug>/`. Nothing is ever written directly under `forge-archives/`.
 
 1. Append a final audit entry to `runtime-artifacts/audit.md` recording the archive event (epic, timestamp, archive path) — do this BEFORE copying, so the archive carries the complete trail.
-2. Create the archive folder resolved in Step 1.3 — `aire-archives/epics/<EPIC-ID>-<epic-name-slug>/`, `aire-archives/bugs/<BUG-ID>-<slug>/`, or `aire-archives/enhancements/<ENH-ID>-<slug>/` — at the workspace root (create the `epics/`/`bugs/`/`enhancements/` subfolder if missing).
-   - **If `aire-archives/` (or its subfolders) already exist**: reuse them as-is. NEVER recreate them, and NEVER touch, replace, or delete any OTHER cycle folder inside them — only the folder for THIS cycle is ever written.
-   - **If a folder with this exact epic name already exists** inside `aire-archives/`, do NOT silently overwrite — ask:
+2. Create the archive folder resolved in Step 1.3 — `forge-archives/epics/<EPIC-ID>-<epic-name-slug>/`, `forge-archives/bugs/<BUG-ID>-<slug>/`, or `forge-archives/enhancements/<ENH-ID>-<slug>/` — at the workspace root (create the `epics/`/`bugs/`/`enhancements/` subfolder if missing).
+   - **If `forge-archives/` (or its subfolders) already exist**: reuse them as-is. NEVER recreate them, and NEVER touch, replace, or delete any OTHER cycle folder inside them — only the folder for THIS cycle is ever written.
+   - **If a folder with this exact epic name already exists** inside `forge-archives/`, do NOT silently overwrite — ask:
      ```
-      Archive folder aire-archives/<EPIC-ID>-<epic-name-slug>/ already exists.
+      Archive folder forge-archives/<EPIC-ID>-<epic-name-slug>/ already exists.
 
      Replace it with a fresh archive from this run? (yes / no)
      ```
      - On **yes**: delete only that same-name epic folder and recreate it fresh from this run's `spec/`. All other epic folders remain untouched.
-     - On **no**: STOP the archive step — do not write anything into `aire-archives/`. Log the decision in runtime-artifacts/audit.md.
+     - On **no**: STOP the archive step — do not write anything into `forge-archives/`. Log the decision in runtime-artifacts/audit.md.
    - Log the collision check and the user's raw answer in runtime-artifacts/audit.md.
 3. 🔴 **Copy the live `spec/` tree, the live `reports/` tree, AND the root `runtime-artifacts/` folder into the archive, each as ONE folder.** The archive is an exact mirror — three copy commands, no unpacking, no per-folder logic, no exclusions:
    ```bash
-   ARCH="aire-archives/epics/<EPIC-ID>-<epic-name-slug>"   # or bugs/ | enhancements/
+   ARCH="forge-archives/epics/<EPIC-ID>-<epic-name-slug>"   # or bugs/ | enhancements/
    mkdir -p "$ARCH"
    cp -R spec "$ARCH/spec"
    [ -d reports ] && cp -R reports "$ARCH/reports"                       # generated outputs — mirror if present
@@ -161,7 +161,7 @@ cycle close. Proceed directly to the archive.
      - **NEVER** exclude dotfiles/dot-folders, hidden files, or files without a `.md` extension (logs, `.yml`, `.json`, coverage reports, images, binaries). Do not use extension- or name-based filters, and do not apply `.gitignore` rules — untracked and ignored files inside `spec/` are still archived. Use a plain recursive copy, never `git archive`, never a `find … -name '*.md'` loop.
      - **NEVER** move, delete, rewrite, truncate, reformat, summarize, or "tidy" anything while copying — the archive is a byte-for-byte snapshot, not a curated export.
 
-4. Write `aire-archives/<type>/<CYCLE-ID>-<slug>/archive-manifest.md` (as a SIBLING of the `spec/` folder just created — NOT inside it):
+4. Write `forge-archives/<type>/<CYCLE-ID>-<slug>/archive-manifest.md` (as a SIBLING of the `spec/` folder just created — NOT inside it):
    ```markdown
    # Cycle Archive Manifest
    - **Cycle**: [CYCLE-ID] — [Cycle name] ([epic | bug | enhancement])
@@ -173,16 +173,16 @@ cycle close. Proceed directly to the archive.
    - **ve Artifacts**: [test folders present: list |  Known Gaps: <what was missing / which ve PR was still open> — user chose to archive anyway at Step 2.5]
    ```
 5. **Verify the copy** — check BOTH of the following before proceeding; do NOT proceed until both pass:
-   - **Structural check (layout guardrail)**: list the archive folder's immediate children (`ls -a aire-archives/epics/<EPIC-ID>-<epic-name-slug>/`) — it MUST contain EXACTLY `spec/`, `archive-manifest.md`, and (when the corresponding live folder exists) `reports/` and `runtime-artifacts/`. If any OTHER entry appears at this level (e.g. `requirements/`, `design/`, `aire-state.md`, `audit.md`), the copy was flattened instead of mirrored — redo Step 3 before continuing.
+   - **Structural check (layout guardrail)**: list the archive folder's immediate children (`ls -a forge-archives/epics/<EPIC-ID>-<epic-name-slug>/`) — it MUST contain EXACTLY `spec/`, `archive-manifest.md`, and (when the corresponding live folder exists) `reports/` and `runtime-artifacts/`. If any OTHER entry appears at this level (e.g. `requirements/`, `design/`, `aire-state.md`, `audit.md`), the copy was flattened instead of mirrored — redo Step 3 before continuing.
    - **Content check**: spot-check key files exist at their mirrored paths: `runtime-artifacts/aire-state.md`, `runtime-artifacts/audit.md`, `spec/plans/architecture.md`, `spec/plans/atlas-deep-dive.md`, one `spec/behavior/<work-unit>.feature`, and (when `reports/` was copied) one evidence file such as `reports/eval-evidence/<work-unit>/eval.json`.
    - 🔴 **Completeness check (BLOCKING — same for every cycle type)**: prove nothing was dropped, by comparing each live tree against its archived copy — every diff MUST be **completely empty**:
      ```bash
      diff <(cd spec && find . | sort) \
-          <(cd "aire-archives/<type>/<CYCLE-ID>-<slug>/spec" && find . | sort)
+          <(cd "forge-archives/<type>/<CYCLE-ID>-<slug>/spec" && find . | sort)
      [ -d reports ] && diff <(cd reports && find . | sort) \
-          <(cd "aire-archives/<type>/<CYCLE-ID>-<slug>/reports" && find . | sort)
+          <(cd "forge-archives/<type>/<CYCLE-ID>-<slug>/reports" && find . | sort)
      [ -d runtime-artifacts ] && diff <(cd runtime-artifacts && find . | sort) \
-          <(cd "aire-archives/<type>/<CYCLE-ID>-<slug>/runtime-artifacts" && find . | sort)
+          <(cd "forge-archives/<type>/<CYCLE-ID>-<slug>/runtime-artifacts" && find . | sort)
      ```
      (PowerShell equivalent: `Compare-Object` on the `-Force` relative-path lists.)
      🔴 **Every diff must be empty.** Any line at all means the copy dropped or added something — re-run the full recursive copy of Step 3 and re-verify.
@@ -191,7 +191,7 @@ cycle close. Proceed directly to the archive.
 
 **MANDATORY reference layout** — every archive folder produced by this skill MUST match this shape exactly (no exceptions, no variation between epic/bug/enhancement cycles):
 ```
-aire-archives/epics/<EPIC-ID>-<epic-name-slug>/
+forge-archives/epics/<EPIC-ID>-<epic-name-slug>/
 ├── spec/                  ← the ENTIRE spec/ tree, folder name preserved
 │   ├── plans/                         ← architecture.md, atlas-deep-dive.md + flat RE docs, requirements,
 │   │                                     Stories/Personas, design docs, dependency-graph.yml
@@ -249,12 +249,12 @@ keep accumulating in the next cycle's checkout forever. This is the ONE place th
    option A: clear cycle-scoped content, keep human-curated context.
 ```
 
-Log the auto-selection (and that the question was skipped, with the reason) by appending to the **archived** audit copy at `aire-archives/epics/<EPIC-ID>-<epic-name-slug>/runtime-artifacts/audit.md` (the live runtime-artifacts/audit.md is deleted by this reset), then perform option A's reset. Option B is NEVER auto-selected.
+Log the auto-selection (and that the question was skipped, with the reason) by appending to the **archived** audit copy at `forge-archives/epics/<EPIC-ID>-<epic-name-slug>/runtime-artifacts/audit.md` (the live runtime-artifacts/audit.md is deleted by this reset), then perform option A's reset. Option B is NEVER auto-selected.
 
 Otherwise (standalone invocation), ask the user — NEVER reset without explicit choice:
 
 ```
- Archive created and verified at aire-archives/<EPIC-ID>-<epic-name-slug>/
+ Archive created and verified at forge-archives/<EPIC-ID>-<epic-name-slug>/
 
 How should the live workspace be prepared for the next cycle?
 
@@ -279,7 +279,7 @@ B) Full reset — remove spec/ entirely (every doc + every work-unit bundle, AND
 
 On A or B, `runtime-artifacts/audit.md` and `runtime-artifacts/aire-state.md` are **deleted along with the other cycle-scoped docs — do NOT seed a replacement audit.md or state file**. The archive copy holds the cycle's complete trail; the next cycle's Workspace Detection creates fresh ones. This also keeps parallel cycles conflict-free: no two PRs carry competing audit/state files onto the base branch.
 
-**MANDATORY**: From this point on, the live `runtime-artifacts/audit.md` no longer exists — log the user's raw answer (or the auto-selection), the reset actions taken, and everything in Step 6.5 by APPENDING to the **archived** copy at `aire-archives/epics/<EPIC-ID>-<epic-name-slug>/runtime-artifacts/audit.md`, so the trail stays complete.
+**MANDATORY**: From this point on, the live `runtime-artifacts/audit.md` no longer exists — log the user's raw answer (or the auto-selection), the reset actions taken, and everything in Step 6.5 by APPENDING to the **archived** copy at `forge-archives/epics/<EPIC-ID>-<epic-name-slug>/runtime-artifacts/audit.md`, so the trail stays complete.
 
 ---
 
@@ -288,7 +288,7 @@ On A or B, `runtime-artifacts/audit.md` and `runtime-artifacts/aire-state.md` ar
 Everything this skill produced so far exists only in the working tree. 🔴 **If it is not committed and pushed, the cycle PR will NOT carry the archive and workspace reset.**
 
 1. Stage the cycle-close changes:
-   - `aire-archives/<EPIC-ID>-<epic-name-slug>/` (the verified archive — includes the mirrored `spec/`, `reports/` and `runtime-artifacts/`)
+   - `forge-archives/<EPIC-ID>-<epic-name-slug>/` (the verified archive — includes the mirrored `spec/`, `reports/` and `runtime-artifacts/`)
    - The workspace-reset changes from Step 6 (deleted cycle-scoped docs, the deleted `reports/` tree, and the deleted `runtime-artifacts/` — including `audit.md` and `aire-state.md`)
    - The Step 5.5 collapse: `tests/.evals/config.json` (updated `ci.roots[]`/`manifestState`) and the deleted `tests/.evals/ci-manifest.d/*.json` fragment files
 2. Commit on the current (cycle) branch:
@@ -302,13 +302,13 @@ Everything this skill produced so far exists only in the working tree. 🔴 **If
       branch and will automatically include this commit.
       (yes / no)
    ```
-   On yes: push and verify (`git log origin/<cycle-branch> -1`). On no: warn that the archive + reset are not on origin until this commit is pushed. Log the answer and outcome by appending to the archived audit copy (`aire-archives/epics/<EPIC-ID>-<epic-name-slug>/runtime-artifacts/audit.md`).
+   On yes: push and verify (`git log origin/<cycle-branch> -1`). On no: warn that the archive + reset are not on origin until this commit is pushed. Log the answer and outcome by appending to the archived audit copy (`forge-archives/epics/<EPIC-ID>-<epic-name-slug>/runtime-artifacts/audit.md`).
 4. If a PR is open for this branch (`gh pr list --head <cycle-branch>`), confirm after pushing that the PR now includes the commit.
 5. **Update the PR description** so reviewers aren't surprised by the cycle-close diff: fetch the current body (`gh pr view <PR> --json body`) and append (via `gh pr edit <PR> --body ...`, never replacing the existing content):
    ```markdown
    ##  Cycle-Close Commit (added after PR creation)
    This PR also includes the cycle-close commit from `archive-epic`:
-   - **Added**: release archive at `aire-archives/<EPIC-ID>-<slug>/` (complete `spec/` + `reports/` + `runtime-artifacts/` snapshot incl. audit trail and state)
+   - **Added**: release archive at `forge-archives/<EPIC-ID>-<slug>/` (complete `spec/` + `reports/` + `runtime-artifacts/` snapshot incl. audit trail and state)
    - **Removed**: cycle-scoped working docs (spec/plans, spec/spec-generation, behavior, test-plans), the `reports/` tree, and `runtime-artifacts/` (`audit.md`, `aire-state.md`) — preserved in the archive above
    ```
 
@@ -319,7 +319,7 @@ Everything this skill produced so far exists only in the working tree. 🔴 **If
 ```markdown
 # Cycle Archive Complete
 
-- **Archive**: `aire-archives/<EPIC-ID>-<epic-name-slug>/`
+- **Archive**: `forge-archives/<EPIC-ID>-<epic-name-slug>/`
 - **Contents**: `spec/` (all planning/design artifacts, every work-unit `.feature`) + `reports/` (generated outputs) + `runtime-artifacts/` (audit.md, aire-state.md)
 - **Workspace**: [reset choice taken]
 - **Cycle-close commit**: [pushed to origin/<cycle-branch> — included in PR <URL> |  NOT pushed — push it so the archive reaches the base branch]

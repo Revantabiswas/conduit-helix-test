@@ -12,7 +12,7 @@
 
 ## MANDATORY: Rule Details Loading
 
-This workflow may be invoked standalone in a fresh session. Resolve the rule details directory (`aire-workflow/`) and load:
+This workflow may be invoked standalone in a fresh session. Resolve the rule details directory (`forge-workflow/`) and load:
 - `common/process-overview.md`, `common/session-continuity.md`, `common/content-validation.md`, `common/question-format-guide.md`
 - `common/branching-strategy.md` — **Bug Branch Model** section
 - `planning/workspace-detection.md`, `planning/reverse-engineering.md` (if RE runs), `planning/requirements-analysis.md`, `planning/workflow-planning.md`
@@ -95,7 +95,7 @@ workflow or by `bug-fix-implement`.**
 
 ## Step 3 — Reverse Engineering (CONDITIONAL — as-is)
 
-Exactly per the epic flow: if RE artifacts exist anywhere in the repo (or restorable from `aire-archives/epics/` or `aire-archives/bugs/` — workspace-detection Step 3 covers this), reuse them and skip. Otherwise run `planning/reverse-engineering.md` in full, with its approval gate. Log everything in runtime-artifacts/audit.md.
+Exactly per the epic flow: if RE artifacts exist anywhere in the repo (or restorable from `forge-archives/epics/` or `forge-archives/bugs/` — workspace-detection Step 3 covers this), reuse them and skip. Otherwise run `planning/reverse-engineering.md` in full, with its approval gate. Log everything in runtime-artifacts/audit.md.
 
 ## Step 4 — Requirements Analysis (as-is, bug-scoped)
 

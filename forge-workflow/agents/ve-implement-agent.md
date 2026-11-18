@@ -121,7 +121,7 @@ Wait for the user to select one story. **This table is shown ONLY when the track
 
 ### Step 4: Generate the Story's Test Plan Artifacts
 
-1. **Load `aire-workflow/implementation/test-plan.md` and execute it in full**, scoped to
+1. **Load `forge-workflow/implementation/test-plan.md` and execute it in full**, scoped to
    the selected story. That file is the authority for:
    - which test plans apply (integration, E2E, API, contract, security, performance,
      accessibility) — note there is **no build-verification artifact**; each plan instead opens

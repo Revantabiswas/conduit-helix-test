@@ -4,7 +4,7 @@
 
 ## MANDATORY: Rule Details Loading
 
-May be invoked standalone in a fresh session. Resolve `aire-workflow/` and load:
+May be invoked standalone in a fresh session. Resolve `forge-workflow/` and load:
 - `common/process-overview.md`, `common/session-continuity.md`, `common/content-validation.md`
 - `common/branching-strategy.md` — **Bug Branch Model** section
 - `implementation/code-generation.md` (planning/generation/coverage mechanics — story selection and story-branch steps do NOT apply here). 🔴 **Follow the Guardrail defined there (Generation Phase Rules)** for any generated code.
@@ -465,7 +465,7 @@ The ONLY permitted modification is substituting `<url>`, `<bug-branch>`, `<base-
         Where the Playwright Test Automation extension is enabled, ve-list-work's own output
           will point you at `/playwright-implement [TICKET-ID]` once manual steps exist — run it here,
           on `<bug-branch>`, same as an epic cycle.
-   4⃣  Use the skill archive-epic  on bug branch (bug mode → `aire-archives/bugs/<TICKET-ID>-<slug>/`)
+   4⃣  Use the skill archive-epic  on bug branch (bug mode → `forge-archives/bugs/<TICKET-ID>-<slug>/`)
        🔴 MUST happen while the [BUG] PR is still OPEN — its cycle-close archive commit rides that
           open PR onto `<base-branch>`. It generates NO RE delta and stitches nothing.
    5⃣  ONLY NOW merge the [BUG] PR into `<base-branch>`: <url> — this completes the cycle. The next

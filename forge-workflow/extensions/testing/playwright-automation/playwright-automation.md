@@ -24,7 +24,7 @@ exists in them. Backend/API test cases from the manual plan are **out of scope**
 and remain manual-only, full stop. Do not invent a parallel API-automation mechanism here.
 
 **Owner**: ve-adjacent. Loaded and executed by the **`/playwright-implement` skill**
-(`aire-workflow/agents/playwright-implement-agent.md`). Not a Implementation-phase stage; no
+(`forge-workflow/agents/playwright-implement-agent.md`). Not a Implementation-phase stage; no
 development workflow runs it.
 
 **🔴 ADDITIVE, NOT A REPLACEMENT.** `test-plan.md` / `/ve-implement` keep producing manual,
@@ -45,7 +45,7 @@ correct — set it to `Yes` — rather than a reason to refuse running.
 
 - The target story has an Approved Test Plan plan. **There is no file literally named
   `test-plan.md` generated per story** — that's the rule file
-  (`aire-workflow/implementation/test-plan.md`), not an artifact. Check instead:
+  (`forge-workflow/implementation/test-plan.md`), not an artifact. Check instead:
   1. `spec/test-plans/<TICKET-ID>-<title>/` exists and contains whichever of the actual generated
      artifacts apply per that rule's own Step 2 applicability table:
      `test-plan-summary.md`, `e2e-test-steps.md`, `integration-test-steps.md`,

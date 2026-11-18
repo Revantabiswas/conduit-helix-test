@@ -20,7 +20,7 @@ allowed-tools: Read Grep Glob Bash Write
 Load and execute the agent instructions from:
 
 ```
-aire-workflow/agents/code-security-review-agent.md
+forge-workflow/agents/code-security-review-agent.md
 ```
 
 Read that file completely and follow every step defined in it.

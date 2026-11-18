@@ -2,7 +2,7 @@
 
 ## MANDATORY: Rule Details Loading
 
-May be invoked standalone in a fresh session. Resolve `aire-workflow/` and load:
+May be invoked standalone in a fresh session. Resolve `forge-workflow/` and load:
 - `common/process-overview.md`, `common/session-continuity.md`, `common/content-validation.md`, `common/question-format-guide.md`
 - `common/branching-strategy.md` — **Bug Branch Model** section (the enhancement branch follows the same single-branch model, with the `enhancement/` prefix)
 - `planning/workspace-detection.md`, `planning/reverse-engineering.md` (if RE runs), `planning/requirements-analysis.md`, `planning/workflow-planning.md`
@@ -17,7 +17,7 @@ the epic flow loads them at its own STOP CHECKPOINT.
 🔴 **GUARDRAIL — `code-review` and `remediate` are WORKFLOW RULE FILES, NOT Claude skills.** Whenever this workflow "runs Code Review" or "runs Remediate", you MUST `Read` and follow `workflows/code-review.md` / `workflows/remediate.md` (which pull their detailed steps from `implementation/code-review.md` / `implementation/remediate.md`) as instructions. There is **NO** Claude skill named `code-review` or `remediate` — **NEVER** invoke one via the Skill tool. The only review that IS a skill is **`pr-review`** (post-PR, AUTO MODE, invoked as-is).
 - Extensions per CLAUDE.md's Extensions Loading rules (Security Baseline is ALWAYS mandatory)
 
-Skills used **as-is — NEVER edit them**: **`pr-generator`** (pass target branch = the **Base Branch**; PR type `[ENH]`), **`pr-review`** (AUTO MODE after the PR), and **`archive-epic`** in **cycle mode** (🔴 **NEVER auto-invoked by this workflow — the operator runs it manually** after all ve work has landed on the enhancement branch; archives under `aire-archives/enhancements/`; see Step 19).
+Skills used **as-is — NEVER edit them**: **`pr-generator`** (pass target branch = the **Base Branch**; PR type `[ENH]`), **`pr-review`** (AUTO MODE after the PR), and **`archive-epic`** in **cycle mode** (🔴 **NEVER auto-invoked by this workflow — the operator runs it manually** after all ve work has landed on the enhancement branch; archives under `forge-archives/enhancements/`; see Step 19).
 
 Display the welcome message (`common/welcome-message.md`) once at start. All CLAUDE.md audit-logging rules apply: log EVERY user input verbatim in `runtime-artifacts/audit.md` (append-only, ISO 8601 timestamps).
 
@@ -210,7 +210,7 @@ loop ONLY, and ONLY under option A or B; every other loop keeps the counter it a
 
 ## Step 3 — Reverse Engineering (CONDITIONAL — as-is)
 
-Exactly per the epic flow: if RE artifacts exist anywhere in the repo (or restorable from `aire-archives/`), reuse them and skip. Otherwise run `planning/reverse-engineering.md` in full, with its approval gate. Log everything in runtime-artifacts/audit.md.
+Exactly per the epic flow: if RE artifacts exist anywhere in the repo (or restorable from `forge-archives/`), reuse them and skip. Otherwise run `planning/reverse-engineering.md` in full, with its approval gate. Log everything in runtime-artifacts/audit.md.
 
 ## Step 4 — Requirements Analysis (as-is, enhancement-scoped)
 
@@ -619,7 +619,7 @@ The ONLY permitted modification is substituting `<url>`, `<enhancement-branch>`,
         Where the Playwright Test Automation extension is enabled, ve-list-work's own output
           will point you at `/playwright-implement [TICKET-ID]` once manual steps exist — run it here,
           on `<enhancement-branch>`, same as an epic cycle.
-   4⃣  Use the skill archive-epic  (enhancement mode → `aire-archives/enhancements/<TICKET-ID>-<slug>/`)
+   4⃣  Use the skill archive-epic  (enhancement mode → `forge-archives/enhancements/<TICKET-ID>-<slug>/`)
        🔴 MUST happen while the [ENH] PR is still OPEN — its cycle-close archive commit rides that
           open PR onto `<base-branch>`. It generates NO RE delta and stitches nothing.
    5⃣  ONLY NOW merge the [ENH] PR into `<base-branch>`: <url> — this completes the cycle. The next

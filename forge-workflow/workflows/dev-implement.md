@@ -152,7 +152,7 @@ loop ONLY, and ONLY under option A or B; every other loop keeps the counter it a
 
 ## MANDATORY: Rule Details Loading
 
-This workflow may be invoked standalone (the user just types `dev-implement`, possibly in a fresh session). Before doing anything else, resolve the rule details directory (check  `aire-workflow/`) and load:
+This workflow may be invoked standalone (the user just types `dev-implement`, possibly in a fresh session). Before doing anything else, resolve the rule details directory (check  `forge-workflow/`) and load:
 - `common/process-overview.md`, `common/session-continuity.md`, `common/content-validation.md`
 - The REQ-ID thread rules from `common/requirements-traceability.md` (plan-level trace + fallback coverage verification)
 - The eval rules from `common/eval-framework.md` (the Static Eval Gate D1–D7 at Step 1.5 Item 4.6 + Step 6.6, and the J1/J2 judge scores inside Section A)

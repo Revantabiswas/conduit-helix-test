@@ -33,13 +33,13 @@ allowed-tools: Read Grep Glob Bash Write Edit Agent
 Load and execute the agent instructions from:
 
 ```
-aire-workflow/agents/playwright-implement-agent.md
+forge-workflow/agents/playwright-implement-agent.md
 ```
 
 That file in turn loads and executes:
 
 ```
-aire-workflow/extensions/testing/playwright-automation/playwright-automation.md
+forge-workflow/extensions/testing/playwright-automation/playwright-automation.md
 ```
 
 Read both completely and follow every step defined in them, in order. Do not skip the Prerequisite

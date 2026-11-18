@@ -4,7 +4,7 @@
 
 ## 1. 🔴 Generated from the canonical templates — never hand-authored, never re-derived
 
-🔴 **The pipeline is not written by the model.** `templates/ci/` (this same `aire-workflow/`
+🔴 **The pipeline is not written by the model.** `templates/ci/` (this same `forge-workflow/`
 directory) holds the canonical, versioned source: `agentic-eval-pipeline.yml.template`, the
 `lib-manifest`/`read-manifest`/`ci-manifest-runner`/`run-static-evals`/`run-evals`/`auto-fix-agent`/
 `validate-pipeline`/`smoke-test-epic` scripts (`.sh` + `.ps1` — the first three are #7a's run-time

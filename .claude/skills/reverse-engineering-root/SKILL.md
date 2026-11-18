@@ -22,7 +22,7 @@ allowed-tools: Read Grep Glob Bash Write
 Load and execute the reverse engineering stage instructions from:
 
 ```
-aire-workflow/planning/reverse-engineering.md
+forge-workflow/planning/reverse-engineering.md
 ```
 
 Read that file completely and follow every step defined in it, applying its

@@ -20,7 +20,7 @@ read from the canonical line at runtime.
 
 ## MANDATORY: Rule Details Loading
 **CRITICAL**: When performing any phase, read and use the relevant rule detail files from
-**`aire-workflow/`**. Every rule-file reference below (e.g. `common/process-overview.md`) is
+**`forge-workflow/`**. Every rule-file reference below (e.g. `common/process-overview.md`) is
 relative to that directory.
 
 **Common Rules**: ALWAYS load common rules at workflow start:

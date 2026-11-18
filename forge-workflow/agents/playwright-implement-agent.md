@@ -131,7 +131,7 @@ restart the session once.
 
 ### Step 5: Run the Prerequisite Gate (Step 0) and the Seed Test Gate (Step 0d)
 
-Load `aire-workflow/extensions/testing/playwright-automation/playwright-automation.md` Steps 0
+Load `forge-workflow/extensions/testing/playwright-automation/playwright-automation.md` Steps 0
 and 0d in full and execute them exactly, from `<playwright-root>` — dependency/agent-scaffolding
 check (including the `.mcp.json` merge-not-overwrite handling), local server check, fixture-data
 checklist, then the Seed Test Gate. **Do not proceed past a failed check or an unconfirmed seed.**

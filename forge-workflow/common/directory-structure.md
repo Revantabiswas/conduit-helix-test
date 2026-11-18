@@ -125,8 +125,8 @@ this specific project** (see `common/ci-pipeline-generation.md`).
 ├── .github/workflows/
 │   └── agentic-eval-pipeline.yml         #  GENERATED for this project by ci-pipeline-generation.md
 │
-├── aire-workflow/                   #   THE FRAMEWORK ITSELF (this directory)
-│   ├── aire-workflow-diagram.md                  #    End-to-end flow diagrams for every cycle type
+├── forge-workflow/                   #   THE FRAMEWORK ITSELF (this directory)
+│   ├── forge-workflow-diagram.md                  #    End-to-end flow diagrams for every cycle type
 │   ├── common/                           #    Cross-cutting rules loaded by every stage
 │   ├── planning/                         #    Planning-phase stage rules
 │   ├── implementation/                   #    Implementation-phase stage rules
@@ -134,7 +134,7 @@ this specific project** (see `common/ci-pipeline-generation.md`).
 │   ├── agents/                           #    Sub-agent procedures
 │   └── extensions/                       #    Opt-in and mandatory rule extensions
 │
-├── aire-archives/                        #  Closed release cycles (archive-epic skill)
+├── forge-archives/                        #  Closed release cycles (archive-epic skill)
 │   └── epics|bugs|enhancements/<ID>-<name>/
 │       ├── spec/                        #    EXACT MIRROR of the live spec/ at cycle close —
 │       │                                 #    all docs, every work-unit .feature, context-project,

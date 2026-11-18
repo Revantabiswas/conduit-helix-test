@@ -467,7 +467,7 @@ code, branches, PRs, story status, or tracker status.
    ```
 2. **Resolve the test folder**: `spec/test-plans/<TICKET-ID>-<title-kebab>/` (or
    `spec/test-plans/story-<N.M>-<title-kebab>/` for a local-only story — see
-   `aire-workflow/implementation/test-plan.md` Output Location for the exact naming
+   `forge-workflow/implementation/test-plan.md` Output Location for the exact naming
    convention). If it doesn't exist, tell the user no test plan has been generated yet and point
    them at `/ve-implement <story>` — do NOT create one here.
 3. **Show the current plan** — read `test-plan-summary.md` from that folder and present its
@@ -481,7 +481,7 @@ code, branches, PRs, story status, or tracker status.
    [Answer]:
    ```
 5. **Apply the change** using the exact rules and format from
-   `aire-workflow/implementation/test-plan.md`:
+   `forge-workflow/implementation/test-plan.md`:
    - Every new/changed test case MUST use the `TC-[PLAN]-[nn]` format from that file's Step 3
      (Traces to / Type / Priority / Preconditions / Test data / Steps / Expected result /
      Pass-Fail criteria / Cleanup).
@@ -697,7 +697,7 @@ the ONLY files this skill writes.** Option A writes nothing at all.
   generated in `spec/test-plans/<TICKET-ID>-<title>/`.
 - 🔴 **Option C only edits `/ve-implement` test-plan artifacts** (Step 8) — new/changed test cases MUST
   follow the `TC-[PLAN]-[nn]` format and AC traceability rules in
-  `aire-workflow/implementation/test-plan.md`. It never changes story or tracker status.
+  `forge-workflow/implementation/test-plan.md`. It never changes story or tracker status.
 - 🔴 **Parent Epic transition is EPIC-CYCLE ONLY** (confirm-first, and only when every story is
   `🧪 Ready for Testing`); skip it silently on bug/enhancement cycles, on LOCAL, and when `## Tracker` records
   `Parent Epic: none`. Never raise/merge/close PRs, and never touch feature branches.

@@ -24,7 +24,7 @@ MUST NOT edit source code.
 
 ## MANDATORY: Rule Details Loading
 
-This workflow may be invoked standalone. Resolve the rule details directory  (check `aire-workflow/`) and load:
+This workflow may be invoked standalone. Resolve the rule details directory  (check `forge-workflow/`) and load:
 - `common/process-overview.md`, `common/session-continuity.md`, `common/content-validation.md`
 - The detailed reviewer steps from `implementation/code-review.md`
 - `agents/code-security-review-agent.md` — the automated Security Baseline review run in Phase 2.5, **scoped to the diff**. Its 🔴 Critical / 🟠 High findings on the changed surface become real `SEC-ISS-XXX` findings that drive the verdict and get auto-fixed by the remediate loop; 🟡/🔵 and pre-existing findings are advisory only. (The agent also loads `extensions/security/baseline/security-baseline.md` itself.)

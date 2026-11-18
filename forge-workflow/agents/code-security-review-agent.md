@@ -10,7 +10,7 @@ against the **AIRE Security Baseline** rules.
 **MANDATORY**: Before starting the review, read and load the complete security baseline rules from:
 
 ```
-aire-workflow/extensions/security/baseline/security-baseline.md
+forge-workflow/extensions/security/baseline/security-baseline.md
 ```
 
 These rules define mandatory SECURITY checks. You MUST check
@@ -66,7 +66,7 @@ Use **today's date**. If a report for today already exists, append a counter: `s
 
 **Date**: YYYY-MM-DD
 **Reviewer**: AI Security Audit (AIRE Security Baseline)
-**Rules Source**: `aire-workflow/extensions/security/baseline/security-baseline.md`
+**Rules Source**: `forge-workflow/extensions/security/baseline/security-baseline.md`
 **Project**: [project name from workspace]
 **Tech Stack**: [detected stack]
 **Scan Scope**: Full codebase
@@ -180,7 +180,7 @@ Use **today's date**. If a report for today already exists, append a counter: `s
 
 ### Methodology
 - Manual code review against AIRE Security Baseline (SECURITY-01 through SECURITY-16)
-- Rules source: `aire-workflow/extensions/security/baseline/security-baseline.md`
+- Rules source: `forge-workflow/extensions/security/baseline/security-baseline.md`
 - Each rule's verification criteria checked against all relevant source files
 
 ### Excluded from Scope

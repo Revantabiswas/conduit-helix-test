@@ -188,7 +188,7 @@ flowchart TD
     SYNC --> EPIC_PR["<b>Manually run pr-generator</b> (on epic branch)<br/>when Epic branch is up-to-date with all stories<br/>Raise/update EPIC PR → BASE BRANCH"]
     EPIC_PR --> GH_EPIC_FINAL[("GitHub:<br/>Epic PR → base branch<br/>(all story code included)")]
 
-    EPIC_PR --> ARCHIVE["<b>archive-epic (automatic) on epic branch </b><br/>1. Archive spec/ + reports/ + runtime-artifacts/ →<br/>   aire-archives/epics/EPIC-ID-name/<br/>   (no RE delta, no stitch)<br/>2. Commit + push on epic branch<br/>   (resides the open Epic PR)"]
+    EPIC_PR --> ARCHIVE["<b>archive-epic (automatic) on epic branch </b><br/>1. Archive spec/ + reports/ + runtime-artifacts/ →<br/>   forge-archives/epics/EPIC-ID-name/<br/>   (no RE delta, no stitch)<br/>2. Commit + push on epic branch<br/>   (resides the open Epic PR)"]
 
     ARCHIVE --> MERGE_EPIC["<b>User merges Epic PR</b><br/>into BASE BRANCH<br/>(human decision)"]
 
@@ -478,7 +478,7 @@ flowchart TD
     SYNC --> EPIC_PR["<b>Manually run pr-generator</b> (on epic branch)<br/>when Epic branch is up-to-date with all stories<br/>Raise/update EPIC PR → BASE BRANCH"]
     EPIC_PR --> GH_EPIC_FINAL[("GitHub:<br/>Epic PR → base branch<br/>(all story code included)")]
 
-    EPIC_PR --> ARCHIVE["<b>automatic archive-epic</b><br/>1. Archive spec/ + reports/ + runtime-artifacts/ →<br/>   aire-archives/epics/EPIC-ID-name/<br/>   (no RE delta, no stitch)<br/>2. Commit + push on epic branch<br/>   (resides the open Epic PR)"]
+    EPIC_PR --> ARCHIVE["<b>automatic archive-epic</b><br/>1. Archive spec/ + reports/ + runtime-artifacts/ →<br/>   forge-archives/epics/EPIC-ID-name/<br/>   (no RE delta, no stitch)<br/>2. Commit + push on epic branch<br/>   (resides the open Epic PR)"]
 
     ARCHIVE --> MERGE_EPIC["<b>User merges Epic PR</b><br/>into BASE BRANCH<br/>(human decision)"]
 
@@ -700,7 +700,7 @@ flowchart TD
 
     PR_REV --> veLAND["<b>Wait until all ve work via /ve-implement has landed on the bug branch.</b>"]
     veLAND --> SYNC
-    SYNC --> ARCHIVE["<b>MANUAL archive-epic (bug mode)</b><br/><i>User manually types <b>/archive-epic</b><br/>1. Archive spec/ + reports/ + runtime-artifacts/ →<br/><b>aire-archives/bugs/PROJ-123-slug/</b><br/>(no RE delta, no stitch)<br/>2. Commit + push on bug branch<br/>(archive resides the open [BUG] PR)<br/>MUST run BEFORE the [BUG] PR merges"]
+    SYNC --> ARCHIVE["<b>MANUAL archive-epic (bug mode)</b><br/><i>User manually types <b>/archive-epic</b><br/>1. Archive spec/ + reports/ + runtime-artifacts/ →<br/><b>forge-archives/bugs/PROJ-123-slug/</b><br/>(no RE delta, no stitch)<br/>2. Commit + push on bug branch<br/>(archive resides the open [BUG] PR)<br/>MUST run BEFORE the [BUG] PR merges"]
 
     ARCHIVE --> MERGE["<b>User merges [BUG] PR</b><br/>into BASE branch (manual)"]
     MERGE --> DONE
@@ -855,7 +855,7 @@ flowchart TD
 
     PR_REV --> veLAND["<b>Wait until all ve work via /ve-implement has landed on the enhancement branch</b>"]
     veLAND --> SYNC
-    SYNC --> ARCHIVE["<b>MANUAL archive-epic (enhancement cycle)</b><br/><i>User manually types <b>/archive-epic</b></i><br/>1. Archive spec/ + reports/ + runtime-artifacts/ →<br/><b>aire-archives/enhancements/PROJ-456-slug/</b><br/>(no RE delta, no stitch)<br/>2. Commit + push on enhancement branch<br/>(archive resides in the open [ENH] PR)<br/>MUST run BEFORE the [ENH] PR merges"]
+    SYNC --> ARCHIVE["<b>MANUAL archive-epic (enhancement cycle)</b><br/><i>User manually types <b>/archive-epic</b></i><br/>1. Archive spec/ + reports/ + runtime-artifacts/ →<br/><b>forge-archives/enhancements/PROJ-456-slug/</b><br/>(no RE delta, no stitch)<br/>2. Commit + push on enhancement branch<br/>(archive resides in the open [ENH] PR)<br/>MUST run BEFORE the [ENH] PR merges"]
 
     ARCHIVE --> MERGE["<b>User manually merges [ENH] PR</b><br/>into BASE branch"]
     MERGE --> DONE
@@ -1189,7 +1189,7 @@ flowchart TD
 
     DEV --> PRGEN["<b>Run pr-generator skill</b> on the epic branch Manually (automatic for bug or enhancement branch )<br/>Raises the Epic → Base or [BUG/ENH] → Base PR<br/><b>Epic PR</b> → auto-triggers archive-epic<br/><b>[BUG]/[ENH] PR</b> → archive is MANUAL"]
 
-    PRGEN --> ARCHIVE["<b>archive-epic</b><br/><b>AUTOMATIC</b> for epic cycles · <b>MANUAL</b> for bug/enhancement cycles<br/><i></i><br/>full spec/ + reports/ + runtime-artifacts/ snapshot →<br/>aire-archives/epics|bugs|enhancements/&lt;ID&gt;-&lt;name&gt;/<br/>(no RE delta, no stitch — the archive resides in the PR)"]
+    PRGEN --> ARCHIVE["<b>archive-epic</b><br/><b>AUTOMATIC</b> for epic cycles · <b>MANUAL</b> for bug/enhancement cycles<br/><i></i><br/>full spec/ + reports/ + runtime-artifacts/ snapshot →<br/>forge-archives/epics|bugs|enhancements/&lt;ID&gt;-&lt;name&gt;/<br/>(no RE delta, no stitch — the archive resides in the PR)"]
 
     ARCHIVE --> MERGE["<b>PR is merged manually by the user</b><br/>into the base branch"]
 
