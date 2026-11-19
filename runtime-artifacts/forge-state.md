@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Brownfield
 - **Start Date**: 2026-11-19T12:56:55Z
-- **Current Stage**: PLANNING - Dependency Graph complete; next Workflow Planning
+- **Current Stage**: Design complete — awaiting dev-implement
 - **Forge Framework Version**: 1.0
 
 ## Tracker
@@ -85,3 +85,26 @@ graph TD
 - Blocked stories: none
 - Note: only one story exists (user-confirmed, REQ coverage 9/9), so the team_size 2 parallelism target cannot apply: there is a single unit of work.
 - Jira note: project KAN's workflow has no "Ready for Development" status (statuses: To Do, In Progress, In Review, Done). KAN-28 stays in "To Do", used as the equivalent of Ready for Development.
+
+## Execution Plan Summary
+- Stages to execute: Behaviour Specs and Test Plans (at STOP CHECKPOINT), Code Generation via dev-implement
+- Stages to skip: Application Design, Functional Design, NFR Requirements, NFR Design, Infrastructure Design (single additive route, no new components, data or infrastructure)
+- Requirements coverage verified post-design: 9/9 REQ-IDs (all design stages skipped; no design artifact contradicts the stories) - 2026-11-19T13:03:07Z
+
+## CI/CD Configuration
+- Enabled: No
+- Source: user opt-out
+- Recorded: 2026-11-19T13:07:00Z
+
+## Architecture
+- spec/plans/architecture.md v1.0.0; tests/.evals/rubrics/architecture-rubric.json v1.0.0 (5 criteria, regenerated from Section 10); security-rubric.json and tests/.evals/config.json kept as-is (already present)
+
+## Behaviour Specs & Test Plans
+- **Work units covered**: 1
+- **Behaviour contracts**: spec/behavior/ — 1 file, 8 scenarios (spec/behavior.feature: no cross-unit journeys, recorded explicitly)
+- **Manual test plans**: spec/test-plans/ — 1 folder, 13 test cases
+- **AC coverage**: 5/5 (scenarios) · 5/5 (test cases)
+- **Approved**: 2026-11-19T13:07:18Z
+
+## Status
+- Design complete — awaiting dev-implement

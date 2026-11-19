@@ -110,3 +110,41 @@
 **Forge VERSION**: 1.0
 
 ---
+## Workflow Planning (automatic) and post-design coverage check
+**Timestamp**: 2026-11-19T13:03:07Z
+**User Email**: admin
+**User Input**: "(none)"
+**AI Response**: "Wrote spec/plans/executions.md. Risk Low. Skipped Application Design, Functional Design, NFR Requirements, NFR Design, Infrastructure Design (rationale in the file). All design stages skipped, so requirements coverage re-verified immediately: 9/9 REQ-IDs. Next: STOP CHECKPOINT Step 1.2 CI/CD opt-in question."
+**Context**: Workflow Planning Steps 7 to 9; requirements-traceability Rule 4
+**Forge VERSION**: 1.0
+
+---
+## STOP CHECKPOINT - CI/CD Opt-In (prompt presented)
+**Timestamp**: 2026-11-19T13:03:11Z
+**User Email**: admin
+**User Input**: "(none yet)"
+**AI Response**: "Design stages all skipped; reached the STOP CHECKPOINT. No .github/workflows/agentic-eval-pipeline.yml exists and no ## CI/CD Configuration is recorded, so asked: Set up the CI/CD eval pipeline for this project? (yes/no)"
+**Context**: STOP CHECKPOINT Step 1.2
+**Forge VERSION**: 1.0
+
+---
+## STOP CHECKPOINT - CI/CD opt-out, architecture, rubrics, behaviour specs, test plans
+**Timestamp**: 2026-11-19T13:07:00Z
+**User Email**: admin
+**User Input**: "no"
+**AI Response**: "CI/CD opt-out recorded; no pipeline, sonar or CI scripts generated. Wrote spec/plans/architecture.md v1.0.0 (5 verifiable constraints, weights sum 1.0). Regenerated tests/.evals/rubrics/architecture-rubric.json v1.0.0 mechanically from Section 10, replacing the previous cycle's rubric on this branch; kept security-rubric.json and config.json as-is. Wrote spec/behavior.feature (empty by design, single story) and spec/behavior/story-1.1.feature (8 scenarios). Invoked ve-implement in WORKFLOW MODE for story 1.1: spec/test-plans/KAN-28-confirm-deployed-backend-version/ (API 9 cases, Security 4; Integration, E2E, Contract, Performance, Accessibility N/A with reasons). Coverage check passed 5/5 for scenarios and test cases. Presenting the approval gate."
+**Context**: STOP CHECKPOINT Steps 1.2 to 1.7
+**Mode**: workflow (invoked by the STOP CHECKPOINT specs & test-plans stage) — no Verification Engineer approval, no Verification Engineer branch, no Verification Engineer PR
+**Approve / Request Changes checkpoint**: Approved (automatic — workflow mode, no Verification Engineer review)
+**Forge VERSION**: 1.0
+
+---
+## Behaviour Specs & Test Plans - approval (response received)
+**Timestamp**: 2026-11-19T13:07:18Z
+**User Email**: admin
+**User Input**: "Approve & Continue. Reviewer note: Auto-approved (autonomy: autopilot). Knowledge Hub is not used for this intent. Commit the approved artifacts on the current branch and push it to origin, following the framework's commit steps for this stage."
+**AI Response**: "Approved. Marked 'Design complete — awaiting dev-implement'. Committing spec/**, tests/.evals/** and state on the epic branch and pushing. Epic-level smoke test skipped and announced (CI/CD Enabled: No)."
+**Context**: STOP CHECKPOINT Steps 1.7 (approval), 2, 3, 4
+**Forge VERSION**: 1.0
+
+---
