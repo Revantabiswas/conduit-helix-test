@@ -1,0 +1,44 @@
+{
+  "rubricName": "Architectural Alignment — Conduit backend version endpoint (KAN-25)",
+  "rubricVersion": "1.0.0",
+  "derivedFrom": [
+    "spec/plans/architecture.md#10-verifiable-constraints"
+  ],
+  "evalCriteria": [
+    {
+      "id": "ARCH-01",
+      "metric": "Dedicated router mounted before the catch-all",
+      "weight": 0.25,
+      "prompt": "In the diff, the route handler is defined in a file under backend/routes/ (not inline in index.js) and the app.use line precedes the catch-all. Score 0 if the handler is inline in index.js or mounted after the catch-all.",
+      "source": "spec/plans/requirements.md (REQ-F-03, REQ-NF-02)"
+    },
+    {
+      "id": "ARCH-02",
+      "metric": "Version comes from package.json, once",
+      "weight": 0.25,
+      "prompt": "The version string in the changed code originates from a require or import of backend/package.json evaluated at module load, not inside the request handler. Score 0 for a hardcoded version literal, an env-var read, or a file read inside the handler.",
+      "source": "spec/plans/requirements.md (REQ-F-02, REQ-F-04, REQ-NF-04)"
+    },
+    {
+      "id": "ARCH-03",
+      "metric": "Public and stateless",
+      "weight": 0.2,
+      "prompt": "The changed version router does not reference verifyToken, any auth middleware, models, sequelize, or controllers. Score 0 if any appears.",
+      "source": "spec/plans/requirements.md (REQ-F-03)"
+    },
+    {
+      "id": "ARCH-04",
+      "metric": "Exact response contract",
+      "weight": 0.15,
+      "prompt": "The handler responds with res.json of an object with exactly those two keys and no others (no build metadata, no commit hash). Score 0 if any extra field is added or name differs.",
+      "source": "spec/plans/requirements.md (REQ-F-01, REQ-NF-03)"
+    },
+    {
+      "id": "ARCH-05",
+      "metric": "No new dependency",
+      "weight": 0.15,
+      "prompt": "The diff contains no change to dependencies or devDependencies in any package.json or lockfile. Score 0 on any such change.",
+      "source": "spec/plans/requirements.md (REQ-NF-01)"
+    }
+  ]
+}

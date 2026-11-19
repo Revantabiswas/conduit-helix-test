@@ -15,34 +15,34 @@
 ### Step 1: Load Reverse Engineering Context (if available)
 
 **IF brownfield project**:
-- Resolve the artifacts location: use `Reverse Engineering Artifacts: <path>` from `runtime-artifacts/aire-state.md` `## Workspace State` if recorded (artifacts may live anywhere in the repo); else default to `spec/plans/` (the flat RE docs, alongside `atlas-deep-dive.md`)
-- Load `<artifacts-path>/atlas-deep-dive.md`
+- Resolve the artifacts location: use `Reverse Engineering Artifacts: <path>` from `runtime-artifacts/forge-state.md` `## Workspace State` if recorded (artifacts may live anywhere in the repo); else default to `spec/plans/` (the flat RE docs, alongside `knowledge-hub-deep-dive.md`)
+- Load `<artifacts-path>/knowledge-hub-deep-dive.md`
 - Load `<artifacts-path>/component-inventory.md`
 - Load `<artifacts-path>/technology-stack.md`
 - Use these to understand existing system when analyzing request
 
 ### Step 1.5: Load Context Project Artifacts (if the user opted in)
 
-Read the `## Context Project` section in `runtime-artifacts/aire-state.md` (written during Workspace Detection):
+Read the `## Context Project` section in `runtime-artifacts/forge-state.md` (written during Workspace Detection):
 
-- **IF `Use Artifacts: Yes`**: read **only** the exact `Artifact Path` recorded there — do NOT scan the rest of `spec/context-project/existing-knowledge/`. Convert any non-markdown content to markdown as needed (see Step 4). These artifacts describe **how the CURRENT system works** (existing behavior, layout, module responsibilities) — use them as **background context** to ground your understanding of the codebase when analyzing the request; the WHAT-to-build still comes from the Epic brief (`epic-brief.md`). In the generated `requirements.md`, add a short **"Context Project artifacts consulted: `<path>`"** note for traceability.
-- **IF `Use Artifacts: No`** (or the section is absent): proceed with no context-project input.
+- **IF `Existing Knowledge: Yes`**: read **only** the exact `Existing Knowledge Path(s)` recorded there — do NOT scan the rest of `spec/context-project/existing-knowledge/`. Convert any non-markdown content to markdown as needed (see Step 4). These artifacts describe **how the CURRENT system works** (existing behavior, layout, module responsibilities) — use them as **background context** to ground your understanding of the codebase when analyzing the request; the WHAT-to-build still comes from the Epic brief (`epic-brief.md`). In the generated `requirements.md`, add a short **"Context Project artifacts consulted: `<path>`"** note for traceability.
+- **IF `Existing Knowledge: No`** (or the section is absent): proceed with no context-project input.
 
 ### Step 1.5b: Load Context References (if the user opted in)
 
-Read the `## Context References` section in `runtime-artifacts/aire-state.md` (written during Workspace Detection or ticket-implement):
+Read the `New References` fields of `## Context Project` in `runtime-artifacts/forge-state.md` (written during Workspace Detection or ticket-implement):
 
-- **IF `Use References: Yes`**: read **all** paths listed in `Reference Paths`. These are reference materials for the NEW work — UX wireframes, design mockups, API specs, research docs, architecture diagrams, etc. Use them as **primary inputs** that guide WHAT to build and HOW it should look/behave. For each path:
+- **IF `New References: Yes`**: read **all** paths listed in `New Reference Path(s)`. These are reference materials for the NEW work — UX wireframes, design mockups, API specs, research docs, architecture diagrams, etc. Use them as **primary inputs** that guide WHAT to build and HOW it should look/behave. For each path:
   - **UI wireframes / mockups / screenshots**: extract every control, layout, grouping, interaction, and visual element shown — these define the target UI
   - **API specs** (OpenAPI, Swagger, etc.): extract endpoints, schemas, request/response shapes — these define the target API surface
   - **Research docs / architecture diagrams**: extract relevant constraints, patterns, and decisions — these inform the system shape
   - Convert non-markdown content as needed (binary formats per DR-3 rules)
-- In the generated `requirements.md`, add a **"Context References consulted"** section listing each reference path, its type, and what was extracted from it for traceability.
-- **IF `Use References: No`** (or the section is absent): proceed with no new-references input.
+- In the generated `requirements.md`, add a **"New References consulted"** section listing each reference path, its type, and what was extracted from it for traceability.
+- **IF `New References: No`** (or the section is absent): proceed with no new-references input.
 
 ### Step 1.6: READ the Design References (MANDATORY — blocking)
 
-**Load `common/design-reference-grounding.md`.** Read the `## Design References` section in `runtime-artifacts/aire-state.md` (written at Workspace Detection Step 4.8).
+**Load `common/design-reference-grounding.md`.** Read the `## Design References` section in `runtime-artifacts/forge-state.md` (written at Workspace Detection Step 4.8).
 
 For **every** row with `Read? `, apply **DR-2** now — open the artifact's **actual content**, not just its path or its folder/file names:
 - **UI prototype** → open the `*.component.html` / `*.ts` / `*.css` (or equivalent) of the components in scope; extract real control types, grouping, labels, icons, interaction behaviour, and custom CSS classes
@@ -141,7 +141,7 @@ with no `*.opt-in.md` file at all — e.g. Security Baseline, Playwright Test Au
 mandatory per CLAUDE.md and have no question here at all.)
 
 After receiving answers:
-1. Record each extension's enablement status in `runtime-artifacts/aire-state.md` under `## Extension Configuration`:
+1. Record each extension's enablement status in `runtime-artifacts/forge-state.md` under `## Extension Configuration`:
 
 ```markdown
 ## Extension Configuration
@@ -171,7 +171,7 @@ Apply **DR-1 / DR-3 / DR-4** of `common/design-reference-grounding.md` to **ever
 
 **Trigger — mechanical, not judgement-based.** If an answer contains a filesystem path, a spec filename (`.docx`/`.xlsx`/`.pptx`/`.pdf`/`.fig`), a screenshot, or a design URL, then:
 
-1. **Register it** — add a row to `## Design References` in `runtime-artifacts/aire-state.md` (DR-1). **The answer's framing is irrelevant**: *"the design/HTML is already built at X"* (a statement of fact) is the SAME trigger as *"refer to X for the widget names"* (an instruction). Both are references you must read.
+1. **Register it** — add a row to `## Design References` in `runtime-artifacts/forge-state.md` (DR-1). **The answer's framing is irrelevant**: *"the design/HTML is already built at X"* (a statement of fact) is the SAME trigger as *"refer to X for the widget names"* (an instruction). Both are references you must read.
 2. **Read it NOW, in this stage** (DR-4) — an answer that points at a document is **not received** until that document has been read. Apply **DR-2**: open the real content; listing a prototype's component-folder **names**, or confirming the path exists, does NOT count as having read it.
 3. **Never record "deferred to a later stage"** as the resolution of an answer. If the user says the detail lives in a document, read the document now and fold its actual content into the answer and into `requirements.md`.
 4. If reading it reveals a contradiction with the Epic brief or an already-approved artifact, apply **DR-6** — follow the reference, state plainly what differed and that you followed it, and continue. Do NOT halt, do NOT raise a follow-up question about it.
@@ -199,11 +199,11 @@ Once the answers are in, read any documents they reference (Step 6.5) and procee
 
 ### Step 8: Update State Tracking
 
-Update `runtime-artifacts/aire-state.md`:
+Update `runtime-artifacts/forge-state.md`:
 
 ```markdown
 ## Stage Progress
-### 🔵 PLANNING PHASE
+### PLANNING PHASE
 - [x] Workspace Detection
 - [x] Reverse Engineering (if applicable)
 - [x] Requirements Analysis
@@ -245,16 +245,16 @@ Update `runtime-artifacts/aire-state.md`:
 
    - Wait for explicit user approval before proceeding
    - Record approval response with timestamp
-   - Update Requirements Analysis stage complete in runtime-artifacts/aire-state.md
+   - Update Requirements Analysis stage complete in runtime-artifacts/forge-state.md
    - Then execute Step 10 (Epic Branch Commit & Push) BEFORE moving to User Stories
 
 ### Step 10: Epic Branch Commit & Push (MANDATORY — immediately after requirements.md approval)
 
 **Runs only after the user has explicitly approved `requirements.md`.** The epic branch was already created at workflow start (Workspace Detection Step 4.5 → `common/branching-strategy.md` Section 1) — do NOT create a new branch here.
 
-1. Confirm the active branch is the **Epic Branch** recorded in `runtime-artifacts/aire-state.md` `## Branching` (`git branch --show-current`); switch to it if not.
+1. Confirm the active branch is the **Epic Branch** recorded in `runtime-artifacts/forge-state.md` `## Branching` (`git branch --show-current`); switch to it if not.
 2. Commit the Planning artifacts generated so far (`spec/` requirements, plans, state, audit) on the epic branch so the work is persisted.
 3. Push the epic branch to origin (`git push origin <epic-branch>`). **🔴 Do NOT raise an Epic → Base PR at this point.** The Epic PR is raised manually by the user at the end of the cycle (after all stories are developed, ve has approved them, and the epic branch is complete) via `pr-generator`. No PR is opened here.
 4. Log in `runtime-artifacts/audit.md`: commit hash and push confirmation, with timestamps.
-5. Update `## Branching` in `runtime-artifacts/aire-state.md`: `Epic PR: (not raised — raised manually at cycle end via pr-generator)`.
+5. Update `## Branching` in `runtime-artifacts/forge-state.md`: `Epic PR: (not raised — raised manually at cycle end via pr-generator)`.
 6. Then proceed to the **User Stories** stage (remaining on the epic branch).

@@ -3,7 +3,7 @@
 ## Overview
 **ALWAYS ENFORCED — no opt-in.** This extension has no `.opt-in.md` file, so per the extensions loading convention it is loaded at workflow start and enforced for every project. Never ask the user whether security rules should apply, and ignore any legacy `Security Baseline | No` row in `## Extension Configuration` (older projects captured before this became mandatory) — enforcement cannot be disabled.
 
-These security rules are MANDATORY cross-cutting constraints that apply across all aire phases. They are not optional guidance — they are hard constraints that stages MUST enforce when generating questions, producing design artifacts, generating code, and presenting completion messages.
+These security rules are MANDATORY cross-cutting constraints that apply across all forge phases. They are not optional guidance — they are hard constraints that stages MUST enforce when generating questions, producing design artifacts, generating code, and presenting completion messages.
 
 **Enforcement**: At each applicable stage, the model MUST verify compliance with these rules before presenting the stage completion message to the user.
 
@@ -325,7 +325,7 @@ Verification items in this document are plain bullet points describing complianc
 
 ## Enforcement Integration
 
-These rules are cross-cutting constraints that apply to every aire stage. At each stage:
+These rules are cross-cutting constraints that apply to every forge stage. At each stage:
 - Evaluate all SECURITY rule verification criteria against the artifacts produced
 - Include a "Security Compliance" section in the stage completion summary listing each rule as compliant, non-compliant, or N/A
 - If any rule is non-compliant, this is a blocking security finding — follow the blocking finding behavior defined in the Overview

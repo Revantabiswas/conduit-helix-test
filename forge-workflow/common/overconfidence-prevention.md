@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-aire was exhibiting overconfidence by not asking enough clarifying questions, even for complex project intent statements. This led to assumptions being made instead of gathering proper requirements.
+forge was exhibiting overconfidence by not asking enough clarifying questions, even for complex project intent statements. This led to assumptions being made instead of gathering proper requirements.
 
 ## Root Cause Analysis
 
@@ -90,10 +90,10 @@ These directives were telling the AI to avoid asking questions rather than encou
 ## Maintenance
 
 This guide should be referenced when:
-- Adding new stages to aire
+- Adding new stages to forge
 - Updating existing stage instructions
-- Reviewing aire performance for overconfidence issues
-- Training team members on aire question generation principles
+- Reviewing forge performance for overconfidence issues
+- Training team members on forge question generation principles
 
 ## Key Takeaway
 

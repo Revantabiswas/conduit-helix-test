@@ -8,7 +8,7 @@ only contribute to "Needs Work".
 
 ## Epic Checklist
 
-Derived from the AIRE intent-intake and intent-refinement quality bars.
+Derived from the Forge intent-intake and intent-refinement quality bars.
 
 ### Required
 
@@ -68,7 +68,7 @@ Derived from the AIRE intent-intake and intent-refinement quality bars.
 
 ## Story Checklist
 
-Derived from the AIRE user-stories standards and INVEST criteria.
+Derived from the Forge user-stories standards and INVEST criteria.
 
 ### Required
 

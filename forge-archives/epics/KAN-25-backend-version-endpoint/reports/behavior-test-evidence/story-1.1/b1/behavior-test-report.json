@@ -1,0 +1,1429 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "confirm-the-deployed-backend-version-with-one-request;version-request-returns-name-and-version",
+        "keyword": "Scenario",
+        "line": 8,
+        "name": "Version request returns name and version",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19801927
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 103253
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 117331
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1833806
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 795374
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 18128760
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 21898126
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1026191
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 18121896
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19752925
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 173864
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 3245998
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "the Conduit backend is running",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:74"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 649065
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "backend/package.json declares version \"1.0.0\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:79"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 3252392
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 9,
+            "name": "a client sends GET /api/version",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:126"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 370477
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "the response status is 200",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:130"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 370274
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "the response content type is JSON",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:134"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1342308
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "the response body is exactly {\"name\":\"conduit\",\"version\":\"1.0.0\"}",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:138"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 119759
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@AC-1",
+            "line": 7
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "confirm-the-deployed-backend-version-with-one-request;response-contains-no-extra-fields",
+        "keyword": "Scenario",
+        "line": 15,
+        "name": "Response contains no extra fields",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14408109
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 47162
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 23134
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 951608
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 774883
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14305072
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14631703
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 870619
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14517894
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17092110
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 37794
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 3741558
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "the Conduit backend is running",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:74"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 203085
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "backend/package.json declares version \"1.0.0\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:79"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 3175686
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 16,
+            "name": "a client sends GET /api/version",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:126"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 281365
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "the response body has exactly 2 fields, \"name\" and \"version\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:146"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 38487
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@AC-1",
+            "line": 14
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "confirm-the-deployed-backend-version-with-one-request;version-matches-package.json",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "Version matches package.json",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14729180
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 48637
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 25045
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 905690
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 848846
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 15430466
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 16790089
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1255616
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 16711954
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 18467736
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 41891
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2640251
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "the Conduit backend is running",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:74"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 219624
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "backend/package.json declares version \"1.0.0\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:79"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 217385682
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 21,
+            "name": "backend/package.json declares version \"2.3.4\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:79"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 3583407
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 22,
+            "name": "the backend starts and a client sends GET /api/version",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:152"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 331784
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "the response body version is \"2.3.4\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:156"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1488375
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@AC-2",
+            "line": 19
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "confirm-the-deployed-backend-version-with-one-request;backend-refuses-to-start-when-package.json-cannot-be-read",
+        "keyword": "Scenario",
+        "line": 26,
+        "name": "Backend refuses to start when package.json cannot be read",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19348568
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 50698
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 26472
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1023983
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 778706
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 16838788
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 16292035
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 888335
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 15229672
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 15014026
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 29255
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2969676
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "the Conduit backend is running",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:74"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 189405
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "backend/package.json declares version \"1.0.0\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:79"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 171758
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 27,
+            "name": "backend/package.json is missing or unreadable",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:122"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 166472090
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 28,
+            "name": "the backend starts",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:161"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 464625
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 29,
+            "name": "startup fails with an error",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:173"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 141885
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 30,
+            "name": "no request is served with a wrong version",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:178"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 34443
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@AC-2",
+            "line": 25
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "confirm-the-deployed-backend-version-with-one-request;no-credentials-needed",
+        "keyword": "Scenario",
+        "line": 33,
+        "name": "No credentials needed",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19594002
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 41396
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14432
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 682717
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 691149
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17746427
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 18626915
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 772887
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14627444
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 15387405
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 42940
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2574540
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "the Conduit backend is running",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:74"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 234185
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "backend/package.json declares version \"1.0.0\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:79"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 175764
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 34,
+            "name": "the request carries no Authorization header",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:118"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2764486
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "a client sends GET /api/version",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:126"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 132826
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the response status is 200",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:130"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 29804
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@AC-3",
+            "line": 32
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "confirm-the-deployed-backend-version-with-one-request;version-route-wins-over-the-catch-all-404",
+        "keyword": "Scenario",
+        "line": 39,
+        "name": "Version route wins over the catch-all 404",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 20217049
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 51895
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 23216
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 909008
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 802618
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 16824660
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17520747
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1067078
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17926797
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 15826961
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 29745
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2413704
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "the Conduit backend is running",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:74"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 172619
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "backend/package.json declares version \"1.0.0\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:79"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1645902
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 40,
+            "name": "a client sends GET /api/version",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:126"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 171302
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 41,
+            "name": "the response status is not 404",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:183"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2627359
+            },
+            "arguments": [],
+            "keyword": "But ",
+            "line": 42,
+            "name": "a GET to an unknown path such as /api/unknown still returns 404 with {\"errors\":{\"body\":[\"Not found\"]}}",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:187"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 34824
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@AC-3",
+            "line": 38
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "confirm-the-deployed-backend-version-with-one-request;unit-test-covers-the-endpoint",
+        "keyword": "Scenario",
+        "line": 45,
+        "name": "Unit test covers the endpoint",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19029179
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 32269
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13269
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 756112
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 713538
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17563937
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17411156
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 739387
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17325348
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17639826
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 51741
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2412103
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "the Conduit backend is running",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:74"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 151472
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "backend/package.json declares version \"1.0.0\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:79"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1847102281
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 46,
+            "name": "the repository's vitest suite for tests/unit/backend runs",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:196"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 395022
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 47,
+            "name": "the version unit test at tests/unit/backend/routes/version.test.js passes and asserts status, JSON content type, exact body, package.json match and no credentials",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:204"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 28188
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@AC-4",
+            "line": 44
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "confirm-the-deployed-backend-version-with-one-request;no-dependency-added-and-existing-routes-unchanged",
+        "keyword": "Scenario",
+        "line": 50,
+        "name": "No dependency added and existing routes unchanged",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14623646
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 35778
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13605
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 689794
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 807729
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 15294534
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 15868118
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1764303
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14662024
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17390249
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 30284
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2039652
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "the Conduit backend is running",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:74"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 151378
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "backend/package.json declares version \"1.0.0\"",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:79"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 11770076
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 51,
+            "name": "the change is reviewed",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:215"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 236823
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 52,
+            "name": "no package.json dependency or devDependency differs from before",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:226"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 7168886
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 53,
+            "name": "GET /api/tags still responds as before",
+            "match": {
+              "location": "tests/behavior/steps/story-1.1-version-endpoint_steps.js:230"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 26732
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@AC-5",
+            "line": 49
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "confirm-the-deployed-backend-version-with-one-request",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Confirm the deployed backend version with one request",
+    "tags": [],
+    "uri": "spec/behavior/story-1.1.feature"
+  }
+]

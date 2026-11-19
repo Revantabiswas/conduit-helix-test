@@ -1,6 +1,6 @@
 # Adaptive Depth
 
-**Purpose**: Explain how aire adapts detail level to problem complexity
+**Purpose**: Explain how forge adapts detail level to problem complexity
 
 ## Core Principle
 

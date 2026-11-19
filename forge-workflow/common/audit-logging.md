@@ -37,7 +37,7 @@ MUST NOT be confirmed with the user, and MUST NOT be cached in any file.
 
 ## 2. Timestamp Accuracy — ALL timestamps
 
-**CRITICAL**: Every timestamp in an AIRE artifact — `runtime-artifacts/audit.md` `**Timestamp**:`, `runtime-artifacts/aire-state.md`
+**CRITICAL**: Every timestamp in a Forge artifact — `runtime-artifacts/audit.md` `**Timestamp**:`, `runtime-artifacts/forge-state.md`
 `Start Date`/`Recorded`, Story Tracker `Start`/`End`/`Recorded`, `dependency-graph.yml`
 `generated_at`, `architecture.md` `Generated`, and any other dated field — MUST be sourced from a
 **real clock at the moment it is written**, in ISO 8601 (`YYYY-MM-DDTHH:MM:SSZ`).
@@ -76,7 +76,10 @@ reconstructing what happened. If verification is impossible, write that it could
 
 ## 4. File handling
 
-- **Path**: `runtime-artifacts/audit.md`.
+- **Path**: `runtime-artifacts/audit.md` — for integration-branch writers. A **work-unit writer** (a run
+  committing on its own story / `ve/…` branch, or on a bug/enhancement branch while ve work runs in
+  parallel) appends to `runtime-artifacts/stories/<unit-key>/audit.md` instead, with every rule in this
+  file unchanged plus a `**Unit**:` field (`common/parallel-work-state.md`).
 - **Creation**: if it does not exist, create it with an `# Audit Log` header before the first entry.
 - **Ordering**: ALWAYS append to the **END**, in strict chronological order (oldest → newest).
   🔴 Never prepend, never reorder, never rewrite an existing entry.
@@ -106,8 +109,8 @@ Local templates ADD fields to this; they never remove one.
 
 ```markdown
 **TRACKER ITEM**: "[Full tracker hyperlink, or the local Story ID]"
-**Epic Link**: "[Full Parent Epic URL from ## Tracker in runtime-artifacts/aire-state.md — or "none"]"
-**AIRE VERSION**: "[framework version [N], read live from the canonical line in CLAUDE.md]"
+**Epic Link**: "[Full Parent Epic URL from ## Tracker in runtime-artifacts/forge-state.md — or "none"]"
+**Forge VERSION**: "[framework version [N], read live from the canonical line in CLAUDE.md]"
 ```
 
 ### 5.2 Self-healing entries add

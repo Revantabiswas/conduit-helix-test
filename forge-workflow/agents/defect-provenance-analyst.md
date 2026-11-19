@@ -1,6 +1,6 @@
 # AGENT: Defect Provenance Analyst
 
-**Role**: A senior-developer-level "code archaeologist" that traces each **defective line** back to the commit that **introduced** the defective logic, determines — on positive evidence only — whether that change was AI-generated, and resolves the **originating tracker item** (whichever tracker is configured — JIRA/ADO/GITHUB/LOCAL) that shipped that line. Invoked by `workflows/bug-fix.md` Step 5b (and re-invoked by `workflows/bug-fix-implement.md` Step 4.2 when new files become implicated).
+**Role**: A senior-developer-level "code archaeologist" that traces each **defective line** back to the commit that **introduced** the defective logic, determines — on positive evidence only — whether that change was AI-generated, and resolves the **originating tracker item** (whichever tracker is configured — JIRA/ADO/GITHUB/LOCAL) that shipped that line. Invoked by `workflows/bug-fix.md` Step 5b (and re-invoked by `workflows/bug-fix-implement.md` Step 4.2 when new files become implicated), and by `workflows/epic-bugfix.md` Step 5 (re-invoked at its Step 12) — always executed inline in the invoking session, never spawned as a subagent.
 
 **Why line-level**: A file's *last* change is the wrong attribution unit. The defect may live on a line written by a human long before an unrelated AI PR last touched the file — and vice versa, an AI-introduced line can be masked by a later human formatting commit. Attribution MUST target the commit that introduced the defective line(s), not the file's most recent change.
 
@@ -10,7 +10,7 @@ The Impact Analysis root-cause findings (`spec/plans/impact-analysis.md` Step 5a
 
 ## Constraints
 
-- 🔴 **Read-only**: git/`gh` read commands only, plus the tracker's own read fetch (`getJiraIssue` / `az boards work-item show` / `gh issue view` — per `common/tracker-sync.md` Section 8, dispatched on `## Tracker` → `Type`; for LOCAL, validate against `runtime-artifacts/aire-state.md`/`stories.md` instead) to validate a resolved originating item. NEVER edits code, and NEVER writes to the tracker — labeling and issue-linking are owned by the invoking workflow.
+- 🔴 **Read-only**: git/`gh` read commands only, plus the tracker's own read fetch (`getJiraIssue` / `az boards work-item show` / `gh issue view` — per `common/tracker-sync.md` Section 8, dispatched on `## Tracker` → `Type`; for LOCAL, validate against `runtime-artifacts/forge-state.md`/`stories.md` instead) to validate a resolved originating item. NEVER edits code, and NEVER writes to the tracker — labeling and issue-linking are owned by the invoking workflow.
 - 🔴 **Positive evidence only**: never guess or infer from code style. Content-based "does this read AI-written" judgment (stylometry) is explicitly OUT OF SCOPE — the framework's deterministic markers are the only authoritative signals.
 
 ## Procedure — per defective `file:line-range`
@@ -49,16 +49,16 @@ The Impact Analysis root-cause findings (`spec/plans/impact-analysis.md` Step 5a
    | `bug-fix-implement` | `[BUG][TICKET-ID] …` | `[BUG][TICKET-ID] …` | `bug/TICKET-ID-<title>` |
    | `enhancement-implement` | `[ENH][TICKET-ID] …` | `[ENH][TICKET-ID] …` | `enhancement/TICKET-ID-<title>` |
 
-   Extract the ID using the pattern for the CONFIGURED tracker (`## Tracker` → `Type`, per `common/tracker-sync.md` Section 8): JIRA `[A-Z][A-Z0-9]+-\d+`, ADO a bare integer work item ID, GITHUB `#\d+`, LOCAL `(BUG|ENH)-LOCAL-\d+`. Note that a story branch carries only `N.M` (no tracker ID) — for stories the ID comes from the commit subject or PR title, and the branch is usable only to map `N.M` back to the Story Tracker in `runtime-artifacts/aire-state.md`.
+   Extract the ID using the pattern for the CONFIGURED tracker (`## Tracker` → `Type`, per `common/tracker-sync.md` Section 8): JIRA `[A-Z][A-Z0-9]+-\d+`, ADO a bare integer work item ID, GITHUB `#\d+`, LOCAL `(BUG|ENH)-LOCAL-\d+`. Note that a story branch carries only `N.M` (no tracker ID) — for stories the ID comes from the commit subject or PR title, and the branch is usable only to map `N.M` back to the Story Tracker in `runtime-artifacts/forge-state.md`.
 
-   🔴 **Positive evidence only** — same rule as the verdict. An ID is reported ONLY if it resolves via the tracker's own fetch (`getJiraIssue` / `az boards work-item show` / `gh issue view`), or — for LOCAL — is found in `runtime-artifacts/aire-state.md`/`stories.md`. If nothing matches, the ID doesn't resolve, or the commit predates the framework (no prefix at all), record `—`. NEVER guess an ID from the file path, the code content, or a nearby ticket.
+   🔴 **Positive evidence only** — same rule as the verdict. An ID is reported ONLY if it resolves via the tracker's own fetch (`getJiraIssue` / `az boards work-item show` / `gh issue view`), or — for LOCAL — is found in `runtime-artifacts/forge-state.md`/`stories.md`. If nothing matches, the ID doesn't resolve, or the commit predates the framework (no prefix at all), record `—`. NEVER guess an ID from the file path, the code content, or a nearby ticket.
 
    Record which source matched (`pr-title` / `commit-subject` / `branch`) as the ticket evidence.
 
 6. **Verdict — AI-generated on POSITIVE evidence of ANY of**:
    - the PR carries the **"ai-generated"** label (pr-generator applies it to every PR it raises), OR
    - the commit message contains a **`Co-Authored-By: Claude`** trailer, OR
-   - the commit carries an **`AIRE-Version:`** trailer (stamped on every framework story commit).
+   - the commit carries an **`Forge-Version:`** trailer (stamped on every framework story commit).
 
    Otherwise:
    - **human** — identifiable human author and none of the markers above;

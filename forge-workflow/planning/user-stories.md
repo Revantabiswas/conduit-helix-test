@@ -31,7 +31,7 @@ User Stories always execute for every software development request.
 **fixed framework default of `2`** — it exists only to set story granularity, and asking for it
 added a question whose answer barely changes the outcome.
 
-- Record `team_size: 2` in `runtime-artifacts/aire-state.md` without prompting. **The Dependency Graph
+- Record `team_size: 2` in `runtime-artifacts/forge-state.md` without prompting. **The Dependency Graph
   stage reuses this value — it is neither asked nor re-derived there.**
 - Tune story granularity to it: break the work into enough small, independent stories that **≥ 2**
   stories can run in parallel (unless the architecture genuinely makes parallelism impossible).
@@ -107,7 +107,7 @@ value on its own, keep the thinnest useful end-to-end slice instead of a pure-pl
 
 Before writing it into the plan, **do the analysis** so the suggestion is grounded, not arbitrary:
 - Read the Parent Epic brief (`spec/plans/epic-brief.md`) and `spec/plans/requirements.md` (if present).
-- Read `## Context References` in `runtime-artifacts/aire-state.md`. **IF `Use References: Yes`**, load all listed reference paths — UX wireframes inform story scope (one screen/flow per story), API specs inform endpoint boundaries, etc. Use them as inputs when counting capabilities and deciding story boundaries.
+- Read the `New References` fields of `## Context Project` in `runtime-artifacts/forge-state.md`. **IF `New References: Yes`**, load all listed reference paths — UX wireframes inform story scope (one screen/flow per story), API specs inform endpoint boundaries, etc. Use them as inputs when counting capabilities and deciding story boundaries.
 - Count the distinct capabilities / functional requirements (REQ-IDs), user journeys, and personas involved, and gauge their complexity.
 - **Apply the Step 1.5 Story Slicing Rules (SPIDR) to that count** — for each capability, count how many separate Rules / Paths / Interfaces / Data-variations / Steps / CRUD-verbs it contains; each becomes its own candidate story rather than a sub-bullet of one larger story.
 - Compute a **recommended story count** that (a) keeps each story small, single-purpose, and INVEST-compliant against the Step 1.5 hard sizing ceilings, and (b) yields **≥ `team_size` (= 2) independently workable stories** so no developer is left idle.
@@ -130,7 +130,7 @@ Embed EXACTLY this question in the plan (fill in the computed values — never l
 
 - **ALWAYS compute and show a concrete recommended number `[X]` and the reasons** — never present this as an open-ended question with no suggestion.
 - When the user accepts, use `[X]`. If the user gives a different number, use theirs — but if it would break the parallelism rule (fewer than `team_size` independent stories) or force oversized/undersized stories, flag the trade-off during Step 9/10 analysis and confirm before generation.
-- Record the agreed value as `target_story_count` in `runtime-artifacts/aire-state.md`. The Generation phase (Part 2) MUST create this many stories (adjusting only if Step 9/10 analysis or the Step 18.5 coverage check proves a different count is required — log any deviation and its reason in runtime-artifacts/audit.md).
+- Record the agreed value as `target_story_count` in `runtime-artifacts/forge-state.md`. The Generation phase (Part 2) MUST create this many stories (adjusting only if Step 9/10 analysis or the Step 18.5 coverage check proves a different count is required — log any deviation and its reason in runtime-artifacts/audit.md).
 
 **Question categories to evaluate** (consider ALL categories):
 - **User Personas** - Ask about user types, roles, characteristics, and motivations
@@ -244,9 +244,9 @@ Only the Step 12 auto-approval note is logged here. This stage records no approv
 
 **🔴 Do NOT ask how the stories should be created.** The mode is a **fixed framework default:
 `all-at-once`** — every story is generated together in a single pass, with no per-story approval
-loop and no final story-set approval.
+loop. The complete set then goes through **GATE 1** (Step 21), the one story-set approval.
 
-- [ ] Record `story_creation_mode: all-at-once` in `runtime-artifacts/aire-state.md` without prompting.
+- [ ] Record `story_creation_mode: all-at-once` in `runtime-artifacts/forge-state.md` without prompting.
 - [ ] Log in `runtime-artifacts/audit.md` that the mode was defaulted to `all-at-once` (no question presented).
 - [ ] The one-by-one mode no longer exists — never present an A/B choice here, and never pause
       between stories for approval.
@@ -263,22 +263,22 @@ loop and no final story-set approval.
 - [ ] Use the story breakdown approach specified in the plan
 - [ ] **Generate ALL stories together in one pass** (`story_creation_mode: all-at-once`, Step 14.5) — never one at a time, never pausing for a per-story approval:
 
-** Epic header rule (BOTH creation modes — applies when stories.md is first created)**:
+** Epic header rule (applies when stories.md is first created)**:
 - [ ] The VERY FIRST line of `spec/plans/stories.md` MUST be the Parent Epic header:
   ```markdown
   EPIC TICKET: [full Epic URL/reference, e.g. https://<site>.atlassian.net/browse/PROJ-50, or a local description for LOCAL]
   ```
-  Read the Epic URL from `## Tracker` in `runtime-artifacts/aire-state.md` (Epic URL line). If no Parent Epic is recorded at creation time, write `EPIC TICKET: none (no Parent Epic recorded)` — and when an Epic is later resolved during the tracker push (Step 25), UPDATE this header line with the full Epic URL/reference in the same interaction. All stories are appended BELOW this header.
+  Read the Epic URL from `## Tracker` in `runtime-artifacts/forge-state.md` (Epic URL line). If no Parent Epic is recorded at creation time, write `EPIC TICKET: none (no Parent Epic recorded)` — and when an Epic is later resolved during the tracker push (Step 25), UPDATE this header line with the full Epic URL/reference in the same interaction. All stories are appended BELOW this header.
 
-** Requirements traceability rule (BOTH creation modes — applies to every story generated)**:
+** Requirements traceability rule (applies to every story generated)**:
 - [ ] EVERY story written to `stories.md` carries a `**Covers**: REQ-F-xx, REQ-NF-yy` line naming the requirement IDs from `spec/plans/requirements.md` its acceptance criteria implement (`common/requirements-traceability.md` Rule 2). A story with an empty `Covers` is invalid — fix it before presenting the story. For multi-requirement stories, an AC-level breakdown (`AC-n → REQ-ID`) is encouraged. When a requirement is split across stories for parallelism, the integration behavior between the slices MUST be owned by an explicit AC on one of them.
 
-- [ ] Generate ALL stories together in one pass, write them to `stories.md` beneath the Epic header, then continue to Step 17. **No approval is requested at any point** — the complete set is announced at Step 20 and pushed to the configured tracker automatically (Part 3).
+- [ ] Generate ALL stories together in one pass, write them to `stories.md` beneath the Epic header, then continue to Step 17. No per-story approval is requested — the complete set is announced at Step 20 and waits for **GATE 1** (Step 21); only after "Approve & Continue" is it pushed to the configured tracker (Part 3).
 
 ## Step 17: Update Progress
 - [ ] Mark the completed step as [x] in the story generation plan
-- [ ] Update `runtime-artifacts/aire-state.md` current status
-- [ ] **Populate the Story Tracker**: add one row per generated story to the `## Story Tracker` table in `runtime-artifacts/aire-state.md`. Columns: Story ID, Title, **Requires = `TBD`** (assigned next stage), `Tracker ID` = `—`, `Status` = `🟢 Ready for Development` (the initial status for every new story), Start/End blank, `Recorded` = current timestamp. Use the table format defined in `planning/dependency-graph-generation.md` (Story Tracker Table Format section).
+- [ ] Update `runtime-artifacts/forge-state.md` current status
+- [ ] **Populate the Story Tracker**: add one row per generated story to the `## Story Tracker` table in `runtime-artifacts/forge-state.md`. Columns: Story ID, Title, **Requires = `TBD`** (assigned next stage), `Tracker ID` = `—`, `Status` = `Ready for Development` (the initial status for every new story), Start/End blank, `Recorded` = current timestamp. Use the table format defined in `planning/dependency-graph-generation.md` (Story Tracker Table Format section).
 - [ ] Save all generated artifacts
 
 ## Step 18: Continue or Complete Generation
@@ -338,7 +338,7 @@ that the plan intended it to.
      3. **Formatted Workflow Message** (mandatory): Always end with this exact format:
 
 ```markdown
-> ** <u>**REVIEW REQUIRED:**</u>**  
+> **<u>REVIEW REQUIRED:</u>**  
 > The user stories and personas are at: `spec/plans/stories.md` and `spec/plans/personas.md`
 
 > ** <u>**WHAT'S NEXT?**</u>**
@@ -363,7 +363,7 @@ that the plan intended it to.
 - Only once "Approve & Continue" is recorded does this stage's approval gate count as passed.
 
 ## Step 23: Update Progress
-- Mark User Stories stage complete in `runtime-artifacts/aire-state.md` (only after GATE 1 is approved)
+- Mark User Stories stage complete in `runtime-artifacts/forge-state.md` (only after GATE 1 is approved)
 - Update the "Current Status" section
 - Prepare for transition to **Part 3 (Push to Tracker)**, then the **Dependency Graph** stage
 
@@ -375,11 +375,11 @@ explicitly approved**, the stories are pushed to the configured tracker **automa
 further "push? yes/no" question, no project-key confirmation, and no issue-type question (those were
 already covered by the GATE 1 approval).
 Every step below dispatches on `## Tracker` → `Type` in
-`runtime-artifacts/aire-state.md` — read `common/tracker-sync.md` Section 3 (issue creation), Section 4 (status
+`runtime-artifacts/forge-state.md` — read `common/tracker-sync.md` Section 3 (issue creation), Section 4 (status
 transition), and Section 6 (Parent Epic linking) before executing this Part; those sections are the single
 source of truth for the actual per-tracker commands, not re-derived here.
 
-> **Note**: This pushes **stories** and links each one to the **Parent Epic** — the existing Epic the user provided at workflow start (stored in `runtime-artifacts/aire-state.md` under `## Tracker`). **When `Type: LOCAL`, this whole Part is a no-op announcement** — stories stay in `stories.md` + the Story Tracker only, `Tracker ID` is set to `LOCAL`, and Steps 24–28 below are skipped in favor of a single announcement (see the LOCAL block at the end of Step 24).
+> **Note**: This pushes **stories** and links each one to the **Parent Epic** — the existing Epic the user provided at workflow start (stored in `runtime-artifacts/forge-state.md` under `## Tracker`). **When `Type: LOCAL`, this whole Part is a no-op announcement** — stories stay in `stories.md` + the Story Tracker only, `Tracker ID` is set to `LOCAL`, and Steps 24–28 below are skipped in favor of a single announcement (see the LOCAL block at the end of Step 24).
 
 ## Step 24: Push After Approval (no further question)
 - [ ] Log in `runtime-artifacts/audit.md` with timestamp that the tracker push is starting because GATE 1 was approved (reference the Step 22 approval entry).
@@ -387,7 +387,7 @@ source of truth for the actual per-tracker commands, not re-derived here.
   ```
    [N] user stories approved — pushing to [TRACKER TYPE] now.
      Project/Repo: [PROJECT_KEY / org-repo / org-project] | Issue type: Story
-     [Include this line ONLY if runtime-artifacts/aire-state.md `## Tracker` records a Parent Epic:
+     [Include this line ONLY if runtime-artifacts/forge-state.md `## Tracker` records a Parent Epic:
       "Each story will be linked to Parent Epic [EPIC-ID]."]
   ```
   **For LOCAL**, announce instead and STOP this Part here (skip Steps 25–28 entirely):
@@ -398,7 +398,7 @@ source of truth for the actual per-tracker commands, not re-derived here.
 - [ ] For JIRA/ADO/GITHUB, proceed straight to Step 25. **Never ask "push these stories? (yes/no)".**
 
 ## Step 25: Resolve the Parent Epic & Tracker Target (automatic — derive, verify, do NOT confirm)
-- [ ] **Read the Parent Epic** from `runtime-artifacts/aire-state.md` `## Tracker` (Type + Epic ID + URL + Project Key / Repo / Org). This works even in a brand-new chat — the Epic was stored at workflow start.
+- [ ] **Read the Parent Epic** from `runtime-artifacts/forge-state.md` `## Tracker` (Type + Epic ID + URL + Project Key / Repo / Org). This works even in a brand-new chat — the Epic was stored at workflow start.
 - [ ] **Project/Repo identifier — derive, never ask**: take it from the Epic key/reference (e.g., JIRA `PROJ-50` → `PROJ`), or reuse the value already recorded in `## Tracker`. **Do NOT ask the user to confirm it.** Announce the derived value in the Step 24 message.
 - [ ] **Issue type — fixed default `Story`** (or the tracker's nearest native equivalent — ADO's `User Story`, GitHub's plain issue). Do NOT ask. Only if the project genuinely has no matching type (verified via the tracker's own metadata query — `getJiraProjectIssueTypesMetadata` for JIRA) fall back to the nearest equivalent, announce the substitution, and log it.
 - [ ] **Verify the Epic exists** using the fetch mechanism for the configured type (`common/tracker-sync.md` Section 2). If it cannot be fetched, STOP and report — do not push stories against an unverified Epic.
@@ -411,9 +411,9 @@ source of truth for the actual per-tracker commands, not re-derived here.
 
 ## Step 26: Create Issues (dispatch per Tracker Type)
 - [ ] For each story, create an issue using the mechanism for the configured type, per `common/tracker-sync.md` Section 3:
-  - **JIRA**: `createJiraIssue` (Atlassian MCP) — issueType Story, summary = story title, description = story narrative + acceptance criteria + persona (Markdown with REAL line breaks, never literal `\n` escapes; Rovo converts Markdown → ADF), ending with a footer line `---` then `Built with AIRE v[N]` ([N] read live from CLAUDE.md). Labels: `[aire, aire-v[N]]`. **Mandatory fixed fields** — always set, never asked, never varied per story: Component = `default`, Organization = `All Orgs`, Severity = `Low`. These may be custom fields — if `createJiraIssue` rejects them by name, call `getJiraIssueTypeMetaWithFields` to resolve their field IDs and retry. Never skip them.
-  - **ADO**: `az boards work-item create --type "User Story"` with the AC as an HTML checklist field and `System.Tags` including `ai-generated;aire;aire-v[N]`, per `common/tracker-sync.md` Section 3.
-  - **GITHUB**: `gh issue create` with labels `story`, `ai-generated`, `aire-v[N]`, `status:ready-for-dev`, and `--milestone` set to the Parent Epic's milestone title, per `common/tracker-sync.md` Section 3.
+  - **JIRA**: `createJiraIssue` (Atlassian MCP) — issueType Story, summary = story title, description = story narrative + acceptance criteria + persona (Markdown with REAL line breaks, never literal `\n` escapes; Rovo converts Markdown → ADF), ending with a footer line `---` then `Built with Forge v[N]` ([N] read live from CLAUDE.md). Labels: `[forge, forge-v[N]]`. **Mandatory fixed fields** — always set, never asked, never varied per story: Component = `default`, Organization = `All Orgs`, Severity = `Low`. These may be custom fields — if `createJiraIssue` rejects them by name, call `getJiraIssueTypeMetaWithFields` to resolve their field IDs and retry. Never skip them.
+  - **ADO**: `az boards work-item create --type "User Story"` with the AC as an HTML checklist field and `System.Tags` including `ai-generated;forge;forge-v[N]`, per `common/tracker-sync.md` Section 3.
+  - **GITHUB**: `gh issue create` with labels `story`, `ai-generated`, `forge-v[N]`, `status:ready-for-dev`, and `--milestone` set to the Parent Epic's milestone title, per `common/tracker-sync.md` Section 3.
   - **LOCAL**: not reached — Part 3 already stopped at Step 24.
 - [ ] **VERIFY** each creation succeeded; capture the returned issue key/number/ID.
 - [ ] If a creation fails, STOP, report the error, and do not silently continue.
@@ -437,12 +437,12 @@ source of truth for the actual per-tracker commands, not re-derived here.
 ## Step 27: Write Keys Back
 - [ ] In `spec/plans/stories.md`, annotate each story with its Tracker ID and link (`**Tracker ID**: PROJ-123` + URL, or the ADO/GitHub equivalent).
 - [ ] Verify the `EPIC TICKET:` header at the TOP of stories.md carries the resolved Parent Epic's full URL/reference — update it now if it still reads `none` (or leave `none` only if the user explicitly chose "none" at push time).
-- [ ] In the `## Story Tracker` of `runtime-artifacts/aire-state.md`, set each story's `Tracker ID` column to its key/number/ID and update `Recorded` to the current timestamp.
+- [ ] In the `## Story Tracker` of `runtime-artifacts/forge-state.md`, set each story's `Tracker ID` column to its key/number/ID and update `Recorded` to the current timestamp.
 - [ ] Confirm to the user: list each Story ID → Tracker ID.
 
 ## Step 28: Log the Push
 - [ ] Append to `runtime-artifacts/audit.md`: that the push ran automatically after story generation, the PROJECT_KEY (and how it was derived), the Parent Epic key, the created issue keys, the transitions applied, and the story→Epic links, with timestamps.
-- [ ] **No confirmation is required in this turn** — the push is part of the automatic story stage. Everything created is still **verified** after the fact (Steps 26/26a/26b) and any failure STOPS the run and is reported. For LOCAL, log that the push was skipped by design (Type: LOCAL) instead.
+- [ ] **No further confirmation is asked** — GATE 1 approval already authorised the push. Everything created is still **verified** after the fact (Steps 26/26a/26b) and any failure STOPS the run and is reported. For LOCAL, log that the push was skipped by design (Type: LOCAL) instead.
 
 ---
 

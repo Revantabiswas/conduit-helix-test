@@ -1,0 +1,15 @@
+(node:4194) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4207) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:4207) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/tests/behavior/steps/epic_journeys_steps.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /workspace/package.json.
+(node:4207) [DEP0170] DeprecationWarning: The URL sqlite::memory: is invalid. Future versions of Node.js will throw an error.
+..................................................................................................................................................
+
+10 hooks (10 passed)
+8 scenarios (8 passed)
+136 steps (136 passed)
+0m 3.805s (0m 3.712s executing your code)
+exit=0

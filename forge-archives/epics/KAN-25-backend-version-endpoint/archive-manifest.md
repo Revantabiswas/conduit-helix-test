@@ -1,0 +1,11 @@
+# Cycle Archive Manifest
+- **Cycle**: KAN-25 — Backend version endpoint (epic)
+- **Archived**: 2026-11-19T16:43:55Z
+- **Stories**: 1 (1 Ready for Testing, 0 other)
+- **Analyzed At Commit**: 9b7f05161f1168a7de752bf207f6efbb9b54e570
+- **Archived Files**: 101 files, 980K (complete recursive mirror of `spec/` + `reports/` + `runtime-artifacts/` + `tests/.evals/rubrics/`; verified equal to the live trees by diff -r and by relative-path diffs, all empty)
+- **Rubrics**: architecture-rubric.json v1.0.0 · security-rubric.json v1.0.0
+- **Contents**: spec/ docs · reports/ outputs present · runtime-artifacts/ state present · 3 work-unit fragments under runtime-artifacts/stories (story-1.1 of this cycle; KAN-19-upgrade-nextjs-tooling and KAN-22-stale-notification-badge left over from earlier cycles, archived as found) · context-project present (empty folders, no files) · new-references present (empty)
+- **Verification Engineer Artifacts**: test folders present: spec/test-plans/KAN-28-confirm-deployed-backend-version/ (sign-off was done by the AI agent under AI Studio autopilot, not by a human tester; see runtime-artifacts/audit.md)
+- **Delta**: spec/plans/delta/KAN-25-backend-version-endpoint/delta.md (5 changed surfaces, commit range c2b3780..9b7f051); pending until /stitch-delta publishes it
+- **Known Gaps**: none for archive completeness. Open items recorded in the cycle: advisory SEC-002 (no rate limiting on the new public route) needs a human decision; knowledge-hub-deep-dive.md was derived locally and never published to Knowledge Hub; the PR diff against main includes the Forge framework copy commit 88d4e6a.
