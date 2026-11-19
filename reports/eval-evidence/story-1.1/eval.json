@@ -1,0 +1,56 @@
+{
+  "key": "story-1.1", "trackerId": "KAN-28",
+  "evalFrameworkVersion": "1.0.0", "rubricVersion": "1.0.0",
+  "judgeModel": "claude-sonnet-5-5", "scope": "changed-files", "changedFiles": 10,
+  "generated": "2026-11-19T13:28:12Z",
+  "bootstrap": {
+    "created": [],
+    "reused": [
+      { "check": "D1_lint", "path": "eslint.config.js", "note": "repo's own config, used as-is" },
+      { "check": "D6_complexity", "path": "eslint.config.js", "note": "complexity rule already set to 12" },
+      { "check": "D7_secrets", "path": ".gitleaks.toml", "note": "repo's own config, used as-is" }
+    ]
+  },
+  "toolchain": {
+    "eslint": "9.39.5", "semgrep": "1.127.0", "gitleaks": "8.21.2", "npm": "10.9.9", "vitest": "4.1.11",
+    "cucumber-js": "13.2.1", "node": "v22.23.5", "license-checker": "npx latest", "podman": "not installed"
+  },
+  "gates": {
+    "D1_lint": { "status": "PASS", "newFindings": 0 },
+    "D2_types": { "status": "N/A", "reason": "backend is plain JavaScript with no tsconfig; no type checker applies to this stack" },
+    "D3_sast": { "status": "PASS", "new": { "critical": 0, "high": 0, "medium": 0 }, "sonarqube": { "enabled": false } },
+    "D4_deps": { "status": "PASS", "new": { "critical": 0, "high": 0 } },
+    "D5_licenses": { "status": "PASS", "violations": [] },
+    "D6_complexity": { "status": "PASS", "maxChanged": 1, "threshold": 12 },
+    "D7_secrets": { "status": "PASS", "findings": 0 },
+    "unitCoverage": { "status": "PASS", "value": 100.0, "threshold": 90.0 },
+    "behaviorB1": { "status": "PASS", "scenarios": "8/8", "acsCovered": "5/5", "containerised": false, "reason": "podman not installed" },
+    "behaviorB2": { "status": "N/A", "reason": "the repository holds no other feature file besides this unit's own and the empty cross-unit journeys file" },
+    "behaviorB3": { "status": "PASS", "scenarios": "8/8", "containerised": false, "reason": "podman not installed; last and only work unit" },
+    "apiContract": { "status": "PASS", "endpoints": 1 },
+    "regression": { "status": "PASS", "newFailures": 0 },
+    "J1_architecture": { "status": "PASS", "score": 1.0, "min": 0.85, "rubricSource": "architecture.md#10",
+      "criteria": [
+        { "id": "ARCH-01", "weight": 0.25, "score": 1.0 },
+        { "id": "ARCH-02", "weight": 0.25, "score": 1.0 },
+        { "id": "ARCH-03", "weight": 0.20, "score": 1.0 },
+        { "id": "ARCH-04", "weight": 0.15, "score": 1.0 },
+        { "id": "ARCH-05", "weight": 0.15, "score": 1.0 }
+      ] },
+    "J2_security": { "status": "PASS", "score": 1.0, "min": 0.85,
+      "criteria": [
+        { "id": "SEC-03", "owasp": "A05:2025", "weight": 0.15, "score": 1.0 },
+        { "id": "SEC-05", "owasp": "A02:2025", "weight": 0.10, "score": 1.0 },
+        { "id": "SEC-07", "owasp": "A10:2025", "weight": 0.10, "score": 1.0 }
+      ] }
+  },
+  "selfHealing": {
+    "SH-LOOP-1": { "attempts": 0, "budget": 3 }, "SH-LOOP-2": { "attempts": 0, "budget": 3 },
+    "SH-LOOP-3": { "attempts": 0, "budget": 3 }, "SH-LOOP-4": { "attempts": 0, "budget": 3 },
+    "SH-LOOP-5": { "attempts": 0, "budget": 3 }, "SH-LOOP-6": { "attempts": 0, "budget": 3 },
+    "SH-LOOP-7": { "attempts": 0, "budget": 3 }, "SH-LOOP-8": { "attempts": 0, "budget": 3 },
+    "SH-LOOP-12": { "attempts": 0, "budget": 3 }, "SH-LOOP-16": { "attempts": 0, "budget": 3 }
+  },
+  "checksRun": 6, "checksTotal": 7, "checksNA": ["D2_types"],
+  "verdict": "PASS"
+}

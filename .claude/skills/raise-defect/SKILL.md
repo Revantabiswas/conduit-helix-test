@@ -1,15 +1,15 @@
 ---
 name: raise-defect
 description: >
-  Helps an ve raise a defect/bug in whichever tracker is configured (Jira, Azure DevOps, GitHub,
+  Helps a Verification Engineer raise a defect/bug in whichever tracker is configured (Jira, Azure DevOps, GitHub,
   or Local) with a minimal, fixed question set: Title, Description, Severity (Low / Medium / High /
   Critical), Environment Found, and Discovery Activity. Components is always
   "Default" and Associated Org is always "All" for JIRA (never asked). Creates the bug via
-  the tracker-appropriate mechanism, tagged with "bug", "defect", "ai-generated", "aire" and "aire-v[N]" labels/tags
+  the tracker-appropriate mechanism, tagged with "bug", "defect", "ai-generated", "forge" and "forge-v[N]" labels/tags
   (the framework version read live from CLAUDE.md), or records it in the local Story Tracker for Local. Confirm-first: nothing is
-  written to the tracker until the ve reviews and approves the drafted ticket.
+  written to the tracker until the Verification Engineer reviews and approves the drafted ticket.
 when_to_use: >
-  Trigger when the user (ve) says: "raise a defect", "raise a bug", "log a defect",
+  Trigger when the user (Verification Engineer) says: "raise a defect", "raise a bug", "log a defect",
   "file a bug", "report a defect", "create a bug ticket", "found a bug", "new defect",
   "ve bug", "log this issue in Jira" (or ADO/GitHub/locally).
 allowed-tools: Read Grep Glob Bash Write
@@ -19,18 +19,18 @@ allowed-tools: Read Grep Glob Bash Write
 
 You help the tester raise a defect by collecting ONLY the fields below, drafting the
 ticket, getting **explicit approval**, and then creating it via the mechanism for whichever tracker
-is configured (`## Tracker` → `Type` in `runtime-artifacts/aire-state.md`). **Do NOT ask for anything beyond these fields** — no preconditions, steps to reproduce,
+is configured (`## Tracker` → `Type` in `runtime-artifacts/forge-state.md`). **Do NOT ask for anything beyond these fields** — no preconditions, steps to reproduce,
 expected/actual, priority, reproducibility, or affected story questions.
 
 ---
 
 ## Phase 0: Preconditions
 
-1. Read `## Tracker` → `Type` from `runtime-artifacts/aire-state.md`. If it doesn't exist yet, ask the Tracker Selection question (`common/tracker-sync.md` Section 1) first.
+1. Read `## Tracker` → `Type` from `runtime-artifacts/forge-state.md`. If it doesn't exist yet, ask the Tracker Selection question (`common/tracker-sync.md` Section 1) first.
 2. Confirm the tracker's integration is available: **JIRA** — Atlassian MCP connected; **ADO** — `az account show` succeeds; **GITHUB** — `gh auth status` succeeds; **LOCAL** — nothing to check. If a required integration isn't connected, stop and tell the tester to connect it first — do not attempt workarounds.
 3. Determine the target **project/repo** (skip for LOCAL):
    - If the tester gave one, use it.
-   - Else check `runtime-artifacts/aire-state.md` (`## Tracker` → `Project Key / Repo / Org`) / `runtime-artifacts/audit.md`
+   - Else check `runtime-artifacts/forge-state.md` (`## Tracker` → `Project Key / Repo / Org`) / `runtime-artifacts/audit.md`
      for the identifier already used on this project and propose it.
    - Else ask: `Which [Jira project / ADO project / GitHub repo] should this defect go into?`
 
@@ -87,12 +87,12 @@ Every tracker gets the same **description body**, built from the Phase 1 answers
 [Low/Medium/High/Critical]
 
 ---
-Raised via the AIRE raise-defect skill by ve. Drafted with AI ([MODEL NAME]).
- AIRE Framework: v[N]
+Raised via the Forge raise-defect skill by Verification Engineer. Drafted with AI ([MODEL NAME]).
+ Forge Framework: v[N]
 ```
 - `[MODEL NAME]` — the actual session model (e.g., "Claude Sonnet 5") — never left as a placeholder.
-- `[N]` — the framework version, read live at runtime from the "AIRE Framework Version" line
-  in the project's `CLAUDE.md` (e.g. `aire-v1.0`). Never hardcode and never leave as a placeholder.
+- `[N]` — the framework version, read live at runtime from the "Forge Framework Version" line
+  in the project's `CLAUDE.md` (e.g. `forge-v1.0`). Never hardcode and never leave as a placeholder.
 
 Then dispatch the actual creation per `## Tracker` → `Type`:
 
@@ -101,7 +101,7 @@ Then dispatch the actual creation per `## Tracker` → `Type`:
   check with `getJiraProjectIssueTypesMetadata` and confirm the chosen type with the tester).
 - **summary**: the Title from Phase 1. **description**: the body above, in **real Markdown** — the Atlassian MCP
   converts Markdown to Jira's ADF automatically. Never use Jira wiki markup (`h3.`, `*`, `#`) — it lands as literal raw text.
-- **labels**: `bug`, `defect`, `ai-generated`, `aire`, `aire-v[N]`.
+- **labels**: `bug`, `defect`, `ai-generated`, `forge`, `forge-v[N]`.
 - **Severity** (Jira context/custom field on the Bug type — find its field ID via
   `getJiraIssueTypeMetaWithFields`): set to the mapped option (`Sev 4 - Low` / `Sev 3 - Med` /
   `Sev 2 - High` / `Sev 1 - Critical`).
@@ -113,16 +113,16 @@ Then dispatch the actual creation per `## Tracker` → `Type`:
   with the tester whether to skip it or use the nearest equivalent).
 
 **ADO**:
-- `az boards work-item create --type "Bug" --title "<Title>" --description "<body above as HTML>" --project "{PROJECT}" --fields "System.Tags=ai-generated;aire;aire-v[N];bug;defect;severity-<low|medium|high|critical>"`.
+- `az boards work-item create --type "Bug" --title "<Title>" --description "<body above as HTML>" --project "{PROJECT}" --fields "System.Tags=ai-generated;forge;forge-v[N];bug;defect;severity-<low|medium|high|critical>"`.
 
 **GITHUB**:
-- `gh issue create --repo ORG/REPO --title "<Title>" --body "<body above>" --label "bug" --label "defect" --label "ai-generated" --label "aire-v[N]" --label "severity:<low|medium|high|critical>"` (create any missing label first, matching by exact name per `common/tracker-sync.md` Section 9).
+- `gh issue create --repo ORG/REPO --title "<Title>" --body "<body above>" --label "bug" --label "defect" --label "ai-generated" --label "forge-v[N]" --label "severity:<low|medium|high|critical>"` (create any missing label first, matching by exact name per `common/tracker-sync.md` Section 9).
 
 **LOCAL**:
-- No external issue. Mint a local ID `BUG-LOCAL-N` (next unused N found by scanning `runtime-artifacts/aire-state.md`) and record the full description body as a new row/entry in the local Story Tracker (or a local defects doc if the project keeps one) — the local file IS the ticket.
+- No external issue. Mint a local ID `BUG-LOCAL-N` (next unused N found by scanning `runtime-artifacts/forge-state.md`) and record the full description body as a new row/entry in the local Story Tracker (or a local defects doc if the project keeps one) — the local file IS the ticket.
 
 **Show the full drafted ticket to the tester** (project/repo, type, title, description body, labels/tags —
-`bug`, `defect`, `ai-generated`, `aire`, `aire-v[N]`, plus, for JIRA, components `Default` and associated org `All`). Do not create anything yet.
+`bug`, `defect`, `ai-generated`, `forge`, `forge-v[N]`, plus, for JIRA, components `Default` and associated org `All`). Do not create anything yet.
 
 ---
 
@@ -144,13 +144,13 @@ Do not proceed without an explicit yes. If the tester wants edits, revise and re
    work-item/issue URL directly for ADO/GITHUB. LOCAL has no URL — use the local ID.
 3. **Log in `runtime-artifacts/audit.md`** (append-only at the end — never rewrite the file):
    ```markdown
-   ## Defect Raised (ve)
+   ## Defect Raised (Verification Engineer)
    **Timestamp**: [ISO timestamp]
    **User Email**: [current session email — read live from the session context]
    **Defect**: [<ISSUE-KEY>](<site-base-url>/browse/<ISSUE-KEY>) — [title]  (or the local BUG-LOCAL-N ID)
    **Severity**: [Low/Medium/High/Critical]
    **Environment Found / Discovery Activity**: [..] / [..]
-   **Raised by**: [ve user]
+   **Raised by**: [Verification Engineer user]
 
    ---
    ```
@@ -164,9 +164,9 @@ Do not proceed without an explicit yes. If the tester wants edits, revise and re
 1. **Never create a tracker issue without the Phase 3 confirmation** — non-negotiable gate (LOCAL: never record it without confirmation either).
 2. **Only ask the five Phase 1 fields** (Title, Description, Severity, Environment Found,
    Discovery Activity) — never interview for anything else.
-3. **Always tag `bug`, `defect`, `ai-generated`, `aire`, and `aire-v[N]` labels/tags** (JIRA/ADO/GITHUB) and set issueType to
+3. **Always tag `bug`, `defect`, `ai-generated`, `forge`, and `forge-v[N]` labels/tags** (JIRA/ADO/GITHUB) and set issueType to
    the project's bug/defect type. `[N]` is the framework version read live at runtime from the
-   "AIRE Framework Version" line in the project's `CLAUDE.md` — never hardcode, never a
+   "Forge Framework Version" line in the project's `CLAUDE.md` — never hardcode, never a
    placeholder. A pre-existing similar label (`AI Generated`, `ai_generated`, `bot`, etc.) is NOT
    a substitute for the exact `ai-generated` label. LOCAL records the version in the local entry's header instead.
 4. **For JIRA, always set Components = `Default` and Associated Org = `All`** — mandatory fixed values;
@@ -176,5 +176,5 @@ Do not proceed without an explicit yes. If the tester wants edits, revise and re
 6. **Always verify** creation (non-LOCAL) and capture the real issue key/ID; never report a guessed key.
 7. **Always log the raised defect in `runtime-artifacts/audit.md`** with the full tracker hyperlink (or local ID).
 8. **Resolve `[MODEL NAME]`** to the actual session model — never leave the placeholder.
-9. **Resolve `[N]`** to the framework version read live from the "AIRE Framework Version"
+9. **Resolve `[N]`** to the framework version read live from the "Forge Framework Version"
    line in `CLAUDE.md` — never hardcode and never leave the placeholder unresolved.
