@@ -38,7 +38,7 @@
 ## Branching
 - Base Branch: main
 - Epic Branch: epic/KAN-25-backend-version-endpoint
-- Epic PR: (not raised — raised manually at cycle end via pr-generator)
+- Epic PR: https://github.com/Revantabiswas/conduit-helix-test/pull/20 (raised 2026-11-19T13:59:28Z via pr-generator)
 
 ## Code Root
 - **Type**: monorepo

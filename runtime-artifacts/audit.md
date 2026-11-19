@@ -179,3 +179,14 @@
 **Forge VERSION**: "1.0"
 
 ---
+## Epic PR raised (pr-generator, workflow mode)
+**Timestamp**: 2026-11-19T13:59:28Z
+**User Email**: admin
+**User Input**: "(see the Evaluation entry)"
+**AI Response**: "Raised PR #20 https://github.com/Revantabiswas/conduit-helix-test/pull/20 from epic/KAN-25-backend-version-endpoint into main, title '[EPIC][KAN-25] Backend version endpoint'. Read back from GitHub: base main, labels ai-generated and forge-v1.0. The PR body states that the diff includes commit 88d4e6a (Forge framework local copy, 125 files), which sits on local main but not on origin/main and was therefore inherited by the epic branch; no history was rewritten. Archive auto-trigger check: invocation from a workflow (FAIL: not standalone), cycle type epic (PASS), current branch is the recorded Epic Branch (PASS), PR target is the recorded Base Branch main (PASS). archive-epic was NOT run (it removes the live spec/, reports/ and runtime-artifacts/ trees and was not requested). After merging this PR, stitch-delta only applies if archive-epic is run first. No Jira issues were created in this stage."
+**Context**: pr-generator Phases 1 to 7
+**TRACKER ITEM**: "[KAN-25](https://revanta201.atlassian.net/browse/KAN-25)"
+**Epic Link**: "[KAN-25](https://revanta201.atlassian.net/browse/KAN-25)"
+**Forge VERSION**: "1.0"
+
+---
