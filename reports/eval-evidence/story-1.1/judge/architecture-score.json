@@ -1,0 +1,12 @@
+{
+  "key": "story-1.1", "gate": "J1_architecture", "scoredAt": "2026-11-19T13:27:18Z",
+  "judge": "claude-sonnet-5-5 (this session, inline)", "rubric": "tests/.evals/rubrics/architecture-rubric.json", "rubricVersion": "1.0.0",
+  "rubricSource": "spec/plans/architecture.md#10-verifiable-constraints", "min": 0.85, "score": 1.0,
+  "criteria": [
+    { "id": "ARCH-01", "weight": 0.25, "score": 1.0, "evidence": "handler lives in backend/routes/version.js:7; mounted at backend/index.js:39, before the catch-all at backend/index.js:40" },
+    { "id": "ARCH-02", "weight": 0.25, "score": 1.0, "evidence": "version comes from require(\"../package.json\") at module load, backend/routes/version.js:2; no literal, no env read, no read inside the handler" },
+    { "id": "ARCH-03", "weight": 0.20, "score": 1.0, "evidence": "backend/routes/version.js references no verifyToken, models, sequelize or controllers (requires only express and ../package.json)" },
+    { "id": "ARCH-04", "weight": 0.15, "score": 1.0, "evidence": "backend/routes/version.js:8 responds with exactly { name: \"conduit\", version }" },
+    { "id": "ARCH-05", "weight": 0.15, "score": 1.0, "evidence": "git diff of package.json, backend/package.json, frontend/package.json and package-lock.json against 680cb05 is empty" }
+  ]
+}

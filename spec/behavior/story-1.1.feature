@@ -43,8 +43,8 @@ Feature: Confirm the deployed backend version with one request
 
   @AC-4
   Scenario: Unit test covers the endpoint
-    When npm test runs
-    Then the version unit test passes and asserts status, JSON content type, exact body, package.json match and no credentials
+    When the repository's vitest suite for tests/unit/backend runs
+    Then the version unit test at tests/unit/backend/routes/version.test.js passes and asserts status, JSON content type, exact body, package.json match and no credentials
 
   @AC-5
   Scenario: No dependency added and existing routes unchanged

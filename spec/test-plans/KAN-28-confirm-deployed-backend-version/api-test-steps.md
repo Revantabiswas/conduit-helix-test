@@ -166,8 +166,8 @@ Expected version value below is written as `<V>`: the "version" field of backend
 | **Test data** | none |
 
 **Steps**
-1. From the repository root run `npm test -- --run`.
-2. Find the version test file under backend/ in the output.
+1. From the repository root run `npx vitest run --config vitest.src.config.js tests/unit/backend`.
+2. Find `tests/unit/backend/routes/version.test.js` in the output.
 
 **Expected result**
 - A version test file is listed and all its tests pass; the overall run reports no failures from it.
