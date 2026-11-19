@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Brownfield
 - **Start Date**: 2026-11-19T12:56:55Z
-- **Current Stage**: Design complete — awaiting dev-implement
+- **Current Stage**: EVALUATION complete (sign-off) — next REVIEW and the Epic PR
 - **Forge Framework Version**: 1.0
 
 ## Tracker
@@ -72,7 +72,7 @@
 ## Story Tracker
 | Story | Title | Requires | Tracker ID | Status | PR | Merged | Start | End | Recorded |
 |-------|-------|----------|------------|--------|----|--------|-------|-----|----------|
-| 1.1 | Confirm the deployed backend version with one request | none | KAN-28 | Ready for Development | — | — | | | 2026-11-19T13:02:43Z |
+| 1.1 | Confirm the deployed backend version with one request | none | KAN-28 | Ready for Testing | https://github.com/Revantabiswas/conduit-helix-test/pull/19 | yes | 2026-11-19 | 2026-11-19 | 2026-11-19T13:57:27Z |
 
 target_story_count: 1
 
@@ -108,3 +108,6 @@ graph TD
 
 ## Status
 - Design complete — awaiting dev-implement
+
+## Evaluation (ve sign-off)
+- Story 1.1 / KAN-28: approved 2026-11-19T13:57:27Z under AI Studio autopilot (test plan executed by the AI agent against a local backend without a database; see audit). Jira: In Review (nearest to Ready for Testing), label ve-approved. Epic KAN-25 moved to In Review.

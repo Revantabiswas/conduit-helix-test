@@ -4,7 +4,7 @@ Workflow: dev-implement · Branch: story/KAN-28-1.1-confirm-deployed-backend-ver
 ## Story Tracker Row
 | Story | Title | Requires | Tracker ID | Status | PR | Merged | Start | End | Recorded |
 |-------|-------|----------|------------|--------|----|--------|-------|-----|----------|
-| 1.1 | Confirm the deployed backend version with one request | none | KAN-28 | In Development | pending | no | 2026-11-19 | | 2026-11-19T13:08:33Z |
+| 1.1 | Confirm the deployed backend version with one request | none | KAN-28 | In Development | https://github.com/Revantabiswas/conduit-helix-test/pull/19 | no | 2026-11-19 | | 2026-11-19T13:08:33Z |
 
 ## Claim
 - Tracker: JIRA KAN-28 · In Development (Jira status "In Progress", nearest equivalent) — verified 2026-11-19T13:08:33Z
@@ -12,7 +12,7 @@ Workflow: dev-implement · Branch: story/KAN-28-1.1-confirm-deployed-backend-ver
 - Parent Epic: moved to In Development (Jira "In Progress") — verified 2026-11-19T13:08:33Z
 
 ## Progress
-Current step/gate: artifact check clean, ready to commit · Gates passed: D1, D3, D4, D5, D6, D7, unitCoverage, B1, B3, apiContract, regression, J1, J2 (D2 and B2 N/A with reasons) · Last updated: 2026-11-19T13:28:37Z
+Current step/gate: PR #19 raised and auto-reviewed; awaiting merge and Verification Engineer sign-off · Gates passed: all (D2 and B2 N/A with reasons) · Last updated: 2026-11-19T13:29:59Z
 
 ## Self-Healing Counters
 | SH-LOOP | Attempts used | State |
