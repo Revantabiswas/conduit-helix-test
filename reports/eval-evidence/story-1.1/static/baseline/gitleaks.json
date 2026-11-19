@@ -1,0 +1,42 @@
+[
+ {
+  "Description": "",
+  "StartLine": 166,
+  "EndLine": 167,
+  "StartColumn": 6,
+  "EndColumn": 56,
+  "Match": "curl -s -i http://localhost:3000/api/articles/feed` (no auth header).\n2. `curl -s -i -H \"Authorization: Token REDACTED\"",
+  "Secret": "REDACTED",
+  "File": "forge-archives/epics/2-nextjs-app-router-migration/spec/test-plans/22-articles-api-crud-feed-tags/api-test-steps.md",
+  "SymlinkFile": "",
+  "Commit": "",
+  "Entropy": 3.182006,
+  "Author": "",
+  "Email": "",
+  "Date": "",
+  "Message": "",
+  "Tags": [],
+  "RuleID": "curl-auth-header",
+  "Fingerprint": "forge-archives/epics/2-nextjs-app-router-migration/spec/test-plans/22-articles-api-crud-feed-tags/api-test-steps.md:curl-auth-header:166"
+ },
+ {
+  "Description": "",
+  "StartLine": 129,
+  "EndLine": 130,
+  "StartColumn": 10,
+  "EndColumn": 91,
+  "Match": "curl -i http://localhost:3001/api/version` with no Authorization header or cookie.\n2. Run it again with a garbage header: `curl -i -H \"Authorization: Token REDACTED\"",
+  "Secret": "REDACTED",
+  "File": "spec/test-plans/KAN-28-confirm-deployed-backend-version/api-test-steps.md",
+  "SymlinkFile": "",
+  "Commit": "",
+  "Entropy": 3.0778196,
+  "Author": "",
+  "Email": "",
+  "Date": "",
+  "Message": "",
+  "Tags": [],
+  "RuleID": "curl-auth-header",
+  "Fingerprint": "spec/test-plans/KAN-28-confirm-deployed-backend-version/api-test-steps.md:curl-auth-header:129"
+ }
+]

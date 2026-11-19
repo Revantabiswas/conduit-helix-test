@@ -18,7 +18,7 @@ This guardrail is **purely reactive and silent**: it fires only when the user *v
 
 ## Where the Registry Lives
 
-`runtime-artifacts/aire-state.md`, section `## Design References`:
+`runtime-artifacts/forge-state.md`, section `## Design References`:
 
 ```markdown
 ## Design References
@@ -165,7 +165,7 @@ The user retains full control at the stage's own existing approval point — the
 
 ## DR-7 — The registry survives the session
 
-`## Design References` lives in `runtime-artifacts/aire-state.md`, so it is read by every later session, every `dev-implement` run, and every `ticket-implement` run. On resume, read the section and use it — and, as everywhere else, **ask the user nothing** about it.
+`## Design References` lives in `runtime-artifacts/forge-state.md`, so it is read by every later session, every `dev-implement` run, and every `ticket-implement` run. On resume, read the section and use it — and, as everywhere else, **ask the user nothing** about it.
 
 When a user supplies a reference **late** (e.g. during remediation, after a defect forced it), you MUST still register it, and additionally:
 - assess which **already-completed** stories/components it invalidates, and **state that list** in your output and in `runtime-artifacts/audit.md` — a report, not a question

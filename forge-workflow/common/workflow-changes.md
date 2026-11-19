@@ -18,7 +18,7 @@ Users may request changes to the execution plan or stage execution during the wo
 1. **Confirm Request**: "You want to add User Stories stage. This will create user stories and personas. Confirm?"
 2. **Check Dependencies**: Verify all prerequisite stages are complete
 3. **Update Execution Plan**: Add stage to `executions.md` with rationale
-4. **Update State**: Mark stage as "PENDING" in `runtime-artifacts/aire-state.md`
+4. **Update State**: Mark stage as "PENDING" in `runtime-artifacts/forge-state.md`
 5. **Execute Stage**: Follow normal stage execution process
 6. **Log Change**: Document in `runtime-artifacts/audit.md` with timestamp and reason
 
@@ -40,7 +40,7 @@ Users may request changes to the execution plan or stage execution during the wo
 2. **Warn About Impact**: Explain what will be missing and potential consequences
 3. **Get Explicit Confirmation**: User must explicitly confirm understanding of impact
 4. **Update Execution Plan**: Mark stage as "SKIPPED" with reason
-5. **Update State**: Mark stage as "SKIPPED" in `runtime-artifacts/aire-state.md`
+5. **Update State**: Mark stage as "SKIPPED" in `runtime-artifacts/forge-state.md`
 6. **Adjust Later Stages**: Note that later stages may need manual setup
 7. **Log Change**: Document in `runtime-artifacts/audit.md` with timestamp and reason
 
@@ -65,7 +65,7 @@ Users may request changes to the execution plan or stage execution during the wo
 3. **If Restart Chosen**:
    - Archive existing artifacts: `{artifact}.backup.{timestamp}`
    - Reset stage checkboxes in plan file
-   - Mark stage as "IN PROGRESS" in `runtime-artifacts/aire-state.md`
+   - Mark stage as "IN PROGRESS" in `runtime-artifacts/forge-state.md`
    - Clear stage completion status
    - Re-execute from beginning
 4. **Log Change**: Document reason for restart and what will change
@@ -89,7 +89,7 @@ Users may request changes to the execution plan or stage execution during the wo
 3. **Get Explicit Confirmation**: User must understand full impact
 4. **If Confirmed**:
    - Archive all affected artifacts
-   - Reset all affected stages in `runtime-artifacts/aire-state.md`
+   - Reset all affected stages in `runtime-artifacts/forge-state.md`
    - Clear checkboxes in all affected plan files
    - Return to the stage to restart
    - Re-execute from that point forward
@@ -132,12 +132,12 @@ Users may request changes to the execution plan or stage execution during the wo
 **Handling**:
 1. **Complete Current Step**: Finish the current step in progress if possible
 2. **Update Checkboxes**: Mark all completed steps with [x]
-3. **Update State**: Ensure `runtime-artifacts/aire-state.md` reflects current status
+3. **Update State**: Ensure `runtime-artifacts/forge-state.md` reflects current status
 4. **Log Pause**: Document pause point in `runtime-artifacts/audit.md`
 5. **Provide Resume Instructions**: "When you return, I'll detect your existing project and offer to continue from: [current stage, current step]"
 
 **On Resume**:
-1. **Detect Existing Project**: Check for `runtime-artifacts/aire-state.md`
+1. **Detect Existing Project**: Check for `runtime-artifacts/forge-state.md`
 2. **Load Context**: Read all artifacts from completed stages
 3. **Show Status**: Display current stage and next step
 4. **Offer Options**: Continue where left off or review previous work
@@ -202,16 +202,16 @@ Users may request changes to the execution plan or stage execution during the wo
 **Example**: "We need to split the Payment story into Payment and Billing"
 
 **Handling**:
-1. **Assess Impact**: Check the Story Tracker for which stories are already implemented (`🧪 Ready for Testing`) vs `🔵 In Development` vs `🟢 Ready for Development`.
+1. **Assess Impact**: Check the Story Tracker for which stories are already implemented (`Ready for Testing`) vs `In Development` vs `Ready for Development`.
 2. **Explain Consequences**:
    - Adding story: plan and implement the new story (and map its `requires` dependencies)
    - Removing story: redistribute its functionality to other stories or drop it
    - Splitting story: implement both resulting stories
 3. **Update Story Artifacts**:
    - Modify `spec/plans/stories.md`
-   - Update the `## Story Tracker` in `runtime-artifacts/aire-state.md`
+   - Update the `## Story Tracker` in `runtime-artifacts/forge-state.md`
    - **Re-run the Dependency Graph stage** to reassign `requires`, and rewrite `dependency-graph.yml`
-   - If the story has a non-LOCAL Tracker ID, apply the **Tracker Sync Rule** (confirm-first, per `common/tracker-sync.md` Section 4); new/split stories pushed to the tracker must be linked to the **Parent Epic** recorded in `runtime-artifacts/aire-state.md` `## Tracker`
+   - If the story has a non-LOCAL Tracker ID, apply the **Tracker Sync Rule** (confirm-first, per `common/tracker-sync.md` Section 4); new/split stories pushed to the tracker must be linked to the **Parent Epic** recorded in `runtime-artifacts/forge-state.md` `## Tracker`
 4. **Reset Affected Stories**: Mark affected stories as needing (re)implementation via `dev-implement`
 5. **Execute Changes**: Follow the normal per-story Code Generation process (`dev-implement`) for affected stories
 
@@ -235,7 +235,7 @@ Users may request changes to the execution plan or stage execution during the wo
 ### During Changes
 
 1. **Archive Existing Work**: Always backup before making destructive changes
-2. **Update All Tracking**: Keep `runtime-artifacts/aire-state.md`, plan files, and `runtime-artifacts/audit.md` in sync
+2. **Update All Tracking**: Keep `runtime-artifacts/forge-state.md`, plan files, and `runtime-artifacts/audit.md` in sync
 3. **Communicate Progress**: Keep user informed about what's happening
 4. **Validate Changes**: Ensure changes are consistent across all artifacts
 5. **Test Continuity**: Verify workflow can continue smoothly after changes

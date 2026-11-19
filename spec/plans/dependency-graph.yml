@@ -1,0 +1,13 @@
+version: 1
+generated_at: 2026-11-19
+team_size: 2
+
+shared_files:
+  - backend/index.js   # touched by this story only
+
+stories:
+  - id: "1.1"
+    title: Confirm the deployed backend version with one request
+    tracker_id: KAN-28
+    requires: []
+    enables: []
