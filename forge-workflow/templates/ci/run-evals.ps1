@@ -115,7 +115,7 @@ $verdict = if ($anyFail) { "FAIL" } else { "PASS" }
 @{ evalKey = $evalKey; model = $model; rubricVersion = $rubricVersion; gates = $gatesMap; verdict = $verdict } |
   ConvertTo-Json -Depth 6 | Out-File -Encoding utf8 $evalJson
 
-$summary = @("# AIRE eval summary — $evalKey","","| Gate | Status | Notes |","|---|---|---|")
+$summary = @("# Forge eval summary — $evalKey","","| Gate | Status | Notes |","|---|---|---|")
 foreach ($o in $gateObjs) { $summary += "| $($o.id) | $($o.status) | $($o.reason) |" }
 $summary += @("","**Verdict:** $verdict")
 $summary -join "`n" | Out-File -Encoding utf8 "$evidenceDir/eval-summary.md"

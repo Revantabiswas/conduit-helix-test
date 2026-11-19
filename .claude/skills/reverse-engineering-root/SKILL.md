@@ -5,7 +5,7 @@ description: >
   pass — one artifact set flat in spec/plans/ covering ALL
   modules of a monorepo (business overview, architecture, code structure, APIs,
   component inventory, technology stack, dependencies, code quality, timestamp with
-  commit fingerprint). All modules and all downstream AIRE stages reuse these root
+  commit fingerprint). All modules and all downstream Forge stages reuse these root
   artifacts for development. Run it upfront before starting an epic cycle, and
   (recommended) re-run it post release cycle — after archive-epic — to regenerate a
   fresh baseline from the released codebase.

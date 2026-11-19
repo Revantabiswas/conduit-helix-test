@@ -1,7 +1,7 @@
 # Baseline Resiliency Rules
 
 ## Overview
-These resiliency rules are MANDATORY cross-cutting constraints that apply across all aire phases. They are derived from established cloud reliability frameworks (such as the AWS Well-Architected Reliability Pillar and 
+These resiliency rules are MANDATORY cross-cutting constraints that apply across all forge phases. They are derived from established cloud reliability frameworks (such as the AWS Well-Architected Reliability Pillar and 
 resilience best practices) and apply to workloads on any cloud provider. The rules are organized across six pillars: Business Goals, Change Management & Automation, Integrated Observability, High Availability, Disaster Recovery, and Continuous Improvement.
 
 **Enforcement**: At each applicable stage, the model MUST verify compliance with these rules before presenting the stage completion message to the user.
@@ -22,7 +22,7 @@ All rules in this document are **blocking** by default. If any rule's verificati
 Verification items in this document are plain bullet points describing compliance checks. They are distinct from the `- [ ]` / `- [x]` progress-tracking checkboxes used in stage plan files. Each item should be evaluated as compliant or non-compliant during review.
 
 ### User Decision Points (the model MUST ask, NOT decide)
-This extension follows the aire principle that architectural and process decisions belong to the user, not the LLM. The model MUST present the clarifying questions defined in the rules below and use the user's answers — it MUST NOT silently choose on the user's behalf. The decisions explicitly deferred to the user are:
+This extension follows the forge principle that architectural and process decisions belong to the user, not the LLM. The model MUST present the clarifying questions defined in the rules below and use the user's answers — it MUST NOT silently choose on the user's behalf. The decisions explicitly deferred to the user are:
 
 | Decision | Rule | Question presented |
 |---|---|---|
@@ -110,11 +110,11 @@ The user's selected RTO/RPO targets MUST be documented in the requirements outpu
 
 ```markdown
 ## Question: Change Management Process
-How should production changes for this workload be governed? aire will conform the design to your answer rather than inventing a process.
+How should production changes for this workload be governed? forge will conform the design to your answer rather than inventing a process.
 
-A) Use our existing organizational change management process — provide the name/tool (e.g., ServiceNow, Jira Change, internal CAB). aire will reference it and ensure deployable artifacts fit that process (change records, approval gates).
+A) Use our existing organizational change management process — provide the name/tool (e.g., ServiceNow, Jira Change, internal CAB). forge will reference it and ensure deployable artifacts fit that process (change records, approval gates).
 
-B) No formal process exists yet — aire should propose a lightweight change management process (change record + approval + rollback note) for the team to adopt.
+B) No formal process exists yet — forge should propose a lightweight change management process (change record + approval + rollback note) for the team to adopt.
 
 C) N/A — this workload is exempt from formal change management (e.g., internal tooling). Document the exemption rationale.
 
@@ -146,9 +146,9 @@ X) Other (describe after [Answer]: tag below)
 ## Question: CI/CD and Deployment Tooling
 What CI/CD tooling and deployment process should this workload use?
 
-A) Use our existing CI/CD pipeline — provide the tool (e.g., GitHub Actions, GitLab CI, Jenkins, CodePipeline). aire will produce artifacts compatible with it.
+A) Use our existing CI/CD pipeline — provide the tool (e.g., GitHub Actions, GitLab CI, Jenkins, CodePipeline). forge will produce artifacts compatible with it.
 
-B) No pipeline exists — aire should propose a CI/CD pipeline definition appropriate to the chosen IaC and runtime.
+B) No pipeline exists — forge should propose a CI/CD pipeline definition appropriate to the chosen IaC and runtime.
 
 X) Other (describe after [Answer]: tag below)
 
@@ -395,9 +395,9 @@ X) Other (describe after [Answer]: tag below)
 ## Question: Resiliency Testing Approach
 How will resiliency mechanisms (failover, recovery) be validated?
 
-A) Use our existing DR testing / game day / chaos engineering practice — provide the reference. aire will document test scenarios that fit it.
+A) Use our existing DR testing / game day / chaos engineering practice — provide the reference. forge will document test scenarios that fit it.
 
-B) No practice exists — aire should propose a DR testing schedule and chaos experiment plan for adoption.
+B) No practice exists — forge should propose a DR testing schedule and chaos experiment plan for adoption.
 
 C) Defer execution — capture test scenarios now, execute later as post-release operational work (tracked as a follow-up).
 
@@ -425,9 +425,9 @@ X) Other (describe after [Answer]: tag below)
 ## Question: Incident Response Process
 How are production incidents handled for this workload?
 
-A) Use our existing incident response process — provide the reference (e.g., PagerDuty runbooks, internal IR/on-call process). aire will align alerting and runbooks to it.
+A) Use our existing incident response process — provide the reference (e.g., PagerDuty runbooks, internal IR/on-call process). forge will align alerting and runbooks to it.
 
-B) No formal process exists — aire should propose a lightweight incident response and Correction of Errors (COE) process for adoption.
+B) No formal process exists — forge should propose a lightweight incident response and Correction of Errors (COE) process for adoption.
 
 X) Other (describe after [Answer]: tag below)
 
@@ -446,7 +446,7 @@ X) Other (describe after [Answer]: tag below)
 
 ## Enforcement Integration
 
-These rules are cross-cutting constraints that apply to every aire stage. At each stage:
+These rules are cross-cutting constraints that apply to every forge stage. At each stage:
 - Evaluate all RESILIENCY rule verification criteria against the artifacts produced
 - Include a "Resiliency Compliance" section in the stage completion summary listing each rule as compliant, non-compliant, or N/A
 - If any rule is non-compliant, this is a blocking resiliency finding — follow the blocking finding behavior defined in the Overview
