@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Brownfield
 - **Start Date**: 2026-11-19T12:56:55Z
-- **Current Stage**: PLANNING - Reverse Engineering approved; next Source Code Location advisory
+- **Current Stage**: PLANNING - Requirements Analysis approved; next User Stories
 - **Forge Framework Version**: 1.0
 
 ## Tracker
@@ -39,3 +39,28 @@
 - Base Branch: main
 - Epic Branch: epic/KAN-25-backend-version-endpoint
 - Epic PR: (not raised — raised manually at cycle end via pr-generator)
+
+## Code Root
+- **Type**: monorepo
+- **Path(s)**: backend/, frontend/, src/
+- **Recorded**: 2026-11-19T12:59:32Z
+- **Note**: existing tree left in place (not moved into src/). Declared in root package.json workspaces: backend, frontend; plus the root-level Next.js app in src/. New code for KAN-25 goes in backend/ (the package the Epic names), tests in backend/ next to it per the root vitest.config.js include pattern.
+
+## Context Project
+- **Existing Knowledge**: No
+- **Existing Knowledge Path(s)**: —
+- **New References**: No
+- **New Reference Path(s)**: —
+
+## Extension Configuration
+| Extension | Enabled | Decided At |
+|---|---|---|
+| Security Baseline | Yes (always) | Workflow start |
+| Playwright Test Automation | No (server runs) | Workflow start |
+| Resiliency Baseline | No | Requirements Analysis |
+| Property-Based Testing | No | Requirements Analysis |
+
+## Stage Progress (PLANNING)
+- [x] Workspace Detection
+- [x] Reverse Engineering (local generation)
+- [x] Requirements Analysis
