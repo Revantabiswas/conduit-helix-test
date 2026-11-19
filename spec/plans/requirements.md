@@ -14,7 +14,7 @@
 - **REQ-F-02**: The version value MUST equal the "version" field of backend/package.json (currently 1.0.0), read once at startup with no hardcoded duplicate (SC-2).
 - **REQ-F-03**: The route MUST be public: no authentication or credentials required (SC-3). It MUST be mounted before the catch-all 404 handler in backend/index.js (F4).
 - **REQ-F-04**: If backend/package.json cannot be read, the backend MUST fail at startup rather than serve a wrong version (SC-5). No runtime error handling is added.
-- **REQ-F-05**: A unit test MUST cover REQ-F-01 to REQ-F-03 (status 200, JSON content type, exact body, version equals package.json, no credentials) and run under the existing vitest setup (backend/**/*.test.js, root vitest.config.js).
+- **REQ-F-05**: A unit test MUST cover REQ-F-01 to REQ-F-03 (status 200, JSON content type, exact body, version equals package.json, no credentials). Placed at tests/unit/backend/routes/version.test.js (framework rule: all unit tests live under tests/unit/, mirroring the code path) and run under the repository's vitest setup (vitest.src.config.js, which includes tests/unit/**). Amended at dev-implement for Story 1.1: originally backend/**/*.test.js.
 
 ## Non-Functional Requirements
 - **REQ-NF-01** (constraint): No new dependency is added to any package.json (SC-4).

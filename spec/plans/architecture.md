@@ -23,7 +23,7 @@ C4Context
 | backend/index.js | App bootstrap, mounts routers, catch-all 404 | existing (modified: one require, one app.use) | knowledge-hub-deep-dive.md |
 | backend/routes/version.js | Router returning {name, version} for GET / | new | requirements.md REQ-F-01..04 |
 | backend/package.json | Source of the version value | existing (read only) | knowledge-hub-deep-dive.md |
-| Version unit test (backend/routes/version.test.js) | Verifies the contract | new | requirements.md REQ-F-05 |
+| Version unit test (tests/unit/backend/routes/version.test.js) | Verifies the contract | new | requirements.md REQ-F-05 |
 
 ```mermaid
 flowchart TB
