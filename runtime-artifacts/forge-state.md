@@ -3,7 +3,7 @@
 ## Project Information
 - **Project Type**: Brownfield
 - **Start Date**: 2026-11-19T12:56:55Z
-- **Current Stage**: PLANNING - Requirements Analysis approved; next User Stories
+- **Current Stage**: PLANNING - Dependency Graph complete; next Workflow Planning
 - **Forge Framework Version**: 1.0
 
 ## Tracker
@@ -64,3 +64,24 @@
 - [x] Workspace Detection
 - [x] Reverse Engineering (local generation)
 - [x] Requirements Analysis
+
+## User Stories Settings
+- team_size: 2 (fixed default, not asked)
+- story_creation_mode: all-at-once (fixed default, not asked)
+
+## Story Tracker
+| Story | Title | Requires | Tracker ID | Status | PR | Merged | Start | End | Recorded |
+|-------|-------|----------|------------|--------|----|--------|-------|-----|----------|
+| 1.1 | Confirm the deployed backend version with one request | none | KAN-28 | Ready for Development | — | — | | | 2026-11-19T13:02:43Z |
+
+target_story_count: 1
+
+## Dependency Graph
+```mermaid
+graph TD
+  S11[1.1 KAN-28 version endpoint]
+```
+- Ready stories (no prerequisites): 1.1
+- Blocked stories: none
+- Note: only one story exists (user-confirmed, REQ coverage 9/9), so the team_size 2 parallelism target cannot apply: there is a single unit of work.
+- Jira note: project KAN's workflow has no "Ready for Development" status (statuses: To Do, In Progress, In Review, Done). KAN-28 stays in "To Do", used as the equivalent of Ready for Development.
