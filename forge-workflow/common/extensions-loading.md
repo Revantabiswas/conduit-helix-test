@@ -1,6 +1,6 @@
 # Extensions — Loading and Enforcement
 
-**Purpose**: how Forge discovers, loads and enforces the rule extensions under `extensions/`, without
+**Purpose**: how AIRE discovers, loads and enforces the rule extensions under `extensions/`, without
 paying the context cost of rules the project never opted into.
 
 **Load this file at workflow start**, together with the `*.opt-in.md` scan it describes.
@@ -49,5 +49,5 @@ files — NOT the full rule files. Full rule files are loaded on demand, after t
 
 Extensions may be conditionally enabled or disabled. The opt-in mechanism lives in
 `planning/requirements-analysis.md`. **Before enforcing any extension at ANY stage**, check its
-`Enabled` status in `runtime-artifacts/forge-state.md` under `## Extension Configuration`. Skip disabled
+`Enabled` status in `runtime-artifacts/aire-state.md` under `## Extension Configuration`. Skip disabled
 extensions and log the skip in `runtime-artifacts/audit.md`. Default to **enforced** when no configuration exists.

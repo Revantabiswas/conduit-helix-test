@@ -2,7 +2,7 @@
 name: story-audit
 description: >
   Audits an existing Story or Epic — in whichever tracker is configured (Jira, Azure DevOps,
-  GitHub) or directly from stories.md for Local — against the Forge quality bar. Fetches the
+  GitHub) or directly from stories.md for Local — against the AIRE quality bar. Fetches the
   issue, assesses what's present vs missing, scores it, and offers to fill gaps through targeted
   questions — then updates the issue in the tracker with the improvements (or the local story
   file, for Local). Works for any issue type
@@ -34,7 +34,7 @@ the closest checklist and note the adaptation.
 
 ## Step 1 — Ask for the issue
 
-Read `## Tracker` → `Type` from `runtime-artifacts/forge-state.md` if it exists (reuse silently); otherwise ask the Tracker Selection question (`common/tracker-sync.md` Section 1) once for this run.
+Read `## Tracker` → `Type` from `runtime-artifacts/aire-state.md` if it exists (reuse silently); otherwise ask the Tracker Selection question (`common/tracker-sync.md` Section 1) once for this run.
 
 If the user already provided a reference (e.g. "audit PROJ-42"), use it. Otherwise ask, per the resolved tracker:
 ```
@@ -128,7 +128,7 @@ for approval before writing to the tracker (or the local story file).
 
 ## HARD GUARDRAILS — do not violate
 
-- **No file or directory creation**, except the LOCAL update path (Step 5), which edits the existing `stories.md` — never a new file. Reading `## Tracker` from `runtime-artifacts/forge-state.md`, if it exists, is a read and does not violate this.
+- **No file or directory creation**, except the LOCAL update path (Step 5), which edits the existing `stories.md` — never a new file. Reading `## Tracker` from `runtime-artifacts/aire-state.md`, if it exists, is a read and does not violate this.
 - **No local artifacts beyond the LOCAL update path.** The audit lives in chat; non-LOCAL fixes go to the tracker only.
 - **Tracker in, tracker out (or stories.md in/out, for Local).** Read via the tracker's fetch, update via the tracker's write (or `stories.md` directly, for Local). Nothing else.
 - **Confirm before every write.** Never update without explicit user approval ("yes").

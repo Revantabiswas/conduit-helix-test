@@ -1,6 +1,0 @@
-# test placement check — story-1.1 — base 680cb055a48903e86a5d29c88a315d8215096cfd
-rules: common/directory-structure.md 4a (unit tests only under tests/unit/<mirror-of-src>/, never under src/ or the code root), 4b (API tests only under tests/api/)
-
-tests/api/version.route.test.js | api-test | OK
-tests/behavior/steps/story-1.1-version-endpoint_steps.js | gherkin step definitions | OK
-tests/unit/backend/routes/version.test.js | unit-test (mirrors backend/) | OK

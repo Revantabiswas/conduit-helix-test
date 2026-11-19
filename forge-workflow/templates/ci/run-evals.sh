@@ -201,7 +201,7 @@ EVAL_JSON="${EVIDENCE_DIR}/eval.json"
 
 # eval-summary.md — human view pasted into the PR
 {
-  echo "# Forge eval summary — ${EVAL_KEY}"
+  echo "# AIRE eval summary — ${EVAL_KEY}"
   echo ""
   echo "| Gate | Status | Notes |"
   echo "|---|---|---|"

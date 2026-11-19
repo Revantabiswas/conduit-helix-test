@@ -98,11 +98,11 @@ Map logical software components to actual infrastructure choices for deployment 
 ### Step 9: Record Approval and Update Progress
 - Log approval in runtime-artifacts/audit.md with timestamp
 - Record the user's approval response with timestamp
-- Mark Infrastructure Design stage complete in runtime-artifacts/forge-state.md
+- Mark Infrastructure Design stage complete in runtime-artifacts/aire-state.md
 
 ### Step 10: Post-Design Requirements Coverage Re-Verification (MANDATORY — automatic, before the STOP CHECKPOINT handoff)
 Execute `common/requirements-traceability.md` Rule 4 — silent and blocking, NO user prompt (this is verification, not a new stage). It runs here because Infrastructure Design is the LAST design stage; **if Infrastructure Design is skipped, the same check runs right after whichever design stage executed last (or immediately when ALL design stages are skipped), before the Development Handoff is presented**:
 - Re-verify the Requirements Coverage Matrix in `stories.md` (every REQ-ID fully expressed by story ACs) against the approved design artifacts under `spec/plans/`
 - Reconcile in place any story AC the design contradicted or refined (update `stories.md` + the matrix; log every reconciliation in runtime-artifacts/audit.md with the design artifact that drove it)
-- Record in `runtime-artifacts/forge-state.md`: `Requirements coverage verified post-design: [R]/[R] REQ-IDs — [timestamp]`
+- Record in `runtime-artifacts/aire-state.md`: `Requirements coverage verified post-design: [R]/[R] REQ-IDs — [timestamp]`
 - Include the coverage line in the Development Handoff message (e.g., ` Requirements coverage: 12/12 REQ-IDs verified against the approved design`)

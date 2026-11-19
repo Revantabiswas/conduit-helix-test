@@ -1,44 +1,49 @@
 {
-  "rubricName": "Architectural Alignment — Conduit backend version endpoint (KAN-25)",
+  "rubricName": "Architectural Alignment — conduit-helix-test Next.js Migration",
   "rubricVersion": "1.0.0",
-  "derivedFrom": [
-    "spec/plans/architecture.md#10-verifiable-constraints"
-  ],
+  "derivedFrom": ["spec/plans/architecture.md#10-verifiable-constraints"],
   "evalCriteria": [
     {
       "id": "ARCH-01",
-      "metric": "Dedicated router mounted before the catch-all",
-      "weight": 0.25,
-      "prompt": "In the diff, the route handler is defined in a file under backend/routes/ (not inline in index.js) and the app.use line precedes the catch-all. Score 0 if the handler is inline in index.js or mounted after the catch-all.",
-      "source": "spec/plans/requirements.md (REQ-F-03, REQ-NF-02)"
+      "metric": "Route Handlers never touch Sequelize directly",
+      "weight": 0.20,
+      "prompt": "Any changed file under src/app/api/**/route.js that imports from src/lib/db/models/* directly (rather than only importing from src/lib/services/*) scores 0.",
+      "source": "spec/plans/application-design.md (Services — Orchestration Patterns)"
     },
     {
       "id": "ARCH-02",
-      "metric": "Version comes from package.json, once",
-      "weight": 0.25,
-      "prompt": "The version string in the changed code originates from a require or import of backend/package.json evaluated at module load, not inside the request handler. Score 0 for a hardcoded version literal, an env-var read, or a file read inside the handler.",
-      "source": "spec/plans/requirements.md (REQ-F-02, REQ-F-04, REQ-NF-04)"
+      "metric": "No N+1 query pattern in list/feed code paths",
+      "weight": 0.20,
+      "prompt": "Any changed Service method returning multiple Articles that contains a .map/for...of/forEach loop issuing an await DB call per iteration (e.g. appendFollowers-style per-article enrichment) scores 0.",
+      "source": "spec/plans/functional-design.md (N+1 Fix — Detailed Design)"
     },
     {
       "id": "ARCH-03",
-      "metric": "Public and stateless",
-      "weight": 0.2,
-      "prompt": "The changed version router does not reference verifyToken, any auth middleware, models, sequelize, or controllers. Score 0 if any appears.",
-      "source": "spec/plans/requirements.md (REQ-F-03)"
+      "metric": "Auth token never in localStorage",
+      "weight": 0.20,
+      "prompt": "Any changed file under src/ referencing localStorage/sessionStorage in connection with a token, user session, or JWT scores 0.",
+      "source": "spec/plans/nfr.md (Security — REQ-NF-01)"
     },
     {
       "id": "ARCH-04",
-      "metric": "Exact response contract",
+      "metric": "API response contract parity",
       "weight": 0.15,
-      "prompt": "The handler responds with res.json of an object with exactly those two keys and no others (no build metadata, no commit hash). Score 0 if any extra field is added or name differs.",
-      "source": "spec/plans/requirements.md (REQ-F-01, REQ-NF-03)"
+      "prompt": "Any changed Route Handler whose response shape omits, renames, or restructures a field present in the corresponding current backend/controllers/*.js response (verified by reading the original controller) scores 0.",
+      "source": "spec/plans/nfr.md (Non-Functional Targets — API contract parity)"
     },
     {
       "id": "ARCH-05",
-      "metric": "No new dependency",
+      "metric": "No unsafe schema sync",
       "weight": 0.15,
-      "prompt": "The diff contains no change to dependencies or devDependencies in any package.json or lockfile. Score 0 on any such change.",
-      "source": "spec/plans/requirements.md (REQ-NF-01)"
+      "prompt": "Any changed file under src/ containing a sequelize.sync( call with alter or force set to a truthy value scores 0.",
+      "source": "spec/plans/requirements.md (REQ-F-18)"
+    },
+    {
+      "id": "ARCH-06",
+      "metric": "No Axios or react-router-dom in src/",
+      "weight": 0.10,
+      "prompt": "Any changed file under src/ with an import ... from 'axios' or import ... from 'react-router-dom' statement scores 0.",
+      "source": "spec/plans/nfr.md (Maintainability — REQ-NF-05)"
     }
   ]
 }

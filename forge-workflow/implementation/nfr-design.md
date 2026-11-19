@@ -38,7 +38,7 @@ Incorporate NFR requirements into the system design using patterns and logical c
 - **Logical Components** - Ask about infrastructure components (queues, caches, circuit breakers, etc.) and their integration patterns
 
 ### Step 4: Store Plan
-- Save as `spec/spec-generation/nfr-design-generation.md` (never the NFR Requirements plan file)
+- Save as `spec/spec-generation/nfr-generation.md`
 - Include all [Answer]: tags for user input
 
 ### Step 5: Collect and Analyze Answers
@@ -47,7 +47,8 @@ Incorporate NFR requirements into the system design using patterns and logical c
 - Add follow-up questions if needed
 
 ### Step 6: Generate NFR Design Artifacts
-- Append a `## NFR Design` section to `spec/plans/nfr.md` — never overwrite or rewrite its `## NFR Requirements` section
+- Create `spec/plans/nfr.md`
+- Create `spec/plans/nfr.md`
 
 ### Step 7: Present Completion Message
 - Present completion message in this structure:
@@ -90,4 +91,4 @@ Incorporate NFR requirements into the system design using patterns and logical c
 ### Step 9: Record Approval and Update Progress
 - Log approval in runtime-artifacts/audit.md with timestamp
 - Record the user's approval response with timestamp
-- Mark NFR Design stage complete in runtime-artifacts/forge-state.md
+- Mark NFR Design stage complete in runtime-artifacts/aire-state.md

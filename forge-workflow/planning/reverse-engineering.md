@@ -12,10 +12,10 @@
 
 **CRITICAL**: In a monorepo (multiple modules/packages under one workspace root), reverse engineering executes **ONCE at the workspace root**, covering ALL modules in a single pass:
 
-- **One artifact set**: All artifacts are generated FLAT in `spec/plans/` (the ROOT reverse engineering documents, alongside `knowledge-hub-deep-dive.md`). NEVER generate separate per-module reverse engineering document sets.
-- **Module detail lives inside the root docs**: each module/package gets its own component-level sections within `business-overview.md`, `knowledge-hub-deep-dive.md`, `code-structure.md`, `component-inventory.md`, and `dependencies.md`.
+- **One artifact set**: All artifacts are generated FLAT in `spec/plans/` (the ROOT reverse engineering documents, alongside `atlas-deep-dive.md`). NEVER generate separate per-module reverse engineering document sets.
+- **Module detail lives inside the root docs**: each module/package gets its own component-level sections within `business-overview.md`, `atlas-deep-dive.md`, `code-structure.md`, `component-inventory.md`, and `dependencies.md`.
 - **All modules reuse the root artifacts**: every downstream stage (Requirements Analysis, User Stories, design stages, `dev-implement`), regardless of which module a story touches, loads the SAME root artifacts. Do NOT re-run reverse engineering per module or per story.
-- **Keeping root docs current**: current-system truth is refreshed **fresh from Knowledge Hub via the Knowledge MCP** at the start of each cycle (`common/knowledge-hub-integration.md`), or by re-running this stage — and is kept current *at the other end* by the per-cycle delta, which `archive-epic` produces and `stitch-delta` publishes back to the Knowledge Hub deep dive after the cycle's PR merges. A cycle never has to diff itself against a prior cycle's documents.
+- **Keeping root docs current**: current-system truth is refreshed **fresh from Atlas via the Helix MCP** at the start of each cycle (`common/helix-atlas-integration.md`), or by re-running this stage. There is no per-cycle delta and no stitching — a cycle never has to diff itself against a prior cycle's documents.
 
 ## Standalone Invocation — `reverse-engineering-root` Skill
 
@@ -34,10 +34,10 @@ As its **very first step** (before Step 1, in BOTH the inline stage and the stan
 
 - **Check first, create only if missing**: test whether `spec/context-project/existing-knowledge/` already exists. **If it already exists** (e.g. left by an earlier run, or already curated by the team) — **reuse it AS-IS**: do NOT recreate, empty, overwrite, or delete it or anything under it. **Only if it is absent**, create an empty `spec/context-project/existing-knowledge/` folder. **Do NOT create a README inside it** — humans curate its contents.
 - **What it is for**: a human-authored home for **knowledge about the CURRENT project** — how the existing system works, where things live, what each module does (e.g. an `interview.md` explaining a module's behavior and layout). This is context about what already exists, NOT requirements for the new work (those come from the Epic). The framework never auto-populates it.
-- **Convention**: one subfolder per repo module, named **exactly** after the module (e.g. for a repo `Abc_org` containing `Abc.corp`, create `spec/context-project/existing-knowledge/Abc.corp/` and place its `interview.md` etc. there).
+- **Convention**: one subfolder per repo module, named **exactly** after the module (e.g. for a repo `ALIX_DX` containing `ALIX.BMS`, create `spec/context-project/existing-knowledge/ALIX.BMS/` and place its `interview.md` etc. there).
 - **How it is used**: it is read **only when the user opts in** at workflow start (Workspace Detection asks "Are there any context-project artifacts I should use for this task?") and **only at the exact path the user pastes** — Requirements Analysis and Workflow Planning then consult that path as background context about the existing system. Nothing under `spec/context-project/existing-knowledge/` is auto-scanned.
 
-When writing the reverse engineering artifacts, note in `code-structure.md` (or the workspace-layout section of `knowledge-hub-deep-dive.md`) that a `spec/context-project/existing-knowledge/` folder is present and is used as human-curated context input to the Forge workflow — so it is not mistaken for application source.
+When writing the reverse engineering artifacts, note in `code-structure.md` (or the workspace-layout section of `atlas-deep-dive.md`) that a `spec/context-project/existing-knowledge/` folder is present and is used as human-curated context input to the AIRE workflow — so it is not mistaken for application source.
 
 ## Accuracy Rules — Apply to ALL Artifact Writing
 
@@ -106,7 +106,7 @@ Create `spec/plans/business-overview.md`:
 
 ## Step 3: Generate Architecture Documentation
 
-Create `spec/plans/knowledge-hub-deep-dive.md`:
+Create `spec/plans/atlas-deep-dive.md`:
 
 ```markdown
 # System Architecture
@@ -303,14 +303,14 @@ Create `spec/plans/reverse-engineering-timestamp.md`:
 # Reverse Engineering Metadata
 
 **Analysis Date**: [ISO timestamp]
-**Analyzer**: forge
+**Analyzer**: aire
 **Workspace**: [Workspace path]
 **Analyzed At Commit**: [git HEAD SHA at analysis time, or N/A if not a git repo]
 **Total Files Analyzed**: [Number]
 
 ## Artifacts Generated
 - [x] business-overview.md
-- [x] knowledge-hub-deep-dive.md
+- [x] atlas-deep-dive.md
 - [x] code-structure.md
 - [x] api-documentation.md
 - [x] component-inventory.md
@@ -321,7 +321,7 @@ Create `spec/plans/reverse-engineering-timestamp.md`:
 
 ## Step 11: Update State Tracking
 
-Update `runtime-artifacts/forge-state.md`:
+Update `runtime-artifacts/aire-state.md`:
 
 ```markdown
 ## Reverse Engineering Status
@@ -356,18 +356,13 @@ Update `runtime-artifacts/forge-state.md`:
 
 ## Keeping the Root Docs Current Across Cycles
 
-Current-system truth is refreshed **fresh from Knowledge Hub via the Knowledge MCP** at the start of each new cycle
-(`common/knowledge-hub-integration.md`) — the knowledge graph plus the deepdive docs
-(`spec/plans/knowledge-hub-deep-dive.md` and the flat RE docs under `spec/plans/`) — so a cycle never has to diff
-itself against a prior cycle's documents.
+There is **no per-cycle delta and no stitching**. Current-system truth is refreshed **fresh from Atlas
+via the Helix MCP** at the start of each new cycle (`common/helix-atlas-integration.md`) — the knowledge
+graph plus the deepdive docs (`spec/plans/atlas-deep-dive.md` and the flat RE docs under `spec/plans/`) — so a
+cycle never has to diff itself against a prior cycle's documents or fold changes back into root
+documents. `archive-epic` archives the cycle's `spec/` + `reports/` + `runtime-artifacts/` and generates
+no delta.
 
-**What keeps that Knowledge Hub truth current is the per-cycle delta**, produced and applied at cycle close:
-`archive-epic` (`agents/archive-epic-agent.md` Step 3) writes what the cycle actually shipped to
-`spec/plans/delta/<CYCLE-ID>-<slug>/delta.md` as a change record with path-level evidence, and
-after the cycle's PR merges `stitch-delta` (`agents/stitch-delta-agent.md`) applies them and publishes
-the result to the Knowledge Hub document itself. So a cycle never folds changes into a *prior cycle's local
-documents* — it folds them into the shared Knowledge Hub source everyone pulls from next.
-
-> **Post-release recommendation**: after `archive-epic` completes, when Knowledge Hub is not the source, run the
+> **Post-release recommendation**: after `archive-epic` completes, when Atlas is not the source, run the
 > **`reverse-engineering-root`** skill to fully regenerate the root artifacts from the released codebase —
 > the highest-fidelity local baseline for the next epic.

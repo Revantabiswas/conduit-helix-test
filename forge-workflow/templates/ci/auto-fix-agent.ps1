@@ -48,29 +48,14 @@ $smokeContext = $false
 if ($headRef -and $headRef -like "ci/epic-smoke-*") { $smokeContext = $true }
 
 # -- INFRASTRUCTURE class (Section 6.4) --
-# 🔴 An infra-class gate (sonar with no reported conditions) must never swallow other gates that ALSO
-#    failed in the same run. See auto-fix-agent.sh's matching block for the full rationale and the
-#    production failure this fixes (self-repair reporting ONLY a sonar infra note while static/unit
-#    were also genuinely red and never even attempted).
-$repairableGates = @()
-$infraNotes = @()
 foreach ($g in $gates) {
   if ($g -eq "sonar") {
     $cond = "$runDir/sonar-conditions.txt"
-    if ((Test-Path $cond) -and (Get-Item $cond).Length -gt 0) {
-      $repairableGates += $g
-    } else {
-      $infraNotes += "sonar failed WITHOUT reported conditions (auth/unreachable/timeout) - infrastructure, not a code defect. Excluded from this repair attempt; fix the Sonar connection/secret separately."
+    if (-not ((Test-Path $cond) -and (Get-Item $cond).Length -gt 0)) {
+      ReportAndExit "sonar failed WITHOUT reported conditions (auth/unreachable/timeout) — infrastructure, not a code defect. Not consuming a retry." 1
     }
-  } else {
-    $repairableGates += $g
   }
 }
-foreach ($n in $infraNotes) { Write-Error "auto-fix-agent: $n" -ErrorAction Continue }
-if ($repairableGates.Count -eq 0) {
-  ReportAndExit "every failing gate this run is infrastructure-class (see notes above) - not consuming a retry." 1
-}
-$gates = $repairableGates
 
 # -- Retry budget (only a genuinely repairable failure gets this far, so only it consumes an attempt) --
 $limit = 3
@@ -78,7 +63,7 @@ if ((Test-Path $config) -and (Get-Command jq -ErrorAction SilentlyContinue)) { $
 $counter = "$runDir/self-repair-attempt"
 $prev = if (Test-Path $counter) { [int](Get-Content $counter -Raw) } else { 0 }
 $attempt = $prev + 1
-if ($attempt -gt $limit) { ReportAndExit "SELF-REPAIR LIMIT REACHED ($limit of $limit attempts) — I could not fix this on my own. Unresolved gates: $($gates -join ', '). Evidence: the eval-results artifact of this run. To take over: (1) reproduce locally with the failing gate's command from tests/.evals/config.json, (2) fix the code on this PR's branch — never by skipping a test, suppressing a finding or lowering a threshold — and push, or (3) leave a PR comment describing the problem and type pr-fix <PR number> in Claude Code to have it fixed and re-verified on this PR." 1 }
+if ($attempt -gt $limit) { ReportAndExit "retry limit $limit reached — 3 retries ended. Please suggest next steps. Unresolved: $($gates -join ', ')" 1 }
 $attempt | Out-File -Encoding utf8 $counter
 
 
@@ -108,7 +93,7 @@ if (Test-Path $unitFeature) { $contextLines += "`n  - This work unit's Gherkin c
 if (Test-Path "spec/plans/architecture.md") { $contextLines += "`n  - Architecture constraints this repo is held to (Section 10 is what the J1 judge scores): spec/plans/architecture.md" }
 if (Test-Path "spec/plans/requirements.md") { $contextLines += "`n  - Requirements: spec/plans/requirements.md" }
 if (Test-Path "spec/plans/stories.md") { $contextLines += "`n  - Work-unit definitions and acceptance criteria: spec/plans/stories.md" }
-if (Test-Path "runtime-artifacts/forge-state.md") { $contextLines += "`n  - Story Tracker (which unit this is, its tracker id, its dependencies): runtime-artifacts/forge-state.md" }
+if (Test-Path "runtime-artifacts/aire-state.md") { $contextLines += "`n  - Story Tracker (which unit this is, its tracker id, its dependencies): runtime-artifacts/aire-state.md" }
 if ($evalJson) { $contextLines += "`n  - This run's scorecard, with per-criterion judge scores and file:line citations: $evalJson" }
 
 if ($smokeContext) {
@@ -280,9 +265,9 @@ if ($baseSha) {
 
 # 🔴 A fresh GH Actions runner has no git identity configured — git commit fails outright even after
 #    a fully correct repair, wasting a retry on something that was never a code problem. --local scopes
-#    it to this checkout only. Same bot-identity convention as smoke-test-epic.sh's forge-ci-smoke commits.
-git config --local user.name "forge-self-repair"
-git config --local user.email "forge-self-repair@localhost"
+#    it to this checkout only. Same bot-identity convention as smoke-test-epic.sh's aire-ci-smoke commits.
+git config --local user.name "aire-self-repair"
+git config --local user.email "aire-self-repair@localhost"
 
 # Claude may have already committed its own fix inside the CLI call above. Only create an extra
 # commit for whatever it left uncommitted — never treat "nothing left to stage" as a failure.

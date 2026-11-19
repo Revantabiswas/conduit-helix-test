@@ -25,9 +25,9 @@ Design detailed business logic for the whole system, technology-agnostic and foc
 ### Step 1: Analyze System Context
 - Read the intake brief from `spec/plans/epic-brief.md` (if present) — it defines WHAT to build
 - Read requirements from `spec/plans/requirements.md`
-- Read stories from `spec/plans/stories.md` and the `## Story Tracker` in `runtime-artifacts/forge-state.md`
+- Read stories from `spec/plans/stories.md` and the `## Story Tracker` in `runtime-artifacts/aire-state.md`
 - Read `spec/plans/application-design.md` artifacts (if Application Design ran) for component structure and boundaries
-- Read the `New References` fields of `## Context Project` in `runtime-artifacts/forge-state.md`. **IF `New References: Yes`**, load all listed reference paths — UX wireframes define interaction flows, states, and validation rules; API specs define data contracts and operation semantics. Use them as primary inputs for detailed business logic design.
+- Read `## Context References` in `runtime-artifacts/aire-state.md`. **IF `Use References: Yes`**, load all listed reference paths — UX wireframes define interaction flows, states, and validation rules; API specs define data contracts and operation semantics. Use them as primary inputs for detailed business logic design.
 
 ### Step 2: Create Functional Design Plan
 - Generate plan with checkboxes [] for functional design
@@ -118,4 +118,4 @@ Design detailed business logic for the whole system, technology-agnostic and foc
 ### Step 9: Record Approval and Update Progress
 - Log approval in runtime-artifacts/audit.md with timestamp
 - Record the user's approval response with timestamp
-- Mark Functional Design stage complete in runtime-artifacts/forge-state.md
+- Mark Functional Design stage complete in runtime-artifacts/aire-state.md

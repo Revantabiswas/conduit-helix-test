@@ -21,13 +21,13 @@ Application Design focuses on:
 
 ### 1. Analyze Context
 - Read `spec/plans/requirements.md` and `spec/plans/stories.md`
-- Read the `New References` fields of `## Context Project` in `runtime-artifacts/forge-state.md`. **IF `New References: Yes`**, load all listed reference paths — UX wireframes/mockups define the component structure and UI layout; API specs define service interfaces; architecture diagrams inform component dependencies. Use them as primary design inputs alongside requirements and stories.
+- Read `## Context References` in `runtime-artifacts/aire-state.md`. **IF `Use References: Yes`**, load all listed reference paths — UX wireframes/mockups define the component structure and UI layout; API specs define service interfaces; architecture diagrams inform component dependencies. Use them as primary design inputs alongside requirements and stories.
 - Identify key business capabilities and functional areas
 - Determine design scope and complexity
 
 ### 1.5  RE-CONSULT the Design References (MANDATORY — automatic, ask the user nothing)
 
-**Load `common/design-reference-grounding.md`** and read `## Design References` in `runtime-artifacts/forge-state.md`.
+**Load `common/design-reference-grounding.md`** and read `## Design References` in `runtime-artifacts/aire-state.md`.
 
 **This step adds no question, no gate, and no checkpoint.** You do it silently as part of analysing context.
 
@@ -51,7 +51,7 @@ This is your own self-check before writing the artifact — satisfy it yourself;
 ** RECORD YOUR RECONCILIATIONS (DR-8 — MANDATORY).** Application Design is where most deliberate deviations from a reference are decided, and **later stages will re-open the same raw reference**. Any decision you take *against* what a reference shows — excluding a capability, narrowing a scope model, scoping a stylesheet locally instead of globally, deferring something to a later story, or overriding it for an NFR/accessibility reason — MUST be written in **both** places, or Code Generation will re-read the prototype and silently undo it:
 
 1. In `components.md` (or the relevant artifact), as a stated decision with its reason
-2. As a row in the `### Reconciliations` table under `## Design References` in `runtime-artifacts/forge-state.md` — see the format in `common/design-reference-grounding.md` DR-8
+2. As a row in the `### Reconciliations` table under `## Design References` in `runtime-artifacts/aire-state.md` — see the format in `common/design-reference-grounding.md` DR-8
 
 An unrecorded deviation is treated by every later stage as if it never happened.
 
@@ -171,6 +171,6 @@ If the analysis in step 8 reveals ANY ambiguous answers, you MUST:
 - Mark the approval status clearly
 
 ### 15. Update Progress
-- Mark Application Design stage complete in `runtime-artifacts/forge-state.md`
+- Mark Application Design stage complete in `runtime-artifacts/aire-state.md`
 - Update the "Current Status" section
 - Prepare for transition to next stage

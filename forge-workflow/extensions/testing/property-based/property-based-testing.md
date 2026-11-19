@@ -2,7 +2,7 @@
 
 ## Overview
 
-These property-based testing (PBT) rules are cross-cutting constraints that apply across applicable forge phases. They ensure that code with identifiable properties is tested using property-based techniques, complementing (not replacing) traditional example-based tests.
+These property-based testing (PBT) rules are cross-cutting constraints that apply across applicable aire phases. They ensure that code with identifiable properties is tested using property-based techniques, complementing (not replacing) traditional example-based tests.
 
 Property-based testing defines invariants that must hold for all valid inputs, then uses a framework to generate random inputs and search for counterexamples. When a failure is found, the framework shrinks the input to a minimal reproducing case. This approach uncovers edge cases and subtle bugs that example-based testing routinely misses.
 
@@ -24,7 +24,7 @@ All rules in this document are **blocking** by default. If any rule's verificati
 
 ### Partial Enforcement Mode
 
-If the user selected **Partial** enforcement during opt-in, only rules PBT-02, PBT-03, PBT-07, PBT-08, and PBT-09 are enforced. All other rules are treated as advisory (non-blocking). Log the enforcement mode in `runtime-artifacts/forge-state.md` under `## Extension Configuration`.
+If the user selected **Partial** enforcement during opt-in, only rules PBT-02, PBT-03, PBT-07, PBT-08, and PBT-09 are enforced. All other rules are treated as advisory (non-blocking). Log the enforcement mode in `runtime-artifacts/aire-state.md` under `## Extension Configuration`.
 
 ### Verification Criteria Format
 
@@ -249,7 +249,7 @@ Requirements:
 
 ## Enforcement Integration
 
-These rules are cross-cutting constraints that apply to the following forge stages:
+These rules are cross-cutting constraints that apply to the following aire stages:
 
 | Stage | Applicable Rules | Enforcement |
 |---|---|---|

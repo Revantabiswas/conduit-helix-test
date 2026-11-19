@@ -1,6 +1,6 @@
 # Branching Strategy (Epic Branch → Story Branches; Bug Branch)
 
-**Purpose**: Single source of truth for ALL git branching in forge. Loaded by Workspace Detection (epic branch creation), Requirements Analysis Step 10 (epic branch commit and push), `workflows/dev-implement.md` (story branches), and the bug workflows (`workflows/bug-fix.md` / `bug-fix-implement.md` — see the Bug Branch Model at the end).
+**Purpose**: Single source of truth for ALL git branching in aire. Loaded by Workspace Detection (epic branch creation), Requirements Analysis Step 10 (epic branch commit and push), `workflows/dev-implement.md` (story branches), and the bug workflows (`workflows/bug-fix.md` / `bug-fix-implement.md` — see the Bug Branch Model at the end).
 
 ## The Model
 
@@ -20,7 +20,7 @@ main (or whatever branch the workflow started on — the "base branch")
 
 ## 1. Epic Branch Creation (at workflow start — automatic)
 
-Runs during Workspace Detection, AFTER the runtime-artifacts/forge-state.md resume check and Parent Epic capture. **Skip** if `## Branching` already exists in `runtime-artifacts/forge-state.md` (resumed project) — verify the recorded epic branch still exists and switch to it.
+Runs during Workspace Detection, AFTER the runtime-artifacts/aire-state.md resume check and Parent Epic capture. **Skip** if `## Branching` already exists in `runtime-artifacts/aire-state.md` (resumed project) — verify the recorded epic branch still exists and switch to it.
 
 1. Record the **base branch**: `git branch --show-current` — this is the branch the epic branch is cut from and the PR target later. It is NOT assumed to be `main`; use whatever the repo is on.
 2. Derive the epic branch name:
@@ -31,7 +31,7 @@ Runs during Workspace Detection, AFTER the runtime-artifacts/forge-state.md resu
    git fetch origin
    git checkout -b epic/<EPIC-KEY>-<kebab-title>
    ```
-4. Record in `runtime-artifacts/forge-state.md`:
+4. Record in `runtime-artifacts/aire-state.md`:
    ```markdown
    ## Branching
    - Base Branch: main            (the branch the epic branch was cut from)
@@ -46,7 +46,7 @@ Runs during Workspace Detection, AFTER the runtime-artifacts/forge-state.md resu
 1. Commit the Planning artifacts produced so far (`spec/` requirements, state, audit) on the **epic branch**.
 2. Push the epic branch to origin (`git push origin <epic-branch>`). **🔴 Do NOT raise an Epic → Base PR at this point.** The Epic PR is raised manually by the user at the end of the cycle (after all stories are developed, ve has approved them, and the epic branch is complete) via `pr-generator`.
 3. Log the commit hash and push confirmation in runtime-artifacts/audit.md.
-4. Update `## Branching` in `runtime-artifacts/forge-state.md`: `Epic PR: (not raised — raised manually at cycle end via pr-generator)`.
+4. Update `## Branching` in `runtime-artifacts/aire-state.md`: `Epic PR: (not raised — raised manually at cycle end via pr-generator)`.
 5. The epic branch continues to accumulate story merges during the cycle. The Epic PR is only raised at cycle end.
 
 ## 3. Story Branch Creation (at `dev-implement`, per story)
@@ -61,7 +61,7 @@ Runs after Story Selection resolves the story and the Doability Gate passes, BEF
    ```
 3. **Select the base for the story branch** (dependency-merge check):
    - Read the story's `requires` from `dependency-graph.yml`.
-   - For EACH prerequisite story, determine whether its story branch has been **MERGED into the epic branch** (`gh pr view <dep-branch> --json state,mergedAt`, or `git branch --merged <epic-branch>`). In the normal `dev-implement` flow the Doability Gate ran first and already checked this live (`implementation/story-selection.md` Step 4) — the gate never merges anything itself, so anything still unmerged here is exactly what the Doability Gate already stopped on. Note: `Ready for Testing` now means the dep's PR has been **MERGED** (a story is not promoted to Ready for Testing until its PR merges — see the Story Status Lifecycle in `CLAUDE.md`), so the Doability Gate and this git-level check now agree; this remains the authoritative merge check and stays as a safety net (e.g. a merge undone, or a status set out of band).
+   - For EACH prerequisite story, determine whether its story branch has been **MERGED into the epic branch** (`gh pr view <dep-branch> --json state,mergedAt`, or `git branch --merged <epic-branch>`). In the normal `dev-implement` flow the Doability Gate ran first and already checked this live (`implementation/story-selection.md` Step 4) — the gate never merges anything itself, so anything still unmerged here is exactly what the Doability Gate already stopped on. Note: `🧪 Ready for Testing` now means the dep's PR has been **MERGED** (a story is not promoted to Ready for Testing until its PR merges — see the Story Status Lifecycle in `CLAUDE.md`), so the Doability Gate and this git-level check now agree; this remains the authoritative merge check and stays as a safety net (e.g. a merge undone, or a status set out of band).
    - **Case A — no prerequisites, or ALL prerequisites merged into the epic branch**: cut from the epic branch:
      ```
      git checkout -b story/<N.M>-<kebab-title> <epic-branch>
@@ -72,10 +72,10 @@ Runs after Story Selection resolves the story and the Doability Gate passes, BEF
         It depends on story [X.Y], whose branch `story/X.Y-...` is NOT yet merged
         into the epic branch — its code would be missing from any branch cut now.
 
-     Merge story [X.Y]'s PR into the epic branch first, then run `dev-implement`
+     ➡ Merge story [X.Y]'s PR into the epic branch first, then run `dev-implement`
         again to start Story [N.M]. (Unmerged prerequisites: [list all])
      ```
-     Do NOT create a story branch. Do NOT cut from the unmerged dependency's branch. Log the warning in runtime-artifacts/audit.md, revert the story's status from `In Development` back to `Ready for Development` in the Story Tracker (and the external tracker, verified) since development is not starting, and END the `dev-implement` run — the user re-invokes it after merging.
+     Do NOT create a story branch. Do NOT cut from the unmerged dependency's branch. Log the warning in runtime-artifacts/audit.md, revert the story's status from `🔵 In Development` back to `🟢 Ready for Development` in the Story Tracker (and the external tracker, verified) since development is not starting, and END the `dev-implement` run — the user re-invokes it after merging.
 4. Verify the branch is active (`git branch --show-current`), record the story branch name + base used in runtime-artifacts/audit.md, and carry it forward as the commit/push/PR target. (This is a self-check, not a user prompt.)
 
 ## 4. Story PR (dev-implement Section D)
@@ -92,7 +92,7 @@ Runs after Story Selection resolves the story and the Doability Gate passes, BEF
 - 🔴 ALWAYS run the dependency-merge check; when any prerequisite is unmerged, WARN AND STOP (Case B) — tell the user to merge the prerequisite's PR into the epic branch first. NEVER cut a story branch from an unmerged dependency branch, and never proceed silently.
 - 🔴 Branch names (epic and story) are derived and created **automatically — never confirmed with the user**; they are announced. Only a dirty working tree (epic branch creation) still asks.
 - 🔴 Story PRs target the epic branch; the epic branch PR targets the recorded base branch. Pass the target explicitly to `pr-generator` — invoked this way it runs in **workflow mode**, so it pushes and opens the PR **automatically** (Phase 5 skipped; the invoking workflow's gate is the authorization). It asks the user only when invoked standalone without a target. Every PR title is prefixed **`[STORY]`** or **`[EPIC]`** accordingly — pr-generator enforces this.
-- 🔴 Record every branch created (name, base, chooser's raw response) in runtime-artifacts/audit.md and keep `## Branching` in runtime-artifacts/forge-state.md current.
+- 🔴 Record every branch created (name, base, chooser's raw response) in runtime-artifacts/audit.md and keep `## Branching` in runtime-artifacts/aire-state.md current.
 - 🔴 Story branches therefore ALWAYS have exactly one base: the refreshed epic branch. There is no alternative base under any circumstance.
 
 ---
@@ -106,7 +106,7 @@ main (base branch — whatever branch the workflow started on)
  └── bug/PROJ-123-login-timeout      ← created at bug-fix start; ALL docs + code live here
 ```
 
-1. **Creation** (during `bug-fix` workspace detection, automatic): record the base branch (`git branch --show-current` — never assume `main`), then `git fetch origin && git checkout -b bug/<TICKET-ID>-<kebab-case-ticket-title>` (whole name ≤ 60 chars; clean working tree required, else show `git status` and ask; for `Type: LOCAL`, `<TICKET-ID>` is the locally-minted `BUG-LOCAL-N` per `common/tracker-sync.md` Section 8). Record in `runtime-artifacts/forge-state.md`:
+1. **Creation** (during `bug-fix` workspace detection, automatic): record the base branch (`git branch --show-current` — never assume `main`), then `git fetch origin && git checkout -b bug/<TICKET-ID>-<kebab-case-ticket-title>` (whole name ≤ 60 chars; clean working tree required, else show `git status` and ask; for `Type: LOCAL`, `<TICKET-ID>` is the locally-minted `BUG-LOCAL-N` per `common/tracker-sync.md` Section 8). Record in `runtime-artifacts/aire-state.md`:
    ```markdown
    ## Branching
    - Base Branch: main

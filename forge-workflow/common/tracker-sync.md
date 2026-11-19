@@ -1,8 +1,8 @@
 # Tracker Sync — Single Source of Truth for JIRA / ADO / GITHUB / LOCAL
 
-**Purpose**: forge supports FOUR interchangeable issue trackers — **JIRA**, **ADO** (Azure DevOps Boards), **GITHUB** (GitHub Issues/Projects), and **LOCAL** (no external tracker at all). This file is the ONLY place tracker-specific mechanics are defined — every workflow, stage, and skill that needs to create an issue, transition a status, assign someone, link a story to its Epic, fetch an existing ticket, or record a comment dispatches through the tables below instead of re-deriving tracker-specific commands inline. When any other rule file says "apply the Tracker Sync Rule" or "per `common/tracker-sync.md`", it means: read `## Tracker` → `Type` in `runtime-artifacts/forge-state.md`, then follow the row for that `Type` in the relevant table here.
+**Purpose**: aire supports FOUR interchangeable issue trackers — **JIRA**, **ADO** (Azure DevOps Boards), **GITHUB** (GitHub Issues/Projects), and **LOCAL** (no external tracker at all). This file is the ONLY place tracker-specific mechanics are defined — every workflow, stage, and skill that needs to create an issue, transition a status, assign someone, link a story to its Epic, fetch an existing ticket, or record a comment dispatches through the tables below instead of re-deriving tracker-specific commands inline. When any other rule file says "apply the Tracker Sync Rule" or "per `common/tracker-sync.md`", it means: read `## Tracker` → `Type` in `runtime-artifacts/aire-state.md`, then follow the row for that `Type` in the relevant table here.
 
-**LOCAL is a fully first-class mode, not a degraded one.** When `Type: LOCAL`, forge MUST work end-to-end with zero external tool calls (no MCP, no `gh`, no `az`) — the Story Tracker in `runtime-artifacts/forge-state.md` is the single source of truth, IDs are locally minted, and every "ticket-keyed" workflow (which normally takes an existing tracker ID as its invocation argument) gets an equivalent local entry point that asks the user to describe the item inline instead of fetching it. A LOCAL project must never be blocked or degraded because "the real flow assumes Jira."
+**LOCAL is a fully first-class mode, not a degraded one.** When `Type: LOCAL`, aire MUST work end-to-end with zero external tool calls (no MCP, no `gh`, no `az`) — the Story Tracker in `runtime-artifacts/aire-state.md` is the single source of truth, IDs are locally minted, and every "ticket-keyed" workflow (which normally takes an existing tracker ID as its invocation argument) gets an equivalent local entry point that asks the user to describe the item inline instead of fetching it. A LOCAL project must never be blocked or degraded because "the real flow assumes Jira."
 
 ---
 
@@ -12,7 +12,7 @@ Every file in the framework that used to hardcode "Jira" as the only tracker ado
 
 | Old (Jira-only) | New (tracker-agnostic) |
 |---|---|
-| `## Jira` state section in `runtime-artifacts/forge-state.md` | `## Tracker` |
+| `## Jira` state section in `runtime-artifacts/aire-state.md` | `## Tracker` |
 | *(none)* | NEW first field under `## Tracker`: `- Type: JIRA \| ADO \| GITHUB \| LOCAL` |
 | `Project Key` field | `Project Key / Repo / Org` — holds whichever identifier fits: Jira project key (`PROJ`), GitHub `org/repo`, ADO `org-url` + `project` (e.g. `https://dev.azure.com/myorg / MyProject`), or `—` for LOCAL |
 | `Parent Epic:` / `Epic URL:` fields | unchanged names, generic meaning — a Jira Epic, a GitHub Milestone (or tracking issue), an ADO Epic work item, or a locally-described Epic (`Epic URL: —`) |
@@ -28,26 +28,26 @@ Every file in the framework that used to hardcode "Jira" as the only tracker ado
 
 ## 1. Tracker Selection (asked ONCE, at the very start of the workflow)
 
-Executed by `planning/workspace-detection.md`, immediately after Session Identity Capture and before Parent Epic Capture — this MUST be known before the Epic can be resolved. **Skip entirely and reuse the recorded value** if `runtime-artifacts/forge-state.md` already contains a `## Tracker` section (resumed project) — never re-ask.
+Executed by `planning/workspace-detection.md`, immediately after Session Identity Capture and before Parent Epic Capture — this MUST be known before the Epic can be resolved. **Skip entirely and reuse the recorded value** if `runtime-artifacts/aire-state.md` already contains a `## Tracker` section (resumed project) — never re-ask.
 
 ```markdown
-Which issue tracker should forge use for this project?
+ Which issue tracker should aire use for this project?
 
-A) Jira            — stories/epics pushed via the Atlassian MCP
-B) Azure DevOps    — work items pushed via the `az boards` CLI
-C) GitHub           — issues/milestones pushed via the `gh` CLI
-D) Local only       — no external tracker; everything tracked in runtime-artifacts/forge-state.md
+A) 🔷 Jira            — stories/epics pushed via the Atlassian MCP
+B) 🔶 Azure DevOps    — work items pushed via the `az boards` CLI
+C)  GitHub          — issues/milestones pushed via the `gh` CLI
+D)  Local only      — no external tracker; everything tracked in runtime-artifacts/aire-state.md
 
 [Answer]:
 ```
 
-🔴 **GUARDRAIL — exactly these 4 options, nothing else.** Do NOT append an `X)`/`E)` "Other" option — this deliberately OVERRIDES `common/question-format-guide.md`'s general A–E/"Other" pattern; the tracker set is fixed and closed, so only `A`/`B`/`C`/`D` are valid answers. 🔴 Ask it plainly — do NOT justify or explain the "never infer the tracker" rule to the user (no "per the Forge framework rules..." preamble); just present the question above and wait.
+🔴 **GUARDRAIL — exactly these 4 options, nothing else.** Do NOT append an `X)`/`E)` "Other" option — this deliberately OVERRIDES `common/question-format-guide.md`'s general A–E/"Other" pattern; the tracker set is fixed and closed, so only `A`/`B`/`C`/`D` are valid answers. 🔴 Ask it plainly — do NOT justify or explain the "never infer the tracker" rule to the user (no "per the AIRE framework rules..." preamble); just present the question above and wait.
 
-🔴 **ASK THIS IN THE CHAT SESSION ONLY.** Do NOT create a question `.md` file for it — this question deliberately does NOT use `common/question-format-guide.md`'s file-based convention. Present it conversationally and wait for the reply; only the ANSWER is persisted (to `runtime-artifacts/forge-state.md` and `runtime-artifacts/audit.md`).
+🔴 **ASK THIS IN THE CHAT SESSION ONLY.** Do NOT create a question `.md` file for it — this question deliberately does NOT use `common/question-format-guide.md`'s file-based convention. Present it conversationally and wait for the reply; only the ANSWER is persisted (to `runtime-artifacts/aire-state.md` and `runtime-artifacts/audit.md`).
 
 🔴 **MANDATORY FOR ALL 4 CASES, NO EXCEPTIONS**: always ask — even when the pasted Epic link is on a domain that looks unambiguous (e.g. `atlassian.net` or `dev.azure.com`). Recognizing the domain is NEVER a reason to skip the question.
 
-Record the answer immediately in `runtime-artifacts/forge-state.md`:
+Record the answer immediately in `runtime-artifacts/aire-state.md`:
 ```markdown
 ## Tracker
 - Type: JIRA | ADO | GITHUB | LOCAL
@@ -99,7 +99,7 @@ Runs once per approved story, immediately after GATE 1. **LOCAL never pushes any
   issueType: Story
   summary: [story title]
   description: [story narrative + acceptance criteria + persona]
-  labels: [forge, forge-v[N]]
+  labels: [aire, aire-v[N]]
   Component: default | Organization: All Orgs | Severity: Low
 ```
 Then: transition to "Ready for Development" (`getTransitionsForJiraIssue` → `transitionJiraIssue`), verify; link to Parent Epic (`editJiraIssue` parent/Epic Link, or `createIssueLink`), verify.
@@ -112,7 +112,7 @@ STORY_WI_ID=$(az boards work-item create \
   --description "<story narrative + AC as HTML>" \
   --project "{PROJECT}" \
   --fields "Microsoft.VSTS.Common.AcceptanceCriteria=<AC as HTML checklist>" \
-           "System.Tags=ai-generated;forge;forge-v[N]" \
+           "System.Tags=ai-generated;aire;aire-v[N]" \
   --query "id" -o tsv)
 
 az boards work-item relation add --id "$STORY_WI_ID" \
@@ -133,7 +133,7 @@ gh issue create --repo "ORG/REPO" \
 [story narrative + acceptance criteria + persona]
 EOF
 )" \
-  --label "story" --label "ai-generated" --label "forge-v[N]" --label "status:ready-for-dev" \
+  --label "story" --label "ai-generated" --label "aire-v[N]" --label "status:ready-for-dev" \
   --milestone "Epic N: <Epic Name>"
 ```
 Verify: exit code 0 AND captured output matches `^https://github\.com/[^/]+/[^/]+/issues/\d+$` → extract `ISSUE_NUMBER`. Content-parity check: `gh issue view ISSUE_NUMBER --repo "ORG/REPO" --json body --jq '.body | contains(...)'`. The Milestone (created once per Epic via `gh api repos/ORG/REPO/milestones --method POST`) IS the Parent Epic link — no separate linking step. **Status starts as the `status:ready-for-dev` label** (see Section 4 — GitHub issues have no native custom-state field, so status is always represented as a label, and the issue itself stays `open` for the story's whole lifecycle).
@@ -145,18 +145,18 @@ Update the story file / `stories.md` header and the Story Tracker `Tracker ID` c
 
 ## 4. Status Transitions (the "Tracker Sync Rule")
 
-The Story Tracker's three valid statuses (`Ready for Development` → `In Development` → `Ready for Testing`) map onto each tracker as follows. **Applies at every point a story/ticket's status changes** — story pick, PR raise, PR merge + ve sign-off, Parent Epic sync, and the bug/enhancement single-ticket flows.
+The Story Tracker's three valid statuses (`🟢 Ready for Development` → `🔵 In Development` → `🧪 Ready for Testing`) map onto each tracker as follows. **Applies at every point a story/ticket's status changes** — story pick, PR raise, PR merge + ve sign-off, Parent Epic sync, and the bug/enhancement single-ticket flows.
 
 | Tracker Status | JIRA | ADO (`System.State`) | GITHUB (label swap, issue stays `open`) | LOCAL |
 |---|---|---|---|---|
-| Ready for Development | Transition to "Ready for Development" (`getTransitionsForJiraIssue` → `transitionJiraIssue`) | `az boards work-item update --id X --state "New"` (or the project's nearest equivalent — verify via `az boards work-item show` / process metadata, announce any substitution) | `gh issue edit N --repo ORG/REPO --remove-label "status:in-development" --remove-label "status:ready-for-testing" --add-label "status:ready-for-dev"` | Update the Story Tracker only |
-| In Development | `transitionJiraIssue -> "In Development"` | `az boards work-item update --id X --state "Active"` | swap label to `status:in-development` | Update the Story Tracker only |
-| Ready for Testing | `transitionJiraIssue -> "Ready for Testing"` | `az boards work-item update --id X --state "Resolved"` (or nearest equivalent) | swap label to `status:ready-for-testing` | Update the Story Tracker only |
+| 🟢 Ready for Development | Transition to "Ready for Development" (`getTransitionsForJiraIssue` → `transitionJiraIssue`) | `az boards work-item update --id X --state "New"` (or the project's nearest equivalent — verify via `az boards work-item show` / process metadata, announce any substitution) | `gh issue edit N --repo ORG/REPO --remove-label "status:in-development" --remove-label "status:ready-for-testing" --add-label "status:ready-for-dev"` | Update the Story Tracker only |
+| 🔵 In Development | `transitionJiraIssue -> "In Development"` | `az boards work-item update --id X --state "Active"` | swap label to `status:in-development` | Update the Story Tracker only |
+| 🧪 Ready for Testing | `transitionJiraIssue -> "Ready for Testing"` | `az boards work-item update --id X --state "Resolved"` (or nearest equivalent) | swap label to `status:ready-for-testing` | Update the Story Tracker only |
 
 **Sync rule** (replaces "Jira Sync Rule" everywhere it was named):
 - If **Tracker ID = `—`/`LOCAL`**: update ONLY the local Story Tracker. No external call of any kind.
 - If **Tracker ID is a real JIRA/ADO/GITHUB identifier**: ALSO transition the tracker issue via the row above, per the type in `## Tracker`. **VERIFY** the transition landed (re-fetch/re-view the issue) before considering the change complete.
-- **Exception — the claim is automatic** (no confirmation): the `Ready for Development → In Development` transition at story pick applies to the tracker AND the local tracker WITHOUT asking — verified + announced. The `In Development → Ready for Testing` move is made ONLY by `ve-list-work` Option B, after the PR has merged and the ve has tested it; no implement workflow ever makes it. Any OTHER transition (e.g., the Parent Epic moving) remains confirm-first.
+- **Exception — story pick and PR-merge transitions are automatic** (no confirmation): the `🟢→🔵` transition at story pick and the `🔵→🧪` transition on confirmed PR merge apply to the tracker AND the local tracker WITHOUT asking — both verified + announced. Any OTHER transition (e.g., the Parent Epic moving) remains confirm-first.
 - **Epic status sync**: same triggers as before (first story → In Development is automatic; last story → Ready for Testing is confirm-first) — apply via the same per-type row, targeting the Parent Epic's ID instead of the story's.
 - **NEVER silently update only one side** when a non-LOCAL Tracker ID exists — local tracker and the external tracker must always agree.
 
@@ -210,7 +210,7 @@ These workflows normally take an existing tracker item as their invocation argum
 | JIRA | `bug-fix PROJ-123` | `getJiraIssue PROJ-123`: key, issue type, summary, description, acceptance criteria, labels |
 | ADO | `bug-fix 4821` (work item ID) or a work-item URL | `az boards work-item show --id 4821 --project "{PROJECT}"` |
 | GITHUB | `bug-fix #88` or an issue URL | `gh issue view 88 --repo ORG/REPO --json title,body,labels,state` |
-| LOCAL | `bug-fix` (no ID given) | **No fetch.** Ask: ` Describe the bug/enhancement (what's broken or what should change, and why):` — capture the answer, mint a local ID (`BUG-LOCAL-N` / `ENH-LOCAL-N`, next unused N found by scanning `runtime-artifacts/forge-state.md`), and write it as the "ticket" content the rest of the workflow (impact analysis, fix plan, etc.) reads exactly as it would read a fetched ticket. |
+| LOCAL | `bug-fix` (no ID given) | **No fetch.** Ask: ` Describe the bug/enhancement (what's broken or what should change, and why):` — capture the answer, mint a local ID (`BUG-LOCAL-N` / `ENH-LOCAL-N`, next unused N found by scanning `runtime-artifacts/aire-state.md`), and write it as the "ticket" content the rest of the workflow (impact analysis, fix plan, etc.) reads exactly as it would read a fetched ticket. |
 
 Everywhere the framework says `<JIRA-ID>` in a keyword (`bug-fix <JIRA-ID>`, `ticket-implement <JIRA-ID>`, `enhancement-implement <JIRA-ID>`), it now accepts `<TICKET-ID>` per the table above, OR no argument at all when `## Tracker` → `Type: LOCAL` (the workflow prompts for the inline description instead of parsing an ID from the invocation). Regex extraction of an ID from commit subjects / PR titles / branch names (used by `defect-provenance-analyst.md` and audit logging) likewise matches whichever pattern fits the configured tracker:
 - JIRA: `[A-Z][A-Z0-9]+-\d+`
@@ -224,12 +224,12 @@ Everywhere the framework says `<JIRA-ID>` in a keyword (`bug-fix <JIRA-ID>`, `ti
 
 | Type | `ai-generated` marker | Framework version marker |
 |---|---|---|
-| JIRA | label `forge` | label `forge-v[N]` (full minor version, e.g. `forge-v1.0`) |
-| ADO | tag `ai-generated` in `System.Tags` | tag `forge-v[N]` in `System.Tags` |
-| GITHUB | label `ai-generated` | label `forge-v[N]` |
+| JIRA | label `aire` | label `aire-v[N]` (full minor version, e.g. `aire-v1.0`) |
+| ADO | tag `ai-generated` in `System.Tags` | tag `aire-v[N]` in `System.Tags` |
+| GITHUB | label `ai-generated` | label `aire-v[N]` |
 | LOCAL | N/A (no external object to label) | Record the version in the local story/ticket file's header line instead (unchanged — every framework artifact already does this for commits/PRs) |
 
-`[N]` is always read live from the "Forge Framework Version" line in `CLAUDE.md` — never hardcoded, regardless of tracker.
+`[N]` is always read live from the "AIRE Framework Version" line in `CLAUDE.md` — never hardcoded, regardless of tracker.
 
 ---
 

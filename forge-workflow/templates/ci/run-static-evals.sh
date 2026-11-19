@@ -107,8 +107,8 @@ SECRETS_ALLOWED=$(jq -r '.thresholds.secretFindingsAllowed // 0' "$CONFIG")
 #    Section 3's D5/D6 rows show each stack's command referencing these; V35 enforces that it does.
 DISALLOWED_LICENSES=$(jq -r '.thresholds.disallowedLicenses // [] | join(",")' "$CONFIG")
 MAX_COMPLEXITY=$(jq -r '.thresholds.maxCyclomaticComplexity // 0' "$CONFIG")
-export FORGE_DISALLOWED_LICENSES="$DISALLOWED_LICENSES"
-export FORGE_MAX_CYCLOMATIC_COMPLEXITY="$MAX_COMPLEXITY"
+export AIRE_DISALLOWED_LICENSES="$DISALLOWED_LICENSES"
+export AIRE_MAX_CYCLOMATIC_COMPLEXITY="$MAX_COMPLEXITY"
 
 # 🔴 CHANGED must be set BEFORE any root_touched() call — that function (lib-manifest.sh, Section 4.0g)
 #    reads it as a global. Decided fresh on every run from the REAL diff, never from a plan or a guess.

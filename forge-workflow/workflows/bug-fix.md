@@ -1,6 +1,6 @@
 # WORKFLOW: `bug-fix <TICKET-ID>` (Bug/Defect — Planning)
 
-**Purpose**: Take an existing defect ticket — in whichever tracker is configured (`## Tracker` → `Type`: a Jira key, an ADO work item ID, a GitHub issue ref, or — for `Type: LOCAL` — no ID at all, described inline instead) — through a trimmed Planning + design pass, **break once at the Verification Engineer handoff** (Step 9 — design artifacts committed + pushed so the Verification Engineer can start `/ve-implement` in parallel), then continue into `bug-fix-implement` on the user's `yes` — no second keyword needed. The ticket may be of issue type **Bug OR Story/Task** — raised by anyone (not necessarily via the `raise-defect` skill).
+**Purpose**: Take an existing defect ticket — in whichever tracker is configured (`## Tracker` → `Type`: a Jira key, an ADO work item ID, a GitHub issue ref, or — for `Type: LOCAL` — no ID at all, described inline instead) — through a trimmed Planning + design pass, **break once at the ve handoff** (Step 9 — design artifacts committed + pushed so the ve can start `/ve-implement` in parallel), then continue into `bug-fix-implement` on the user's `yes` — no second keyword needed. The ticket may be of issue type **Bug OR Story/Task** — raised by anyone (not necessarily via the `raise-defect` skill).
 
 **How the bug flow differs from the epic flow**:
 - ONE branch: `bug/<TICKET-ID>-<kebab-title>` cut from the **base branch**. No epic branch, no story branches.
@@ -59,12 +59,12 @@ workflow or by `bug-fix-implement`.**
 
 ## Step 1 — Ticket Capture
 
-1. **Resume check first**: if `runtime-artifacts/forge-state.md` exists, read it. If `## Tracker` records a DIFFERENT ticket/epic, ask the user which to keep — NEVER silently overwrite. If it records this same ticket with `Workflow Type: bug`, resume from the recorded stage per `common/session-continuity.md`. If `## Tracker` doesn't exist yet (standalone invocation before any forge workflow ran), ask the Tracker Selection question (`common/tracker-sync.md` Section 1) first.
+1. **Resume check first**: if `runtime-artifacts/aire-state.md` exists, read it. If `## Tracker` records a DIFFERENT ticket/epic, ask the user which to keep — NEVER silently overwrite. If it records this same ticket with `Workflow Type: bug`, resume from the recorded stage per `common/session-continuity.md`. If `## Tracker` doesn't exist yet (standalone invocation before any aire workflow ran), ask the Tracker Selection question (`common/tracker-sync.md` Section 1) first.
 2. Dispatch on `## Tracker` → `Type`, per `common/tracker-sync.md` Section 8:
    - **JIRA/ADO/GITHUB**: parse the `<TICKET-ID>` from the invocation (key/ID/number or URL). If missing, ask for it and wait. Fetch the ticket (`getJiraIssue` / `az boards work-item show` / `gh issue view`) — accept issue type **Bug or Story/Task**. Save summary, description, severity, steps to reproduce, environment, and acceptance criteria (if any) to `spec/plans/bug-brief.md`.
-   - **LOCAL**: no ID expected. Ask ` Describe the bug (what's broken, steps to reproduce, environment, expected vs actual behavior):`, capture the answer, and mint a local ID `BUG-LOCAL-N` (next unused N found by scanning `runtime-artifacts/forge-state.md`) to use as `<TICKET-ID>` for the rest of this flow. Write the captured description directly to `spec/plans/bug-brief.md`.
+   - **LOCAL**: no ID expected. Ask ` Describe the bug (what's broken, steps to reproduce, environment, expected vs actual behavior):`, capture the answer, and mint a local ID `BUG-LOCAL-N` (next unused N found by scanning `runtime-artifacts/aire-state.md`) to use as `<TICKET-ID>` for the rest of this flow. Write the captured description directly to `spec/plans/bug-brief.md`.
    The bug-brief is the intake brief: it defines WHAT to fix and is the primary input to every later stage.
-3. Record in `runtime-artifacts/forge-state.md`:
+3. Record in `runtime-artifacts/aire-state.md`:
    ```markdown
    ## Tracker
    - Type: JIRA
@@ -83,7 +83,7 @@ workflow or by `bug-fix-implement`.**
 2. **Step 4.5 replacement — create the BUG branch (automatic)** instead of an epic branch. Execute `common/branching-strategy.md` **Bug Branch Model**:
    - Record the **base branch** (`git branch --show-current` — never assume `main`).
    - Create `bug/<TICKET-ID>-<kebab-case-ticket-title>` (whole name ≤ 60 chars; working tree must be clean, else show `git status` and ask).
-   - Record in `runtime-artifacts/forge-state.md`:
+   - Record in `runtime-artifacts/aire-state.md`:
      ```markdown
      ## Branching
      - Base Branch: main
@@ -99,7 +99,7 @@ Exactly per the epic flow: if RE artifacts exist anywhere in the repo (or restor
 
 ## Step 4 — Requirements Analysis (as-is, bug-scoped)
 
-1. Execute `planning/requirements-analysis.md` with `spec/plans/bug-brief.md` as the primary input. Depth will usually be **minimal** (the ticket defines the defect); use standard/comprehensive only if the fix is genuinely complex or high-risk. Its Step 1.5 reads the `## Context Project` answer captured by `ticket-implement` (Step 3.5) and, if `Existing Knowledge: Yes`, uses **only** the recorded path as background context about the existing system — do NOT re-ask.
+1. Execute `planning/requirements-analysis.md` with `spec/plans/bug-brief.md` as the primary input. Depth will usually be **minimal** (the ticket defines the defect); use standard/comprehensive only if the fix is genuinely complex or high-risk. Its Step 1.5 reads the `## Context Project` answer captured by `ticket-implement` (Step 3.5) and, if `Use Artifacts: Yes`, uses **only** the recorded path as background context about the existing system — do NOT re-ask.
 2. Extension opt-ins are presented as usual; Security Baseline is always enforced.
 3. **Wait for explicit approval** of requirements.md.
 4. On approval: commit the planning artifacts on the **bug branch**. 🔴 **Do NOT raise a PR here** — unlike the epic flow's Step 10, the bug flow raises its single `[BUG]` PR at the end, inside `bug-fix-implement`.
@@ -127,11 +127,11 @@ Exactly per the epic flow: if RE artifacts exist anywhere in the repo (or restor
 ### 5b. AI-Origin Detection (line-level, via the Defect Provenance Analyst agent)
 1. Load `agents/defect-provenance-analyst.md` and execute its procedure with 5a's root-cause `file:line-range` findings as input. It traces each **defective line** (not the file's last change) to the commit that **introduced** the defective logic (`git blame -w -M -C -L`, walking past cosmetic commits via `git log -L`; omission bugs attribute to the enclosing block's introducing commit), resolves that commit's PR, resolves the **originating tracker item** that shipped the line, and returns a **Provenance Verdict table** — verdict AI-generated / human / **undetermined**, each row with concrete evidence (SHA, PR number, which marker) plus the originating item and which source it came from.
 2. Record each verdict (with introducing commit + evidence) in the impact-analysis table's **Defect-line origin (5b)** column, and include the full Provenance Verdict table in `spec/plans/impact-analysis.md`. 🔴 Label only on positive evidence (per the agent's marker rules) — NEVER guess; "undetermined" gets no label.
-3. **If ANY defective line's introducing change is AI-generated —  apply the label AUTOMATICALLY (no confirmation)**, exactly like the 5c causal links and for the same reason: the analyst labels **only on positive, verified evidence** (an "ai-generated" PR label, a Claude co-author trailer, or an `Forge-Version:` trailer), and "undetermined" is never labeled — so there is no judgement call left for the user to make.
+3. **If ANY defective line's introducing change is AI-generated —  apply the label AUTOMATICALLY (no confirmation)**, exactly like the 5c causal links and for the same reason: the analyst labels **only on positive, verified evidence** (an "ai-generated" PR label, a Claude co-author trailer, or an `AIRE-Version:` trailer), and "undetermined" is never labeled — so there is no judgement call left for the user to make.
    - Apply the label/tag `ai-generated-defect` to the ticket, dispatching on `## Tracker` → `Type` per `common/tracker-sync.md` Section 9 (JIRA: `editJiraIssue`; ADO: add to `System.Tags` via `az boards work-item update`; GITHUB: `gh issue edit --add-label`; LOCAL: note it directly on the local bug entry — no external call), **verify it landed** (non-LOCAL), and **announce it** (not a question):
      ```
       Labeled [TICKET-ID] `ai-generated-defect` — defective line(s) [file:line(s)] were introduced by
-        AI-generated code (evidence: [PR #N "ai-generated" label / Claude co-author on <sha> / Forge-Version trailer]).
+        AI-generated code (evidence: [PR #N "ai-generated" label / Claude co-author on <sha> / AIRE-Version trailer]).
      ```
    - Log the complete evidence (file:line, introducing commit SHA, PR number, which marker) in runtime-artifacts/audit.md. If the label already exists, skip silently. If the tracker call fails, report the failure and continue — labeling is non-blocking.
 4. If no defective line is AI-generated: log "human-origin (or undetermined) — no label applied" in runtime-artifacts/audit.md with the per-line evidence.
@@ -214,10 +214,10 @@ Log in runtime-artifacts/audit.md that the impact analysis was completed and aut
 ## Step 6 — Single Story (replaces User Stories + Dependency Graph)
 
 1. Write **exactly ONE story** to `spec/plans/stories.md`, derived from the ticket + requirements + impact analysis: story ID `1.1`, title = the fix, acceptance criteria = defect resolved + regression-safe (from the ticket's expected behavior). Do NOT ask team size, do NOT generate personas beyond what the ticket implies, do NOT ask about pushing to the tracker (the ticket already exists, or for LOCAL never existed externally — no new issue is ever created), do NOT create `dependency-graph.yml`.
-2. Populate the Story Tracker in `runtime-artifacts/forge-state.md` with the single row:
+2. Populate the Story Tracker in `runtime-artifacts/aire-state.md` with the single row:
    | Story | Title | Requires | Tracker ID | Status | Start | End | Recorded |
    |-------|-------|----------|------------|--------|-------|-----|----------|
-   | 1.1 | [Fix title] | none | PROJ-123 (or BUG-LOCAL-N for LOCAL) | Ready for Development | | | [timestamp] |
+   | 1.1 | [Fix title] | none | PROJ-123 (or BUG-LOCAL-N for LOCAL) | 🟢 Ready for Development | | | [timestamp] |
    The Tracker ID column is the **existing defect ticket** — the Tracker Sync Rule applies to it at every status change.
 3. **Wait for explicit approval** of the story; log the response verbatim.
 
@@ -231,18 +231,14 @@ Run the system-level design stages the plan selected (Functional Design → NFR 
 
 **Rubric derivation, `architecture.md`, and CI pipeline generation now happen at Step 8.5 (STOP CHECKPOINT), immediately below, once the last design stage completes (or all were skipped).**
 
-## Step 8.5 —  STOP CHECKPOINT: `architecture.md`, `behavior.feature`, rubrics, the fix's behaviour spec + manual test plan, CI Pipeline (CONDITIONAL)
+## Step 8.5 —  STOP CHECKPOINT: `architecture.md`, `behavior.feature`, rubrics, CI Pipeline, Smoke Test
 
 **Purpose**: this bug fix gets the SAME project-level bootstrap the epic flow gets at its own STOP
-CHECKPOINT (CLAUDE.md) — scoped to ONE fix instead of a whole epic. **CI setup is now conditional** on
-`## CI Setup Status` (detected, and — when missing — asked, at `ticket-implement` Step 1.5):
-
-- **If CI Setup EXISTS** (established Forge project): Skip full CI setup + smoke test (Section 5 below). Architecture and rubrics proceed normally.
-- **If CI Setup MISSING** (new repo, user opted IN at the Step 1.5 question): Run full CI setup with smoke test (current behavior).
-- **If CI Setup DECLINED** (new repo, user opted OUT at the Step 1.5 question): Skip full CI setup + smoke test — same as EXISTS, but announced as declined. Architecture and rubrics still proceed normally. `## CI/CD Configuration` records `Enabled: No`, which `bug-fix-implement.md` also reads to skip the CI Preflight and CI Attestation gates.
-
-**Load `common/behavior-spec.md`, `implementation/architecture-doc.md`, `implementation/specs-and-test-plans.md`.** Load `common/ci-pipeline-generation.md`
-**only if `## CI Setup Status` is "missing"** (i.e. the user opted in) — never for `exists` or `declined`.
+CHECKPOINT (CLAUDE.md) — scoped to ONE fix instead of a whole epic. Without this, a repo whose first-
+ever AIRE cycle is a bug fix would never get `architecture.md` or a CI pipeline at all, and
+`bug-fix-implement.md` Step 4.5's read of `spec/plans/architecture.md` "for design constraints" would have
+nothing to read. **Load `common/behavior-spec.md`, `implementation/architecture-doc.md`, and
+`common/ci-pipeline-generation.md` now.**
 
 Every artifact below is **create-if-missing, never regenerate** (`common/directory-structure.md`
 Artifact Ownership): if it already exists in the repo — inherited from a prior epic/bug/enhancement
@@ -251,57 +247,24 @@ cycle — reuse it AS-IS and say so; only a genuinely absent artifact gets creat
 1. **MANDATORY**: Log reaching this checkpoint in audit.md.
 2. ** `spec/behavior.feature`** — if absent, create it per `common/behavior-spec.md` Section 3 (the
    cross-story journeys that belong to no single unit, tagged `@REQ-<id>`). This fix's OWN behaviour
-   contract is the separate `spec/behavior/bug-<TICKET-ID>.feature` written at Item 4.5 below —
-   never conflate the two. A single-work-unit cycle will typically have no genuine
+   contract is the separate `spec/behavior/bug-<TICKET-ID>.feature` written at `bug-fix-implement.md`
+   Step 4.5 — never conflate the two. A single-work-unit cycle will typically have no genuine
    cross-unit journey yet; record that explicitly rather than leaving the file empty or copying this
    fix's own scenario into it.
 3. ** `spec/plans/architecture.md`** — if absent, write it per `implementation/architecture-doc.md`,
    consolidating whichever Step 8 design stages ran (most bugs skip most of them — say so explicitly,
-   never invent a decision) plus the reverse-engineering/Knowledge Hub artifacts as the existing-system
+   never invent a decision) plus the reverse-engineering/Atlas artifacts as the existing-system
    baseline. Section 10 Verifiable Constraints is mandatory: 3–8 constraints, weights summing to 1.0,
-   each traceable to an approved design artifact or Knowledge Hub truth. Version it and log it in audit.md.
+   each traceable to an approved design artifact or Atlas truth. Version it and log it in audit.md.
 4. ** Rubrics** — derive `tests/.evals/rubrics/architecture-rubric.json` **mechanically from
    `architecture.md` Section 10** (one constraint, one criterion, `rubricVersion` equal to the
    `architecture.md` version) per `implementation/architecture-doc.md` Section 4 and
    `common/eval-framework.md` Section 3. Only when Section 10 ends up genuinely empty (no design stage
-   ran and no Knowledge Hub truth exists) does the Section 3 **fallback chain** apply (the latest
-   archived rubric → the reverse-engineering artifacts → J1 recorded `N/A`) — record which link was
+   ran and no Atlas truth exists) does the Section 3 **fallback chain** apply (a prior cycle's
+   committed rubric → the reverse-engineering artifacts → J1 recorded `N/A`) — record which link was
    used. 🔴 Never hand-write a generic rubric, never score J1 against a borrowed/unrelated one. Create
    `tests/.evals/rubrics/security-rubric.json` (OWASP-based, `implementation/architecture-doc.md` Section
    4.1) and `tests/.evals/config.json` (eval-framework.md Section 1 template) if absent. Log in runtime-artifacts/audit.md.
-
-4.5. ** THE FIX'S BEHAVIOUR SPEC + MANUAL TEST PLAN (MANDATORY — ONE approval gate, before any code)**
-   per `implementation/specs-and-test-plans.md`. These are the LAST design artifacts of the cycle and
-   the last thing written before any code exists. For this one ticket:
-   - **(a)** `spec/behavior/bug-<TICKET-ID>.feature` per `common/behavior-spec.md` Section 2 — one
-     Gherkin scenario per acceptance criterion, `@AC-n` tagged, failure paths included, **and the
-     scenario that reproduces the defect**. Authored BEFORE the fix because it is the contract, not a
-     description of what was built. 🔴 That is the ONLY spec file this work unit gets.
-   - **(b)** `spec/test-plans/<TICKET-ID>-<title>/` by **invoking the `ve-implement` skill in WORKFLOW
-     MODE** with this ticket (`agents/ve-implement-agent.md` Mode Detection — no story-picker, no
-     `ve/…` branch, no approval checkpoint, no push/PR). Never re-implement its steps inline. The
-     generated files ride Step 9 Item 1's commit.
-   - **Blocking coverage check**: every acceptance criterion has ≥ 1 Gherkin scenario AND ≥ 1 manual
-     test case. A gap is fixed here, not deferred.
-   - **Then present the standardized 2-option completion message and WAIT** for `Request Changes` /
-     `Continue to Next Stage` — DO NOT proceed to Section 5 or Step 9 until the user confirms. Log the
-     prompt and the complete raw response in runtime-artifacts/audit.md.
-   🔴 This is scope derivation, NOT ve's sign-off — ve still runs `/ve-implement` and `ve-list-work`
-   independently, and only `ve-list-work` can approve a test plan or move the ticket to Ready for Testing.
-
-### 8.5 Section 5 — CI Pipeline Setup (CONDITIONAL on CI Setup Status)
-
-**IF `## CI Setup Status` = "missing"** (new repo, no Forge CI yet, user opted IN):
-
-Run the full CI setup with smoke test:
-
-🔴 **No scope question before or during this generation.** Load and generate per
-`common/ci-pipeline-generation.md` exactly as it specifies, unconditionally — never pause to ask the
-user to characterize this as "minimal"/"full"/"defer" or present any menu/confirmation about it. The
-job's size (many files, a long template, many checks) is not a reason to gate it. The **only**
-sanctioned halt in this entire step is the Section 4.1.2 SonarQube setup gate below, presented
-verbatim — nothing else in Item 5/6 blocks on the user.
-
 5. ** CI Pipeline** — if `.github/workflows/agentic-eval-pipeline.yml` is absent, generate it per
    `common/ci-pipeline-generation.md`: every command from the repo's real build files, every threshold
    from `tests/.evals/config.json`. **🔴 VALIDATE BEFORE COMMITTING (Section 4.0)**: YAML parses, `actionlint`
@@ -312,27 +275,15 @@ verbatim — nothing else in Item 5/6 blocks on the user.
    `smoke-test-epic.*`, and `tests/.evals/behavior/{Containerfile,run.sh}`. 🔴 Everything commits on the
    **bug branch** — never pushed to base, never a separate `[CI]` PR; it reaches base when the
    `[BUG]` PR merges.
-6. **🧪 Run the pre-handoff smoke test** per `common/ci-pipeline-generation.md` Section 4.0.6 (automatic, with auto-merge).
-
-**IF `## CI Setup Status` = "exists"** (established Forge project with CI already set up):
-
-Skip Section 5 entirely. Announce: "CI infrastructure already exists — skipping full setup. Proceeding with analysis + design artifacts only."
-
-**IF `## CI Setup Status` = "declined"** (user opted out of CI/CD at the `ticket-implement` Step 1.5 question):
-
-Skip Section 5 entirely. Announce: "CI/CD setup was declined for this ticket — skipping pipeline generation. Proceeding with analysis + design artifacts only." No `.github/workflows/agentic-eval-pipeline.yml`, `sonar-project.properties`, or `tests/.evals/scripts/*` are generated.
 
 ## Step 9 —  ve HANDOFF BREAK → then continue into `bug-fix-implement`
 
-After the design stages complete (or are all skipped), mark in `runtime-artifacts/forge-state.md`: `Design complete — awaiting bug-fix-implement`. Log in runtime-artifacts/audit.md.
+After the design stages complete (or are all skipped), mark in `runtime-artifacts/aire-state.md`: `Design complete — awaiting bug-fix-implement`. Log in runtime-artifacts/audit.md.
 
 **This is a deliberate BREAK in the flow.** The analysis + design artifacts are everything the ve needs, and the ve must not have to wait for the fix. So before the fix is built:
 
-1. **Commit + push the analysis, design and STOP CHECKPOINT artifacts on the bug branch (automatic — this is what unblocks ve)**: stage `spec/**` (bug-brief, requirements, impact analysis, the single story, `architecture.md`, `behavior.feature`, **Item 4.5's `spec/behavior/bug-<TICKET-ID>.feature` and `spec/test-plans/<TICKET-ID>-<title>/`**), `spec/plans/**`, `tests/.evals/**` (rubrics, config, scripts, `behavior/`), PLUS `.github/workflows/agentic-eval-pipeline.yml` and `sonar-project.properties` **only when `## CI Setup Status` is `exists` or `missing` (opted in)** — never when `declined`, since neither file exists — the updated `runtime-artifacts/forge-state.md` and `runtime-artifacts/audit.md`; commit on the bug branch with an `Forge-Version: [N]` trailer (`[N]` read live from `CLAUDE.md`); push to origin. Announce the commit hash + pushed branch and log both in audit.md. 🔴 If the push fails, say so explicitly and tell the user to push manually — **the Verification Engineer cannot start until this branch is on origin**. Still no `[BUG]` PR here. This step ALWAYS runs, regardless of `## CI Setup Status` — it is what unblocks ve and is unrelated to whether CI infrastructure already exists.
-2. **🧪 Pre-handoff smoke test — CONDITIONAL on `## CI Setup Status` (recorded by `ticket-implement` Step 1.5 / `common/ci-setup-detection.md`)**:
-   - **IF `## CI Setup Status` = "missing"** (automatic; HARD HALT on exhaustion): per `common/ci-pipeline-generation.md` Section 4.0.6, run `tests/.evals/scripts/smoke-test-epic.{sh,ps1}` against the bug branch + `[TICKET-ID]` just pushed (the script takes any integration branch and ticket ID — "epic" is just its filename). This proves the environment is viable (installs cleanly, the existing test suite runs, self-repair itself works) via a zero-diff scratch PR — it is NOT proof this fix's own gates are correct, only that the environment they run in is. On a pass, the scratch PR merges and deletes automatically, logged in audit.md. On exhaustion, the scratch PR is left open and **the break message below does NOT get presented** until the user resolves it — report with the standard Retry-Limit Report format. This runs exactly once per bug cycle, here — never again for this ticket.
-   - **IF `## CI Setup Status` = "exists"** (established Forge project — CI infrastructure, including `smoke-test-epic.*` itself, was already validated in a prior cycle): **SKIP this smoke test entirely — do not run it, do not ask about it.** Announce: "CI infrastructure already exists — skipping the pre-handoff smoke test." Log the skip (with the CI Setup Status detection timestamp/files it was based on) in audit.md, and proceed straight to the break message. 🔴 Skipping the smoke test does NOT skip or shortcut anything else in Step 8.5 or Step 9 — `architecture.md`, `behavior.feature`, the rubrics, and this step's own commit/push (Item 1) still happen exactly as written.
-   - **IF `## CI Setup Status` = "declined"** (user opted out at the Step 1.5 question): **SKIP this smoke test entirely — there is no pipeline to validate.** Announce: "No CI/CD pipeline for this cycle (declined) — skipping the pre-handoff smoke test." Log the skip in audit.md and proceed straight to the break message. `architecture.md`, `behavior.feature`, the rubrics, and Item 1's commit/push still happen exactly as written.
+1. **Commit + push the analysis, design and STOP CHECKPOINT artifacts on the bug branch (automatic — this is what unblocks ve)**: stage `spec/**` (bug-brief, requirements, impact analysis, the single story, `architecture.md`, `behavior.feature`), `spec/plans/**`, `tests/.evals/**` (rubrics, config, scripts, `behavior/`), `.github/workflows/agentic-eval-pipeline.yml`, `sonar-project.properties` (if generated at Step 8.5), the updated `runtime-artifacts/aire-state.md` and `runtime-artifacts/audit.md`; commit on the bug branch with an `AIRE-Version: [N]` trailer (`[N]` read live from `CLAUDE.md`); push to origin. Announce the commit hash + pushed branch and log both in audit.md. 🔴 If the push fails, say so explicitly and tell the user to push manually — **the ve cannot start until this branch is on origin**. Still no `[BUG]` PR here.
+2. **🧪 Run the pre-handoff smoke test (automatic; HARD HALT on exhaustion)**: per `common/ci-pipeline-generation.md` Section 4.0.6, run `tests/.evals/scripts/smoke-test-epic.{sh,ps1}` against the bug branch + `[TICKET-ID]` just pushed (the script takes any integration branch and ticket ID — "epic" is just its filename). This proves the environment is viable (installs cleanly, the existing test suite runs, self-repair itself works) via a zero-diff scratch PR — it is NOT proof this fix's own gates are correct, only that the environment they run in is. On a pass, the scratch PR merges and deletes automatically, logged in audit.md. On exhaustion, the scratch PR is left open and **the break message below does NOT get presented** until the user resolves it — report with the standard Retry-Limit Report format. This runs exactly once per bug cycle, here — never again for this ticket.
 3. Present the break message below and **block on its yes/no**.
 
 ```markdown
@@ -342,14 +293,14 @@ After the design stages complete (or are all skipped), mark in `runtime-artifact
  **Caused by**: [PROJ-102, PROJ-456 — linked/commented per the configured tracker / none resolvable]
  **Impact**: [N] files identified in spec/plans/impact-analysis.md
  Design stages: [list which ran vs were skipped]
- Behaviour spec + manual test plan: `spec/behavior/bug-[TICKET-ID].feature` and `spec/test-plans/[TICKET-ID]-[title]/`,
-   approved at this checkpoint, so the contract and the test plan exist before a line of the code does.
  Branch: bug/[TICKET-ID]-[title] (cut from [base branch]) — analysis + design **committed and pushed** ([commit hash])
 
-> **<u>Verification Engineer — the manual test plan is already on the bug branch.</u>**
-> `spec/test-plans/[TICKET-ID]-[title]/` was generated and approved at this checkpoint. Once the fix
-> code is generated and on the bug branch, verify it by executing this test plan, then use
-> `ve-list-work` to approve or reject the ticket.
+> **🧪 <u>**ve — start NOW, in parallel. The fix does not have to exist.**</u>**
+> 1⃣  `git fetch origin && git checkout bug/[TICKET-ID]-[title] && git pull --ff-only`
+> 2⃣  Type **`/ve-implement [TICKET-ID]`**
+> It cuts `ve/[TICKET-ID]-[title]` from this branch, writes the MANUAL test steps to
+> `spec/test-plans/[TICKET-ID]-[title]/` from the ticket's acceptance criteria, and raises its
+> own PR back into `bug/[TICKET-ID]-[title]` — so the test docs ride the `[BUG]` PR into [base branch].
 
 > ** <u>**DEV — continue to the fix implementation**</u>**
 > **Continue to bug fix implementation now? (yes / no)**
@@ -357,12 +308,12 @@ After the design stages complete (or are all skipped), mark in `runtime-artifact
 > fix plan (announced) → fix + unit tests (≥90% coverage) → FULL regression → auto code
 > review, with any findings auto-remediated and re-reviewed until clean → `[BUG]` PR to [base branch]
 > → auto PR review → then STOP (the cycle archive is MANUAL — you run `archive-epic`
-> after the Verification Engineer has signed the fix off on the bug branch).
+> after the ve test-plan PR merges into the bug branch).
 > **no**→ I halt here; the state is saved. Resume any time with `ticket-implement [TICKET-ID]`
 > (or `bug-fix-implement`) and it picks up at the fix.
 
-Use the keywords EXACTLY as shown — do not describe what you want in your own words. Any other
-   phrasing is not a framework trigger and the workflow will not advance.
+🔴 Use `/ve-implement` and the keywords EXACTLY as shown — do not describe what you want in your
+   own words. Any other phrasing is not a framework trigger and the workflow will not advance.
 ```
 
 4. **Block until the user answers.** Log the raw answer in audit.md.
@@ -375,17 +326,13 @@ Substitute every placeholder (`[TICKET-ID]`, `[base branch]`, `[commit hash]`) w
 
 ## Critical Rules
 - 🔴 EVERY audit entry carries the `**TRACKER ITEM**:` field.
-- 🔴 Step 8.5 (STOP CHECKPOINT) gives this ONE-fix cycle the SAME project-level bootstrap the epic flow gets: `architecture.md`, the cycle's `behavior.feature`, the rubrics. **CI setup is now CONDITIONAL** on `## CI Setup Status` (detected, and — when missing — asked, at `ticket-implement` Step 1.5):
-  - **CI exists** → skip full CI setup + smoke test; proceed with architecture/rubrics/behavior artifacts only.
-  - **CI missing** (opted in) → run full CI setup + smoke test (current behavior).
-  - **CI declined** (opted out) → skip full CI setup + smoke test, same as "exists" but announced as a decline; `bug-fix-implement.md` also skips its CI Preflight and CI Attestation gates for this ticket.
-  Every artifact is **create-if-missing, never regenerate**: a repo that already has them (from a prior epic/bug/enhancement cycle) reuses them AS-IS. Never skip Step 8.5 on the reasoning that "this is only a bug fix."
-- 🔴 Step 9 is a **BREAK, not a stop-and-wait-for-a-keyword**: ALWAYS commit + push the analysis/design/STOP-CHECKPOINT artifacts on the bug branch FIRST (the ve's `/ve-implement` needs them on origin), run the pre-handoff smoke test **only if `## CI Setup Status` = "missing"** (skip it, announced, when "exists" or "declined"), present the ve handoff, then ask the yes/no. On **yes** continuation into `bug-fix-implement` happens in the same session — no second keyword. On **no**, halt with state saved. The yes/no is **flow control, deliberately unnumbered** — never write "GATE" into its audit heading. It is the LAST question of the entire bug cycle: `bug-fix-implement` has no gates.
+- 🔴 Step 8.5 (STOP CHECKPOINT) gives this ONE-fix cycle the SAME project-level bootstrap the epic flow gets: `architecture.md`, the cycle's `behavior.feature`, the rubrics, the CI pipeline, and — at Step 9 — the pre-handoff smoke test. Every artifact is **create-if-missing, never regenerate**: a repo that already has them (from a prior epic/bug/enhancement cycle) reuses them AS-IS. Never skip Step 8.5 on the reasoning that "this is only a bug fix."
+- 🔴 Step 9 is a **BREAK, not a stop-and-wait-for-a-keyword**: ALWAYS commit + push the analysis/design/STOP-CHECKPOINT artifacts on the bug branch FIRST (the ve's `/ve-implement` needs them on origin), run the pre-handoff smoke test, present the ve handoff, then ask the yes/no. On **yes** continuation into `bug-fix-implement` happens in the same session — no second keyword. On **no**, halt with state saved. The yes/no is **flow control, deliberately unnumbered** — never write "GATE" into its audit heading. It is the LAST question of the entire bug cycle: `bug-fix-implement` has no gates.
 - 🔴 The Step 9 break NEVER blocks the ve on the dev: the ve's `/ve-implement [JIRA-ID]` run is independent of the yes/no answer and of the fix existing at all.
 - 🔴 This workflow owns **NO numbered gate**, and neither does `bug-fix-implement` — the framework has no numbered gates left. Its own approvals (requirements, story) are stage approvals; NEVER write "GATE" into an audit heading from this file.
 - 🔴 ONE branch (`bug/...`), ONE story, NO dependency graph, NO new Jira issues, NO epic branch, NO Parent-Epic sync.
 - 🔴 NO PR at requirements approval — the single `[BUG]` PR is raised by `bug-fix-implement` after review approval.
-- 🔴 AI-origin labeling is evidence-based, **line-level** (introducing commit of the defective line(s), per `agents/defect-provenance-analyst.md`) and **AUTOMATIC — never confirm-first**: on positive evidence ("ai-generated" PR label OR Claude co-author trailer OR `Forge-Version:` trailer) apply `ai-generated-defect`, verify, announce, log the full evidence chain. "Undetermined" is never labeled — which is exactly why no confirmation is needed.
+- 🔴 AI-origin labeling is evidence-based, **line-level** (introducing commit of the defective line(s), per `agents/defect-provenance-analyst.md`) and **AUTOMATIC — never confirm-first**: on positive evidence ("ai-generated" PR label OR Claude co-author trailer OR `AIRE-Version:` trailer) apply `ai-generated-defect`, verify, announce, log the full evidence chain. "Undetermined" is never labeled — which is exactly why no confirmation is needed.
 - 🔴 Impact Analysis (Step 5d) is **announced, never gated** — it is re-validated at `bug-fix-implement` Step 4.2 and re-surfaced inside the announced fix plan.
 - 🔴 The **"is caused by" link** to the originating ticket (Step 5c) is created **automatically — no confirmation** — for every originating key the analyst resolves on positive evidence, whether the defective line was AI-generated or human-written. The originating ticket may be a **story, a bug, or an enhancement** (all three producers stamp their Jira key on the commit subject, PR title, and branch). Never link on a guessed key, never self-link, and never guess the Jira link type — resolve it via `getIssueLinkTypes` at runtime. If the instance has no causal ("is caused by") type, fall back automatically to a generic `Relates` link **plus** a comment recording the direction — both, never the bare link alone.
 - 🔴 The defect ticket is NEVER transitioned to "Ready for Testing" by this flow 
